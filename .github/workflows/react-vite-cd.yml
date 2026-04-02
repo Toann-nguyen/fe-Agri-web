@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: '24'
 
+      - name: Setup pnpm
+        run: corepack enable
+
       - name: Cài đặt dependencies
         run: pnpm install
 

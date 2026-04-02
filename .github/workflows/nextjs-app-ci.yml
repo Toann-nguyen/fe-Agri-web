@@ -27,6 +27,8 @@ jobs:
           node-version: '24'
       - name: Set environment variables
         run: mv .env.example .env
+      - name: Setup pnpm
+        run: corepack enable
       - name: Install dependencies
         run: pnpm install
       - name: Build application
@@ -50,6 +52,8 @@ jobs:
           node-version: '24'
       - name: Set environment variables
         run: mv .env.example-e2e .env
+      - name: Setup pnpm
+        run: corepack enable
       - name: Install dependencies
         run: pnpm install
       - name: Install Playwright Browsers

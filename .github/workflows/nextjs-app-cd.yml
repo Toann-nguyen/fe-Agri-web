@@ -21,8 +21,10 @@ jobs:
         with:
           node-version: '24'
 
+      - name: Setup pnpm
+        run: corepack enable
+
       - name: Cài đặt dependencies
-          # Sử dụng pnpm install ở root nếu cần, hoặc pnpm install trong working-dir
         run: pnpm install
 
       - name: Build với Cloudflare adapter
