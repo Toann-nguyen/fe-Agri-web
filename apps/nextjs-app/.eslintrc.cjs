@@ -4,13 +4,24 @@ module.exports = {
     node: true,
     es6: true,
   },
-  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    babelOptions: {
+      presets: [require.resolve('next/babel')],
+    },
+  },
   ignorePatterns: [
     'node_modules/*',
     'public/mockServiceWorker.js',
     'generators/*',
   ],
   extends: ['eslint:recommended', 'next/core-web-vitals'],
+  settings: {
+    next: {
+      rootDir: __dirname,
+    },
+  },
   overrides: [
     {
       files: ['**/*.ts', '**/*.tsx'],

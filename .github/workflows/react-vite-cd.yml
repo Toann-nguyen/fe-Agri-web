@@ -20,10 +20,10 @@ jobs:
           node-version: lts/*
 
       - name: Cài đặt dependencies
-        run: yarn install
+        run: pnpm install
 
       - name: Build
-        run: yarn build
+        run: pnpm build
         env:
           VITE_APP_API_URL: https://api.toanrobert.online
           VITE_APP_ENABLE_API_MOCKING: false

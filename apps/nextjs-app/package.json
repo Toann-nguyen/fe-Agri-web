@@ -1,5 +1,5 @@
 {
-  "name": "bulletproof-react-nextjs-pages",
+  "name": "fe-agri-nextjs-app",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -50,6 +50,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.29.0",
     "@cloudflare/next-on-pages": "^1.11.0",
     "@eslint/eslintrc": "^3.0.2",
     "@mswjs/data": "^0.16.1",

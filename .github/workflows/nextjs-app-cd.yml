@@ -20,8 +20,8 @@ jobs:
           node-version: '20'
 
       - name: Cài đặt dependencies
-          # Sử dụng pnpm install ở root nếu cần, hoặc yarn install trong working-dir
-        run: yarn install
+          # Sử dụng pnpm install ở root nếu cần, hoặc pnpm install trong working-dir
+        run: pnpm install
 
       - name: Build với Cloudflare adapter
         run: npx @cloudflare/next-on-pages

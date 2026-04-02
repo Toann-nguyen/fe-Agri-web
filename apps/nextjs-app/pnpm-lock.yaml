@@ -93,6 +93,9 @@ importers:
         specifier: ^4.5.2
         version: 4.5.7(@types/react@18.3.28)(react@18.3.1)
     devDependencies:
+      '@babel/core':
+        specifier: ^7.29.0
+        version: 7.29.0
       '@cloudflare/next-on-pages':
         specifier: ^1.11.0
         version: 1.13.16(next@14.2.35(@babel/core@7.29.0)(@playwright/test@1.58.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(wrangler@3.114.17)
