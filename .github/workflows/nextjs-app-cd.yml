@@ -28,7 +28,7 @@ jobs:
         run: pnpm install
 
       - name: Build với Cloudflare adapter
-        run: npx @cloudflare/next-on-pages
+        run: pnpm build:cf
         env:
           NEXT_PUBLIC_API_URL: https://api.toanrobert.online
           NEXT_PUBLIC_ENABLE_API_MOCKING: false
