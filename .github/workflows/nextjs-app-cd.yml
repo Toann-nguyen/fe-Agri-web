@@ -10,6 +10,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     defaults:
       run:
         working-directory: ./apps/nextjs-app
@@ -17,7 +19,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Cài đặt dependencies
           # Sử dụng pnpm install ở root nếu cần, hoặc pnpm install trong working-dir
@@ -31,7 +33,7 @@ jobs:
           NEXT_PUBLIC_URL: https://toanrobert.online
 
       - name: Deploy lên Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v3 
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: f960756ef992f2078150351f8b7141ca
