@@ -50,6 +50,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.11.0",
     "@eslint/eslintrc": "^3.0.2",
     "@mswjs/data": "^0.16.1",
     "@mswjs/http-middleware": "^0.10.1",
@@ -66,9 +67,7 @@
     "@testing-library/react": "^15.0.5",
     "@testing-library/user-event": "^14.5.2",
     "@types/cors": "^2.8.17",
-    "@types/dompurify": "^3.0.5",
     "@types/js-cookie": "^3.0.6",
-    "@types/marked": "^6.0.0",
     "@types/node": "^20.12.7",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
@@ -93,8 +92,6 @@
     "eslint-plugin-testing-library": "^6.2.2",
     "eslint-plugin-vitest": "^0.5.4",
     "express": "^4.19.2",
-    "@cloudflare/next-on-pages": "^1.11.0",
-    "wrangler": "^3.57.1",
     "husky": "^9.0.11",
     "jest-environment-jsdom": "^29.7.0",
     "js-cookie": "^3.0.5",
@@ -112,7 +109,8 @@
     "tsx": "^4.17.0",
     "typescript": "^5.4.5",
     "vite-tsconfig-paths": "^4.3.2",
-    "vitest": "^2.1.4"
+    "vitest": "^2.1.4",
+    "wrangler": "^3.57.1"
   },
   "msw": {
     "workerDirectory": "public"

@@ -3,16 +3,15 @@ import { useMemo } from 'react';
 import { createBrowserRouter } from 'react-router';
 import { RouterProvider } from 'react-router/dom';
 
-import {
-  default as AppRoot,
-  ErrorBoundary as AppRootErrorBoundary,
-} from './routes/app/root';
-
 // eslint-disable-next-line import/no-unresolved
 import { paths } from '@/config/paths';
 // eslint-disable-next-line import/no-unresolved
 import { ProtectedRoute } from '@/lib/auth';
 
+import {
+  default as AppRoot,
+  ErrorBoundary as AppRootErrorBoundary,
+} from './routes/app/root';
 
 const convert = (queryClient: QueryClient) => (m: any) => {
   const { clientLoader, clientAction, default: Component, ...rest } = m;

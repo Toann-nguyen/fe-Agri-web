@@ -2,7 +2,7 @@ name: React Vite — Deploy to Cloudflare Pages
 
 on:
   push:
-    branches: [master]
+    branches: [main]
     paths:
       - 'apps/react-vite/**'
       - '.github/workflows/react-vite-cd.yml'

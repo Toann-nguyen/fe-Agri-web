@@ -2,7 +2,7 @@ name: Next.js App — Deploy to Cloudflare Pages
 
 on:
   push:
-    branches: [master]
+    branches: [main]
     paths:
       - 'apps/nextjs-app/**'
       - '.github/workflows/nextjs-app-cd.yml'
