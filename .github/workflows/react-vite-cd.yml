@@ -1,0 +1,37 @@
+name: React Vite — Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'apps/react-vite/**'
+      - '.github/workflows/react-vite-cd.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./apps/react-vite
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Cài đặt dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn build
+        env:
+          VITE_APP_API_URL: https://api.toanrobert.online
+          VITE_APP_ENABLE_API_MOCKING: false
+
+      - name: Deploy lên Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: f960756ef992f2078150351f8b7141ca
+          command: pages deploy dist --project-name=fe-agri-react-vite --branch=main
+          workingDirectory: apps/react-vite
