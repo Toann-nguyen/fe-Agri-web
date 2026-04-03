@@ -40,3 +40,4 @@ export default RootLayout;
 // We are not prerendering anything because the app is highly dynamic
 // and the data depends on the user so we need to send cookies with each request
 export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
