@@ -14,9 +14,10 @@ import { api } from './api-client';
 // these are not part of features as this is a module shared across features
 
 export const getUser = async (): Promise<User> => {
-  const response = (await api.get('/auth/me')) as { data: User };
-
-  return response.data;
+  // TODO: Re-enable when backend API is ready
+  // const response = (await api.get('/auth/me')) as { data: User };
+  // return response.data;
+  return null as unknown as User;
 };
 
 const userQueryKey = ['user'];

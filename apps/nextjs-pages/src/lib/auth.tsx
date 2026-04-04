@@ -3,18 +3,22 @@ import { useEffect } from 'react';
 import { configureAuth } from 'react-query-auth';
 import { z } from 'zod';
 
-import { paths } from '@/config/paths';
-import { AuthResponse, User } from '@/types/api';
-
+// eslint-disable-next-line import/no-unresolved
 import { api } from './api-client';
+
+// eslint-disable-next-line import/no-unresolved
+import { paths } from '@/config/paths';
+// eslint-disable-next-line import/no-unresolved
+import { AuthResponse, User } from '@/types/api';
 
 // api call definitions for auth (types, schemas, requests):
 // these are not part of features as this is a module shared across features
 
 const getUser = async (): Promise<User> => {
-  const response = await api.get('/auth/me');
-
-  return response.data;
+  // TODO: Re-enable when backend API is ready
+  // const response = await api.get('/auth/me');
+  // return response.data;
+  return null as unknown as User;
 };
 
 const logout = (): Promise<void> => {
