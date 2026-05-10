@@ -24,10 +24,7 @@ type UseDiscussionOptions = {
   queryConfig?: QueryConfig<typeof getDiscussionQueryOptions>;
 };
 
-export const useDiscussion = ({
-  discussionId,
-  queryConfig,
-}: UseDiscussionOptions) => {
+export const useDiscussion = ({ discussionId, queryConfig }: UseDiscussionOptions) => {
   return useQuery({
     ...getDiscussionQueryOptions(discussionId),
     ...queryConfig,

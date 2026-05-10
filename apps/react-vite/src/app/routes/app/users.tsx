@@ -8,10 +8,7 @@ import { Authorization, ROLES } from '@/lib/authorization';
 export const clientLoader = (queryClient: QueryClient) => async () => {
   const query = getUsersQueryOptions();
 
-  return (
-    queryClient.getQueryData(query.queryKey) ??
-    (await queryClient.fetchQuery(query))
-  );
+  return queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query));
 };
 
 const UsersRoute = () => {

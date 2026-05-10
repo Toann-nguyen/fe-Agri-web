@@ -29,9 +29,7 @@ const Logo = () => {
   return (
     <Link className="flex items-center text-white" to={paths.home.getHref()}>
       <img className="h-8 w-auto" src={logo} alt="Workflow" />
-      <span className="text-sm font-semibold text-white">
-        Bulletproof React
-      </span>
+      <span className="text-sm font-semibold text-white">Bulletproof React</span>
     </Link>
   );
 };
@@ -113,10 +111,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
               }
             >
               <item.icon
-                className={cn(
-                  'text-gray-400 group-hover:text-gray-300',
-                  'mr-4 size-6 shrink-0',
-                )}
+                className={cn('text-gray-400 group-hover:text-gray-300', 'mr-4 size-6 shrink-0')}
                 aria-hidden="true"
               />
               {item.name}
@@ -134,10 +129,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                 <span className="sr-only">Toggle Menu</span>
               </Button>
             </DrawerTrigger>
-            <DrawerContent
-              side="left"
-              className="bg-black pt-10 text-white sm:max-w-60"
-            >
+            <DrawerContent side="left" className="bg-black pt-10 text-white sm:max-w-60">
               <nav className="grid gap-6 text-lg font-medium">
                 <div className="flex h-16 shrink-0 items-center px-4">
                   <Logo />
@@ -170,11 +162,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
           </Drawer>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                className="overflow-hidden rounded-full"
-              >
+              <Button variant="outline" size="icon" className="overflow-hidden rounded-full">
                 <span className="sr-only">Open user menu</span>
                 <User2 className="size-6 rounded-full" />
               </Button>

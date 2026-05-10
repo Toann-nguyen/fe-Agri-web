@@ -26,9 +26,7 @@ type UseCreateDiscussionOptions = {
   mutationConfig?: MutationConfig<typeof createDiscussion>;
 };
 
-export const useCreateDiscussion = ({
-  mutationConfig,
-}: UseCreateDiscussionOptions = {}) => {
+export const useCreateDiscussion = ({ mutationConfig }: UseCreateDiscussionOptions = {}) => {
   const queryClient = useQueryClient();
 
   const { onSuccess, ...restConfig } = mutationConfig || {};

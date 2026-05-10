@@ -40,9 +40,7 @@ export const DeleteDiscussion = ({ id }: DeleteDiscussionProps) => {
             isLoading={deleteDiscussionMutation.isPending}
             type="button"
             variant="destructive"
-            onClick={() =>
-              deleteDiscussionMutation.mutate({ discussionId: id })
-            }
+            onClick={() => deleteDiscussionMutation.mutate({ discussionId: id })}
           >
             Delete Discussion
           </Button>

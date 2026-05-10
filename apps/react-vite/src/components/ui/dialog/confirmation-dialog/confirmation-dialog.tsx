@@ -61,9 +61,7 @@ export const ConfirmationDialog = ({
             {icon === 'danger' && (
               <CircleAlert className="size-6 text-red-600" aria-hidden="true" />
             )}
-            {icon === 'info' && (
-              <Info className="size-6 text-blue-600" aria-hidden="true" />
-            )}
+            {icon === 'info' && <Info className="size-6 text-blue-600" aria-hidden="true" />}
             {title}
           </DialogTitle>
         </DialogHeader>

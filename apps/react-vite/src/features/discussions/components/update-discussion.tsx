@@ -6,10 +6,7 @@ import { useNotifications } from '@/components/ui/notifications';
 import { Authorization, ROLES } from '@/lib/authorization';
 
 import { useDiscussion } from '../api/get-discussion';
-import {
-  updateDiscussionInputSchema,
-  useUpdateDiscussion,
-} from '../api/update-discussion';
+import { updateDiscussionInputSchema, useUpdateDiscussion } from '../api/update-discussion';
 
 type UpdateDiscussionProps = {
   discussionId: string;

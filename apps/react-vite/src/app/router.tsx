@@ -8,10 +8,7 @@ import { paths } from '@/config/paths';
 // eslint-disable-next-line import/no-unresolved
 import { ProtectedRoute } from '@/lib/auth';
 
-import {
-  default as AppRoot,
-  ErrorBoundary as AppRootErrorBoundary,
-} from './routes/app/root';
+import { default as AppRoot, ErrorBoundary as AppRootErrorBoundary } from './routes/app/root';
 
 const convert = (queryClient: QueryClient) => (m: any) => {
   const { clientLoader, clientAction, default: Component, ...rest } = m;
@@ -48,17 +45,11 @@ export const createAppRouter = (queryClient: QueryClient) =>
       children: [
         {
           path: paths.app.discussions.path,
-          lazy: () =>
-            import('./routes/app/discussions/discussions').then(
-              convert(queryClient),
-            ),
+          lazy: () => import('./routes/app/discussions/discussions').then(convert(queryClient)),
         },
         {
           path: paths.app.discussion.path,
-          lazy: () =>
-            import('./routes/app/discussions/discussion').then(
-              convert(queryClient),
-            ),
+          lazy: () => import('./routes/app/discussions/discussion').then(convert(queryClient)),
         },
         {
           path: paths.app.users.path,
@@ -70,8 +61,7 @@ export const createAppRouter = (queryClient: QueryClient) =>
         },
         {
           path: paths.app.dashboard.path,
-          lazy: () =>
-            import('./routes/app/dashboard').then(convert(queryClient)),
+          lazy: () => import('./routes/app/dashboard').then(convert(queryClient)),
         },
       ],
     },

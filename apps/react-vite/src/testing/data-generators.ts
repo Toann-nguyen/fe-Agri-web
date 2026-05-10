@@ -21,9 +21,7 @@ const generateUser = () => ({
   createdAt: Date.now(),
 });
 
-export const createUser = <T extends Partial<ReturnType<typeof generateUser>>>(
-  overrides?: T,
-) => {
+export const createUser = <T extends Partial<ReturnType<typeof generateUser>>>(overrides?: T) => {
   return { ...generateUser(), ...overrides };
 };
 
@@ -34,9 +32,7 @@ const generateTeam = () => ({
   createdAt: Date.now(),
 });
 
-export const createTeam = <T extends Partial<ReturnType<typeof generateTeam>>>(
-  overrides?: T,
-) => {
+export const createTeam = <T extends Partial<ReturnType<typeof generateTeam>>>(overrides?: T) => {
   return { ...generateTeam(), ...overrides };
 };
 
@@ -47,9 +43,7 @@ const generateDiscussion = () => ({
   createdAt: Date.now(),
 });
 
-export const createDiscussion = <
-  T extends Partial<ReturnType<typeof generateDiscussion>>,
->(
+export const createDiscussion = <T extends Partial<ReturnType<typeof generateDiscussion>>>(
   overrides?: T & {
     authorId?: string;
     teamId?: string;
@@ -64,9 +58,7 @@ const generateComment = () => ({
   createdAt: Date.now(),
 });
 
-export const createComment = <
-  T extends Partial<ReturnType<typeof generateComment>>,
->(
+export const createComment = <T extends Partial<ReturnType<typeof generateComment>>>(
   overrides?: T & {
     authorId?: string;
     discussionId?: string;

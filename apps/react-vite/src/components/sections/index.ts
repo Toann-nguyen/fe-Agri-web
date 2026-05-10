@@ -1,0 +1,9 @@
+export { HeroSection } from './hero-section';
+export { ExpertiseSection } from './expertise-section';
+export { TechStackSection } from './tech-stack-section';
+export { ExperienceSection } from './experience-section';
+export { CodeShowcaseSection } from './code-showcase-section';
+export { StatsSection } from './stats-section';
+export { ProjectsSection } from './projects-section';
+export { ArchitectureSection } from './architecture-section';
+export { ContactSection } from './contact-section';

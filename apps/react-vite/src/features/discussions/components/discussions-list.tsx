@@ -16,9 +16,7 @@ export type DiscussionsListProps = {
   onDiscussionPrefetch?: (id: string) => void;
 };
 
-export const DiscussionsList = ({
-  onDiscussionPrefetch,
-}: DiscussionsListProps) => {
+export const DiscussionsList = ({ onDiscussionPrefetch }: DiscussionsListProps) => {
   const [searchParams] = useSearchParams();
 
   const discussionsQuery = useDiscussions({

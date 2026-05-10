@@ -51,17 +51,10 @@ export const CommentsList = ({ discussionId }: CommentsListProps) => {
             key={comment.id || index}
             className="w-full bg-white p-4 shadow-sm"
           >
-            <Authorization
-              policyCheck={POLICIES['comment:delete'](
-                user.data as User,
-                comment,
-              )}
-            >
+            <Authorization policyCheck={POLICIES['comment:delete'](user.data as User, comment)}>
               <div className="flex justify-between">
                 <div>
-                  <span className="text-xs font-semibold">
-                    {formatDate(comment.createdAt)}
-                  </span>
+                  <span className="text-xs font-semibold">{formatDate(comment.createdAt)}</span>
                   {comment.author && (
                     <span className="text-xs font-bold">
                       {' '}
@@ -80,11 +73,7 @@ export const CommentsList = ({ discussionId }: CommentsListProps) => {
       {commentsQuery.hasNextPage && (
         <div className="flex items-center justify-center py-4">
           <Button onClick={() => commentsQuery.fetchNextPage()}>
-            {commentsQuery.isFetchingNextPage ? (
-              <Spinner />
-            ) : (
-              'Load More Comments'
-            )}
+            {commentsQuery.isFetchingNextPage ? <Spinner /> : 'Load More Comments'}
           </Button>
         </div>
       )}

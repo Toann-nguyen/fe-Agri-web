@@ -30,9 +30,7 @@ export const hash = (str: string) => {
 };
 
 export const networkDelay = () => {
-  const delayTime = import.meta.env.TEST
-    ? 200
-    : Math.floor(Math.random() * 700) + 300;
+  const delayTime = import.meta.env.TEST ? 200 : Math.floor(Math.random() * 700) + 300;
   return delay(delayTime);
 };
 
@@ -47,16 +45,9 @@ const omit = <T extends object>(obj: T, keys: string[]): T => {
   return result;
 };
 
-export const sanitizeUser = <O extends object>(user: O) =>
-  omit<O>(user, ['password', 'iat']);
+export const sanitizeUser = <O extends object>(user: O) => omit<O>(user, ['password', 'iat']);
 
-export function authenticate({
-  email,
-  password,
-}: {
-  email: string;
-  password: string;
-}) {
+export function authenticate({ email, password }: { email: string; password: string }) {
   const user = db.user.findFirst({
     where: {
       email: {

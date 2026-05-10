@@ -24,9 +24,7 @@ export const DiscussionView = ({ discussionId }: { discussionId: string }) => {
 
   return (
     <div>
-      <span className="text-xs font-bold">
-        {formatDate(discussion.createdAt)}
-      </span>
+      <span className="text-xs font-bold">{formatDate(discussion.createdAt)}</span>
       {discussion.author && (
         <span className="ml-2 text-sm font-bold">
           by {discussion.author.firstName} {discussion.author.lastName}

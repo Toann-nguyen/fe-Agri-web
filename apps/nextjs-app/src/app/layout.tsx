@@ -3,6 +3,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
+import { Inter, Fira_Code } from 'next/font/google';
 import { ReactNode } from 'react';
 
 import { AppProvider } from '@/app/provider';
@@ -10,9 +11,22 @@ import { getUserQueryOptions } from '@/lib/auth';
 
 import '@/styles/globals.css';
 
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
+const firaCode = Fira_Code({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-fira-code',
+});
+
 export const metadata = {
-  title: 'Bulletproof React',
-  description: 'Showcasing Best Practices For Building React Applications',
+  title: 'Nguyen Minh Toan — Full-Stack Developer',
+  description:
+    'Building high-performance, secure, and scalable web applications with precision-engineered architecture.',
 };
 
 const RootLayout = async ({ children }: { children: ReactNode }) => {
@@ -23,8 +37,11 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
   const dehydratedState = dehydrate(queryClient);
 
   return (
-    <html lang="en">
-      <body>
+    <html
+      lang="en"
+      className={`${inter.variable} ${firaCode.variable} scroll-smooth`}
+    >
+      <body className="overflow-x-hidden bg-surface-50 font-sans text-ink-600 antialiased">
         <AppProvider>
           <HydrationBoundary state={dehydratedState}>
             {children}

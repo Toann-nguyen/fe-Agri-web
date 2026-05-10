@@ -3,12 +3,13 @@ import { Navigate, useLocation } from 'react-router';
 import { z } from 'zod';
 
 // eslint-disable-next-line import/no-unresolved
-import { api } from './api-client';
 
 // eslint-disable-next-line import/no-unresolved
 import { paths } from '@/config/paths';
 // eslint-disable-next-line import/no-unresolved
 import { AuthResponse, User } from '@/types/api';
+
+import { api } from './api-client';
 
 // api call definitions for auth (types, schemas, requests):
 // these are not part of features as this is a module shared across features
@@ -57,9 +58,7 @@ export const registerInputSchema = z
 
 export type RegisterInput = z.infer<typeof registerInputSchema>;
 
-const registerWithEmailAndPassword = (
-  data: RegisterInput,
-): Promise<AuthResponse> => {
+const registerWithEmailAndPassword = (data: RegisterInput): Promise<AuthResponse> => {
   return api.post('/auth/register', data);
 };
 
@@ -76,17 +75,14 @@ const authConfig = {
   logoutFn: logout,
 };
 
-export const { useUser, useLogin, useLogout, useRegister, AuthLoader } =
-  configureAuth(authConfig);
+export const { useUser, useLogin, useLogout, useRegister, AuthLoader } = configureAuth(authConfig);
 
 export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const user = useUser();
   const location = useLocation();
 
   if (!user.data) {
-    return (
-      <Navigate to={paths.auth.login.getHref(location.pathname)} replace />
-    );
+    return <Navigate to={paths.auth.login.getHref(location.pathname)} replace />;
   }
 
   return children;

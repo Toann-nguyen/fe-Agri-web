@@ -16,10 +16,7 @@ export const clientLoader =
 
     const query = getDiscussionsQueryOptions({ page });
 
-    return (
-      queryClient.getQueryData(query.queryKey) ??
-      (await queryClient.fetchQuery(query))
-    );
+    return queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query));
   };
 
 const DiscussionsRoute = () => {
@@ -33,9 +30,7 @@ const DiscussionsRoute = () => {
         <DiscussionsList
           onDiscussionPrefetch={(id) => {
             // Prefetch the comments data when the user hovers over the link in the list
-            queryClient.prefetchInfiniteQuery(
-              getInfiniteCommentsQueryOptions(id),
-            );
+            queryClient.prefetchInfiniteQuery(getInfiniteCommentsQueryOptions(id));
           }}
         />
       </div>

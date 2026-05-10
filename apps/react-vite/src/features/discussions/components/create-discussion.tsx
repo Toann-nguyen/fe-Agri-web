@@ -5,10 +5,7 @@ import { Form, FormDrawer, Input, Textarea } from '@/components/ui/form';
 import { useNotifications } from '@/components/ui/notifications';
 import { Authorization, ROLES } from '@/lib/authorization';
 
-import {
-  createDiscussionInputSchema,
-  useCreateDiscussion,
-} from '../api/create-discussion';
+import { createDiscussionInputSchema, useCreateDiscussion } from '../api/create-discussion';
 
 export const CreateDiscussion = () => {
   const { addNotification } = useNotifications();

@@ -1,8 +1,4 @@
-import {
-  render as rtlRender,
-  screen,
-  waitForElementToBeRemoved,
-} from '@testing-library/react';
+import { render as rtlRender, screen, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Cookies from 'js-cookie';
 import { RouterProvider, createMemoryRouter } from 'react-router';
@@ -36,10 +32,7 @@ export const loginAsUser = async (user: any) => {
 
 export const waitForLoadingToFinish = () =>
   waitForElementToBeRemoved(
-    () => [
-      ...screen.queryAllByTestId(/loading/i),
-      ...screen.queryAllByText(/loading/i),
-    ],
+    () => [...screen.queryAllByTestId(/loading/i), ...screen.queryAllByText(/loading/i)],
     { timeout: 4000 },
   );
 
