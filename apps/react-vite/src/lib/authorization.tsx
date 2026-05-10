@@ -28,13 +28,15 @@ export const POLICIES = {
 export const useAuthorization = () => {
   const user = useUser();
 
-  if (!user.data) {
-    throw Error('User does not exist!');
-  }
+  // if (!user.data) {
+  //   throw Error('User does not exist!');
+  // }
 
   const checkAccess = React.useCallback(
     ({ allowedRoles }: { allowedRoles: RoleTypes[] }) => {
-      if (allowedRoles && allowedRoles.length > 0 && user.data) {
+      if (!user.data) return false;
+
+      if (allowedRoles && allowedRoles.length > 0) {
         return allowedRoles?.includes(user.data.role);
       }
 
@@ -43,7 +45,7 @@ export const useAuthorization = () => {
     [user.data],
   );
 
-  return { checkAccess, role: user.data.role };
+  return { checkAccess, role: user.data?.role ?? null, user: user.data };
 };
 
 type AuthorizationProps = {
@@ -66,16 +68,22 @@ export const Authorization = ({
   forbiddenFallback = null,
   children,
 }: AuthorizationProps) => {
-  const { checkAccess } = useAuthorization();
+  const { checkAccess, user } = useAuthorization();
+
+  // if (!user) {
+  //   return <>{forbiddenFallback}</>;
+  // }
 
   let canAccess = false;
 
-  if (allowedRoles) {
+  if (!user) {
+    canAccess = false;
+  } else if (allowedRoles) {
     canAccess = checkAccess({ allowedRoles });
-  }
-
-  if (typeof policyCheck !== 'undefined') {
+  } else if (typeof policyCheck !== 'undefined') {
     canAccess = policyCheck;
+  } else {
+    canAccess = true;
   }
 
   return <>{canAccess ? children : forbiddenFallback}</>;
