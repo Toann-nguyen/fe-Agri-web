@@ -120,15 +120,17 @@ export function HeroSection() {
         ctx.fill();
       });
 
-      if (mouse.x !== null) {
+      if (mouse.x !== null && mouse.y !== null) {
+        const mx = mouse.x;
+        const my = mouse.y;
         particles.forEach((p) => {
-          const dx = mouse.x! - p.x;
-          const dy = mouse.y! - p.y;
+          const dx = mx - p.x;
+          const dy = my - p.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < 130) {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
-            ctx.lineTo(mouse.x, mouse.y);
+            ctx.lineTo(mx, my);
             ctx.strokeStyle = `rgba(8,145,178,${0.08 * (1 - dist / 130)})`;
             ctx.lineWidth = 0.6;
             ctx.stroke();
