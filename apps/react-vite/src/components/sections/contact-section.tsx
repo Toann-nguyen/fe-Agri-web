@@ -7,7 +7,6 @@ import { Reveal } from '../ui';
 
 interface TerminalLine {
   text: string;
-  // eslint-disable-next-line prettier/prettier
   type: 'command' | 'error' | 'success' | 'info' | 'dim' | 'highlight' | 'output';
 }
 
@@ -20,23 +19,14 @@ export function ContactSection() {
   const [input, setInput] = useState('');
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
-  const [sendState, setSendState] = useState<
-    'idle' | 'name' | 'email' | 'message'
-  >('idle');
-  const [messageData, setMessageData] = useState<{
-    name?: string;
-    email?: string;
-    message?: string;
-  }>({});
+  const [sendState, setSendState] = useState<'idle' | 'name' | 'email' | 'message'>('idle');
+  const [messageData, setMessageData] = useState<{ name?: string; email?: string; message?: string }>({});
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalBodyRef = useRef<HTMLDivElement>(null);
 
-  const addLine = useCallback(
-    (text: string, type: TerminalLine['type'] = 'output') => {
-      setLines((prev) => [...prev, { text, type }]);
-    },
-    [],
-  );
+  const addLine = useCallback((text: string, type: TerminalLine['type'] = 'output') => {
+    setLines((prev) => [...prev, { text, type }]);
+  }, []);
 
   const executeCommand = useCallback(
     (cmd: string) => {
@@ -99,9 +89,7 @@ export function ContactSection() {
             ['  projects             Featured projects', 'output'],
             ['  sudo send --message  Send a message', 'output'],
             ['  clear                Clear terminal', 'output'],
-          ].forEach(([text, type]) =>
-            addLine(text, type as TerminalLine['type']),
-          );
+          ].forEach(([text, type]) => addLine(text, type as TerminalLine['type']));
           break;
         case 'about':
           [
@@ -111,9 +99,7 @@ export function ContactSection() {
             ['building scalable web applications.', 'output'],
             ['', 'output'],
             ['Philosophy: "Every millisecond matters."', 'info'],
-          ].forEach(([text, type]) =>
-            addLine(text, type as TerminalLine['type']),
-          );
+          ].forEach(([text, type]) => addLine(text, type as TerminalLine['type']));
           break;
         case 'skills':
           [
@@ -124,9 +110,7 @@ export function ContactSection() {
             ['  Database:   MySQL, MongoDB, Redis', 'output'],
             ['  DevOps:     Docker, Git, CI/CD, Linux', 'output'],
             ['  Patterns:   Repository, Observer, Factory', 'output'],
-          ].forEach(([text, type]) =>
-            addLine(text, type as TerminalLine['type']),
-          );
+          ].forEach(([text, type]) => addLine(text, type as TerminalLine['type']));
           break;
         case 'projects':
           [
@@ -136,9 +120,7 @@ export function ContactSection() {
             ['     → AI crop detection, Laravel + TensorFlow', 'output'],
             ['  2. High-Concurrency Streaming (Production)', 'success'],
             ['     → 10K+ WebSocket connections, NestJS', 'output'],
-          ].forEach(([text, type]) =>
-            addLine(text, type as TerminalLine['type']),
-          );
+          ].forEach(([text, type]) => addLine(text, type as TerminalLine['type']));
           break;
         case 'sudo send --message':
           setSendState('name');
@@ -264,14 +246,10 @@ export function ContactSection() {
               <span className="size-3 cursor-pointer rounded-full bg-red-500/80 transition-colors hover:bg-red-400"></span>
               <span className="size-3 cursor-pointer rounded-full bg-yellow-500/80 transition-colors hover:bg-yellow-400"></span>
               <span className="size-3 cursor-pointer rounded-full bg-green-500/80 transition-colors hover:bg-green-400"></span>
-              <span className="ml-3 font-mono text-xs text-gray-500">
-                contact@toan-dev:~
-              </span>
+              <span className="ml-3 font-mono text-xs text-gray-500">contact@toan-dev:~</span>
               <div className="ml-auto flex items-center gap-1">
                 <span className="size-1.5 animate-pulse rounded-full bg-emerald-400"></span>
-                <span className="font-mono text-[9px] text-emerald-400/60">
-                  connected
-                </span>
+                <span className="font-mono text-[9px] text-emerald-400/60">connected</span>
               </div>
             </div>
             <div
@@ -294,13 +272,7 @@ export function ContactSection() {
                   onKeyDown={handleKeyDown}
                   className="terminal-input"
                   placeholder={
-                    sendState === 'name'
-                      ? 'Your name'
-                      : sendState === 'email'
-                        ? 'email@example.com'
-                        : sendState === 'message'
-                          ? 'Type your message...'
-                          : 'Type a command...'
+                    sendState === 'name' ? 'Your name' : sendState === 'email' ? 'email@example.com' : sendState === 'message' ? 'Type your message...' : 'Type a command...'
                   }
                   autoComplete="off"
                   spellCheck="false"
