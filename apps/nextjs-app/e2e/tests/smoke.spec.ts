@@ -8,9 +8,7 @@ test('smoke', async ({ page }) => {
   const discussion = createDiscussion();
   const comment = createComment();
 
-  await page.goto('/');
-  await page.getByRole('button', { name: 'Get started' }).click();
-  await page.waitForURL('/app');
+  await page.goto('/app');
 
   // create discussion:
   await page.getByRole('link', { name: 'Discussions' }).click();

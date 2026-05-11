@@ -7,7 +7,7 @@ setup('authenticate', async ({ page }) => {
   const user = createUser();
 
   await page.goto('/');
-  await page.getByRole('button', { name: 'Get started' }).click();
+  await page.getByRole('link', { name: 'Open Terminal' }).click();
   await page.waitForURL('/auth/login');
   await page.getByRole('link', { name: 'Register' }).click();
 
