@@ -6,10 +6,9 @@ const authFile = 'e2e/.auth/user.json';
 setup('authenticate', async ({ page }) => {
   const user = createUser();
 
-  await page.goto('/');
-  await page.getByRole('link', { name: 'Open Terminal' }).click();
-  await page.waitForURL('/auth/login');
+  await page.goto('/auth/login');
   await page.getByRole('link', { name: 'Register' }).click();
+  await page.waitForURL('/auth/register');
 
   // registration:
   await page.getByLabel('First Name').click();

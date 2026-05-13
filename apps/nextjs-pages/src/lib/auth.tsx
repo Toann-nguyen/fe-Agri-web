@@ -1,14 +1,15 @@
+/* eslint-disable import/order */
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { configureAuth } from 'react-query-auth';
 import { z } from 'zod';
-
 // eslint-disable-next-line import/no-unresolved
 import { paths } from '@/config/paths';
 // eslint-disable-next-line import/no-unresolved
 import { AuthResponse, User } from '@/types/api';
 // eslint-disable-next-line import/no-unresolved
 import { api } from './api-client';
+/* eslint-enable import/order */
 
 // api call definitions for auth (types, schemas, requests):
 // these are not part of features as this is a module shared across features

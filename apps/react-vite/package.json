@@ -9,7 +9,6 @@
     "preview": "vite preview",
     "test": "vitest",
     "test-e2e": "pm2 start \"pnpm run-mock-server\" --name server && pnpm playwright test",
-    "prepare": "husky",
     "lint": "eslint src --ignore-path .gitignore",
     "check-types": "tsc --project tsconfig.json --pretty --noEmit",
     "generate": "plop",
@@ -93,11 +92,9 @@
     "eslint-plugin-testing-library": "^6.2.2",
     "eslint-plugin-vitest": "^0.5.4",
     "express": "^4.19.2",
-    "husky": "^9.0.11",
     "jest-environment-jsdom": "^29.7.0",
     "js-cookie": "^3.0.5",
     "jsdom": "^24.0.0",
-    "lint-staged": "^15.2.2",
     "msw": "^2.2.14",
     "pino-http": "^10.1.0",
     "pino-pretty": "^11.1.0",
@@ -115,11 +112,5 @@
   },
   "msw": {
     "workerDirectory": "public"
-  },
-  "lint-staged": {
-    "*.+(ts|tsx)": [
-      "yarn lint",
-      "bash -c 'yarn check-types'"
-    ]
   }
 }

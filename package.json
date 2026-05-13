@@ -4,7 +4,12 @@
   "version": "1.0.0",
   "description": "A simple, scalable, and powerful architecture for building production ready React applications.",
   "scripts": {
-    "prepare": "cd ./apps/nextjs-app && pnpm install && cd ../nextjs-pages && pnpm install && cd ../react-vite && pnpm install"
+    "prepare": "husky",
+    "lint-staged": "lint-staged"
+  },
+  "devDependencies": {
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2"
   },
   "author": "Robert",
   "license": "MIT",
