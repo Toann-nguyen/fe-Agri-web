@@ -15,8 +15,9 @@ import { api } from './api-client';
 
 export const getUser = async (): Promise<User> => {
   // TODO: Re-enable when backend API is ready
-  // const response = (await api.get('/auth/me')) as { data: User };
-  // return response.data;
+  // Auth disabled by default: landing page should render without any auth fetch.
+  // We intentionally do NOT call `/auth/me` here to avoid CORS/network errors
+  // when the backend is unreachable or not yet configured.
   return null as unknown as User;
 };
 

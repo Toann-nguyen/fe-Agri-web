@@ -2,6 +2,7 @@
 
 import { Icon } from '@iconify/react';
 import { useEffect, useRef, useState } from 'react';
+
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 
 type TerminalLine = {

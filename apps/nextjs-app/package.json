@@ -15,6 +15,7 @@
     "build-storybook": "storybook build",
     "run-mock-server": "tsx ./mock-server.ts",
     "build:cf": "pnpm dlx @cloudflare/next-on-pages",
+    "build:cf:clean": "rm -rf .next .vercel/output && pnpm build:cf",
     "deploy:cf": "wrangler pages deploy .vercel/output/static --project-name=fe-agri-nextjs-app"
   },
   "dependencies": {
