@@ -3,14 +3,14 @@
   "target": "preview",
   "argv": [
     "/usr/bin/node",
-    "/home/robert/.cache/pnpm/dlx/dff3b015f2f07ed10215ddba89bbe8d0d3cc00be4ef16cb4679c7b5db062eb16/19e9d60d2e5-5727d/node_modules/.pnpm/vercel@54.9.1_@emnapi+core@1.10.0_@emnapi+runtime@1.10.0/node_modules/vercel/dist/vc.js",
+    "/home/robert/.cache/pnpm/dlx/2700d34832e8c48056a656271299836b004a962eb66fe2a3a587107303536013/19eb2070440-6c608/node_modules/.pnpm/vercel@54.11.1_@emnapi+core@1.11.0_@emnapi+runtime@1.11.0/node_modules/vercel/dist/vc.js",
     "build"
   ],
-  "cliVersion": "54.9.1",
+  "cliVersion": "54.11.1",
   "builds": [
     {
       "require": "@vercel/next",
-      "requirePath": "/home/robert/.cache/pnpm/dlx/dff3b015f2f07ed10215ddba89bbe8d0d3cc00be4ef16cb4679c7b5db062eb16/19e9d60d2e5-5727d/node_modules/.pnpm/@vercel+next@4.17.5/node_modules/@vercel/next/dist/index",
+      "requirePath": "/home/robert/.cache/pnpm/dlx/2700d34832e8c48056a656271299836b004a962eb66fe2a3a587107303536013/19eb2070440-6c608/node_modules/.pnpm/@vercel+next@4.18.0/node_modules/@vercel/next/dist/index",
       "apiVersion": 2,
       "src": "package.json",
       "use": "@vercel/next",

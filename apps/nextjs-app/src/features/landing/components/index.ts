@@ -10,4 +10,3 @@ export * from './architecture';
 export * from './contact-terminal';
 export * from './footer';
 export * from './page-background';
-

@@ -1,6 +1,7 @@
 'use client';
 
 import { Icon } from '@iconify/react';
+
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 
 const EXPERTISE_ITEMS = [
@@ -212,11 +213,11 @@ export const Expertise = () => {
             Core Expertise
           </div>
           <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
-            Engineering{' '}
-            <span className="text-gradient-cyan">Excellence</span>
+            Engineering <span className="text-gradient-cyan">Excellence</span>
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-white/60">
-            Fullstack expertise từ database đến pixel-perfect interface — được xây dựng qua từng dự án thực tế.
+            Fullstack expertise từ database đến pixel-perfect interface — được
+            xây dựng qua từng dự án thực tế.
           </p>
         </div>
 
@@ -245,7 +246,11 @@ export const Expertise = () => {
                   <div
                     className={`flex size-11 shrink-0 items-center justify-center rounded-xl border ${item.borderColor} bg-gradient-to-br ${item.gradientFrom} ${item.gradientTo} shadow-sm transition-all duration-500 group-hover:scale-110 group-hover:shadow-md`}
                   >
-                    <Icon icon={item.icon} className={item.iconColor} width="22" />
+                    <Icon
+                      icon={item.icon}
+                      className={item.iconColor}
+                      width="22"
+                    />
                   </div>
                   <div>
                     {/* Category badge */}
@@ -254,7 +259,9 @@ export const Expertise = () => {
                     >
                       {item.title}
                     </span>
-                    <p className="text-xs font-medium text-white/50">{item.subtitle}</p>
+                    <p className="text-xs font-medium text-white/50">
+                      {item.subtitle}
+                    </p>
                   </div>
                 </div>
 
@@ -284,7 +291,6 @@ export const Expertise = () => {
                       <div className="mt-0.5 font-mono text-[9px] text-white/40">
                         {stat.label}
                       </div>
-
                     </div>
                   ))}
                 </div>

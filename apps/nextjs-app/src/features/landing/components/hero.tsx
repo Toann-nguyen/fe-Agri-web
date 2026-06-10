@@ -123,9 +123,11 @@ export const Hero = () => {
       id="hero"
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
     >
-
       {/* ── Particle canvas overlay ── */}
-      <canvas ref={canvasRef} className="absolute inset-0 z-[1] size-full opacity-30" />
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 z-[1] size-full opacity-30"
+      />
 
       {/* ── Blob decorative ── */}
       <div className="morph-blob pointer-events-none absolute left-10 top-20 z-[2] size-72 bg-cyan-400/15 blur-3xl" />
@@ -259,7 +261,10 @@ export const Hero = () => {
         {/* Stats */}
         <div className="anim-fade-up mx-auto mt-16 grid max-w-md grid-cols-3 gap-8 delay-1000">
           <div className="group text-center">
-            <div className="counter font-mono text-3xl font-bold text-white" data-target="3">
+            <div
+              className="counter font-mono text-3xl font-bold text-white"
+              data-target="3"
+            >
               3
             </div>
             <div className="mt-1 text-[11px] font-medium uppercase tracking-wider text-white/50">
@@ -268,7 +273,10 @@ export const Hero = () => {
             <div className="mx-auto mt-2 h-0.5 w-8 origin-left scale-x-0 rounded-full bg-cyan-400 transition-transform duration-300 group-hover:scale-x-100" />
           </div>
           <div className="group border-x border-white/15 text-center">
-            <div className="counter font-mono text-3xl font-bold text-white" data-target="20">
+            <div
+              className="counter font-mono text-3xl font-bold text-white"
+              data-target="20"
+            >
               20
             </div>
             <div className="mt-1 text-[11px] font-medium uppercase tracking-wider text-white/50">
@@ -277,7 +285,10 @@ export const Hero = () => {
             <div className="mx-auto mt-2 h-0.5 w-8 origin-left scale-x-0 rounded-full bg-cyan-400 transition-transform duration-300 group-hover:scale-x-100" />
           </div>
           <div className="group text-center">
-            <div className="counter font-mono text-3xl font-bold text-cyan-400" data-target="99">
+            <div
+              className="counter font-mono text-3xl font-bold text-cyan-400"
+              data-target="99"
+            >
               99
             </div>
             <div className="mt-1 text-[11px] font-medium uppercase tracking-wider text-white/50">

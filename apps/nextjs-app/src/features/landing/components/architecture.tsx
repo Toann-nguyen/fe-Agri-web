@@ -216,7 +216,11 @@ export const Architecture = () => {
                 value: 'O(1)',
                 color: 'text-white',
               },
-              { label: 'Reliability', value: '99.9%', color: 'text-orange-400' },
+              {
+                label: 'Reliability',
+                value: '99.9%',
+                color: 'text-orange-400',
+              },
             ].map((stat, i) => (
               <div
                 key={i}
@@ -231,7 +235,6 @@ export const Architecture = () => {
                 <div className="text-[11px] text-white/50">{stat.label}</div>
               </div>
             ))}
-
           </div>
         </div>
       </div>

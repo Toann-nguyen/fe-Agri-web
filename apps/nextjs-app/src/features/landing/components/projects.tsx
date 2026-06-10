@@ -8,11 +8,7 @@ export const Projects = () => {
   const sectionRef = useScrollReveal();
 
   return (
-    <section
-      id="projects"
-      ref={sectionRef}
-      className="relative py-24 md:py-32"
-    >
+    <section id="projects" ref={sectionRef} className="relative py-24 md:py-32">
       <div className="dot-grid-dark absolute inset-0 opacity-20"></div>
       <div className="pointer-events-none absolute right-0 top-0 size-[400px] rounded-full bg-ember-400/5 blur-[120px]"></div>
       <div className="relative mx-auto max-w-7xl px-6">

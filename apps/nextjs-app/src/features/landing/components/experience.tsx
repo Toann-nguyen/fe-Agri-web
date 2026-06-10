@@ -21,7 +21,19 @@ export const Experience = () => {
         'Complex Form Workflows: Designed multi-step form logic and cross-field conditional validation using React Hook Form integrated with Zod schemas, handling nested dynamic fields and real-time error feedback with zero unnecessary re-renders.',
         'Background Job Processing: Configured Laravel Horizon with Redis queues for async task execution (email notifications, report generation, image processing), cutting request-response cycle time by ~45% by offloading heavy operations to workers.',
       ],
-      tags: ['Laravel', 'React', 'Next.js', 'MySQL', 'Redis', 'TanStack Query', 'React Hook Form', 'Zod', 'Nginx', 'Docker', 'Laravel Horizon'],
+      tags: [
+        'Laravel',
+        'React',
+        'Next.js',
+        'MySQL',
+        'Redis',
+        'TanStack Query',
+        'React Hook Form',
+        'Zod',
+        'Nginx',
+        'Docker',
+        'Laravel Horizon',
+      ],
       isCurrent: true,
       colorClass: 'bg-cyan-500/10 text-cyan-700 border-cyan-500/15',
     },
@@ -36,7 +48,14 @@ export const Experience = () => {
         'Designed normalized database schema for movies, showtimes, seats, bookings, and payments with proper indexing strategies for read-heavy queries.',
         'Developed admin dashboard for theater staff to manage movie schedules, pricing tiers, and view real-time booking analytics.',
       ],
-      tags: ['ASP.NET Core', 'Entity Framework Core', 'MySQL', 'Docker', 'SignalR', 'ZaloPay'],
+      tags: [
+        'ASP.NET Core',
+        'Entity Framework Core',
+        'MySQL',
+        'Docker',
+        'SignalR',
+        'ZaloPay',
+      ],
       isCurrent: false,
       colorClass: 'bg-purple-500/10 text-purple-700 border-purple-500/15',
     },
@@ -119,9 +138,12 @@ export const Experience = () => {
                   <p className="mb-3 text-sm font-medium text-white/50">
                     {exp.company}
                   </p>
-                   <div className="mb-4 space-y-2">
+                  <div className="mb-4 space-y-2">
                     {exp.description.map((line, i) => (
-                      <p key={i} className="text-sm leading-relaxed text-white/70">
+                      <p
+                        key={i}
+                        className="text-sm leading-relaxed text-white/70"
+                      >
                         {line}
                       </p>
                     ))}

@@ -1,6 +1,7 @@
 'use client';
 
 import { Icon } from '@iconify/react';
+
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 
 // Danh sách skill với icon Iconify
@@ -71,14 +72,9 @@ export const TechStack = () => {
   const sectionRef = useScrollReveal();
 
   return (
-    <section
-      id="stack"
-      ref={sectionRef}
-      className="relative py-20 md:py-28"
-    >
+    <section id="stack" ref={sectionRef} className="relative py-20 md:py-28">
       {/* Dot grid overlay */}
       <div className="dot-grid-dark absolute inset-0 opacity-20 pointer-events-none" />
-
 
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         {/* Tiêu đề */}
@@ -88,8 +84,7 @@ export const TechStack = () => {
             Tech Stack
           </div>
           <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
-            Tools of{' '}
-            <span className="text-gradient-cyan">the Trade</span>
+            Tools of <span className="text-gradient-cyan">the Trade</span>
           </h2>
           <p className="mx-auto mt-3 max-w-lg text-sm text-white/50">
             Công nghệ tôi sử dụng hàng ngày để xây dựng sản phẩm chất lượng cao.
@@ -108,11 +103,19 @@ export const TechStack = () => {
                 <div
                   className={`flex size-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br ${group.color} shadow-md`}
                 >
-                  <Icon icon="mdi:layers-triple" className="text-white" width="16" />
+                  <Icon
+                    icon="mdi:layers-triple"
+                    className="text-white"
+                    width="16"
+                  />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white">{group.category}</h3>
-                  <div className={`h-0.5 w-8 rounded-full bg-gradient-to-r ${group.color} mt-0.5`} />
+                  <h3 className="text-sm font-bold text-white">
+                    {group.category}
+                  </h3>
+                  <div
+                    className={`h-0.5 w-8 rounded-full bg-gradient-to-r ${group.color} mt-0.5`}
+                  />
                 </div>
               </div>
 
@@ -129,7 +132,9 @@ export const TechStack = () => {
                       style={{ color: skill.color }}
                       className="shrink-0"
                     />
-                    <span className={`font-mono text-[11px] font-medium ${group.textColor}`}>
+                    <span
+                      className={`font-mono text-[11px] font-medium ${group.textColor}`}
+                    >
                       {skill.name}
                     </span>
                   </div>

@@ -131,7 +131,10 @@ export const ContactTerminal = () => {
           ['  Languages:    PHP, JavaScript/TypeScript, SQL, Shell', 'output'],
           ['  Frameworks:   Laravel, React, Next.js, ASP.NET Core', 'output'],
           ['  Database:     MySQL, Redis (Caching, Pub/Sub)', 'output'],
-          ['  Security:     CSP, JWT, Rate Limiting, SQLi/XSS Mitigation', 'output'],
+          [
+            '  Security:     CSP, JWT, Rate Limiting, SQLi/XSS Mitigation',
+            'output',
+          ],
           ['  Tools:        Docker, Nginx, Git, Laravel Horizon', 'output'],
           ['  Libraries:    TanStack Query, React Hook Form, Zod', 'output'],
         ].forEach(([t, p]) => addLine(t, p as any));
@@ -194,11 +197,7 @@ export const ContactTerminal = () => {
   };
 
   return (
-    <section
-      ref={sectionRef}
-      id="contact"
-      className="relative py-24 md:py-32"
-    >
+    <section ref={sectionRef} id="contact" className="relative py-24 md:py-32">
       <div className="dot-grid-dark absolute inset-0 opacity-20"></div>
       <div className="pointer-events-none absolute bottom-0 left-1/2 h-[300px] w-[500px] -translate-x-1/2 rounded-full bg-cyan-400/5 blur-[100px]"></div>
       <div className="relative mx-auto max-w-3xl px-6">
@@ -321,7 +320,6 @@ export const ContactTerminal = () => {
           >
             sudo send --message
           </button>
-
         </div>
       </div>
     </section>
