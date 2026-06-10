@@ -38,7 +38,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
       lang="en"
       className={`${inter.variable} ${firaCode.variable} scroll-smooth`}
     >
-      <body className="overflow-x-hidden bg-surface-50 font-sans text-ink-600 antialiased">
+      <body className="overflow-x-hidden bg-slate-950 font-sans text-ink-600 antialiased">
         <AppProvider>
           <HydrationBoundary state={dehydratedState}>
             {children}

@@ -9,18 +9,18 @@ export const Architecture = () => {
 
   return (
     <section ref={sectionRef} className="relative py-24 md:py-32">
-      <div className="dot-grid-light absolute inset-0 opacity-30"></div>
+      <div className="dot-grid-dark absolute inset-0 opacity-20"></div>
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="reveal mb-16 text-center">
-          <div className="glass-light mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-xs text-cyan-600 shadow-sm">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-xs text-cyan-400 backdrop-blur-sm">
             <Icon icon="mdi:sitemap" width="14" />
             Architecture
           </div>
-          <h2 className="text-3xl font-bold tracking-tight text-ink-800 md:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
             How I <span className="text-gradient-cyan">Build</span>
           </h2>
         </div>
-        <div className="reveal glass-light rounded-2xl p-8 shadow-xl shadow-black/5 md:p-10">
+        <div className="reveal bg-slate-900/50 border border-white/10 backdrop-blur-sm rounded-2xl p-8 shadow-xl shadow-black/20 md:p-10">
           <div className="grid grid-cols-1 items-center gap-4 md:grid-cols-5">
             {/* Client */}
             <div className="flex flex-col items-center text-center">
@@ -37,10 +37,10 @@ export const Architecture = () => {
                   style={{ animation: 'ripple 3s ease-out infinite' }}
                 ></div>
               </div>
-              <span className="mt-4 text-sm font-semibold text-ink-800">
+              <span className="mt-4 text-sm font-semibold text-white">
                 Client
               </span>
-              <span className="mt-1 font-mono text-[10px] text-ink-400">
+              <span className="mt-1 font-mono text-[10px] text-white/50">
                 Next.js / React
               </span>
             </div>
@@ -70,7 +70,7 @@ export const Architecture = () => {
                   </linearGradient>
                 </defs>
               </svg>
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md border border-ink-300/10 bg-white px-2.5 py-1 font-mono text-[9px] text-ink-400 shadow-sm">
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md border border-white/10 bg-slate-950/80 px-2.5 py-1 font-mono text-[9px] text-white/50 backdrop-blur-sm">
                 HTTPS
               </div>
             </div>
@@ -103,10 +103,10 @@ export const Architecture = () => {
                   }}
                 ></div>
               </div>
-              <span className="mt-4 text-sm font-semibold text-ink-800">
+              <span className="mt-4 text-sm font-semibold text-white">
                 API Gateway
               </span>
-              <span className="mt-1 font-mono text-[10px] text-ink-400">
+              <span className="mt-1 font-mono text-[10px] text-white/50">
                 NestJS / Laravel
               </span>
             </div>
@@ -136,7 +136,7 @@ export const Architecture = () => {
                   </linearGradient>
                 </defs>
               </svg>
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md border border-ink-300/10 bg-white px-2.5 py-1 font-mono text-[9px] text-ink-400 shadow-sm">
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md border border-white/10 bg-slate-950/80 px-2.5 py-1 font-mono text-[9px] text-white/50 backdrop-blur-sm">
                 Query
               </div>
             </div>
@@ -191,10 +191,10 @@ export const Architecture = () => {
                   ></div>
                 </div>
               </div>
-              <span className="mt-4 text-sm font-semibold text-ink-800">
+              <span className="mt-4 text-sm font-semibold text-white">
                 Data Layer
               </span>
-              <span className="mt-1 font-mono text-[10px] text-ink-400">
+              <span className="mt-1 font-mono text-[10px] text-white/50">
                 MySQL + Redis
               </span>
             </div>
@@ -204,19 +204,19 @@ export const Architecture = () => {
               {
                 label: 'Clean Architecture',
                 value: 'SOLID',
-                color: 'text-ink-800',
+                color: 'text-white',
               },
               {
                 label: 'Zero Duplication',
                 value: 'DRY',
-                color: 'text-cyan-600',
+                color: 'text-cyan-400',
               },
               {
                 label: 'Constant Lookups',
                 value: 'O(1)',
-                color: 'text-ink-800',
+                color: 'text-white',
               },
-              { label: 'Reliability', value: '99.9%', color: 'text-ember-600' },
+              { label: 'Reliability', value: '99.9%', color: 'text-orange-400' },
             ].map((stat, i) => (
               <div
                 key={i}
@@ -228,9 +228,10 @@ export const Architecture = () => {
                 >
                   {stat.value}
                 </div>
-                <div className="text-[11px] text-ink-400">{stat.label}</div>
+                <div className="text-[11px] text-white/50">{stat.label}</div>
               </div>
             ))}
+
           </div>
         </div>
       </div>

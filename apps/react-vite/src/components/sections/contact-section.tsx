@@ -68,7 +68,7 @@ export function ContactSection() {
           addLine('───────────────────────────────────────', 'dim');
           addLine('Opening mailto client...', 'info');
           setTimeout(() => {
-            window.location.href = `mailto:toan@example.com?subject=${encodeURIComponent('Contact from ' + messageData.name)}&body=${encodeURIComponent(cmd.trim() + '\n\n— ' + messageData.name)}`;
+            window.location.href = `mailto:${import.meta.env.VITE_EMAIL_ADDRESS}?subject=${encodeURIComponent('Contact from ' + messageData.name)}&body=${encodeURIComponent(cmd.trim() + '\n\n— ' + messageData.name)}`;
           }, 1000);
         }
         setSendState('idle');
@@ -93,10 +93,13 @@ export function ContactSection() {
           break;
         case 'about':
           [
-            ['Nguyen Minh Toan — Full-Stack Developer', 'highlight'],
+            ['Nguyen Minh Toan — Full-Stack Web Developer', 'highlight'],
             ['', 'output'],
-            ['Performance-driven developer with 3+ years', 'output'],
-            ['building scalable web applications.', 'output'],
+            ['Full-Stack Web Developer @ INFINILAB', 'output'],
+            ['Database, Security, and Performance Engineer', 'output'],
+            ['', 'output'],
+            ['ACID compliance • JWT auth • Redis rate limiting', 'output'],
+            ['N+1 query resolution • CSP hardening • TanStack Query', 'output'],
             ['', 'output'],
             ['Philosophy: "Every millisecond matters."', 'info'],
           ].forEach(([text, type]) => addLine(text, type as TerminalLine['type']));
@@ -105,11 +108,12 @@ export function ContactSection() {
           [
             ['Technical Skills:', 'highlight'],
             ['', 'output'],
-            ['  Frontend:   React, Next.js, TypeScript, Tailwind', 'output'],
-            ['  Backend:    Laravel, NestJS, Node.js, PHP', 'output'],
-            ['  Database:   MySQL, MongoDB, Redis', 'output'],
-            ['  DevOps:     Docker, Git, CI/CD, Linux', 'output'],
-            ['  Patterns:   Repository, Observer, Factory', 'output'],
+            ['  Languages:    PHP, JavaScript/TypeScript, SQL, Shell', 'output'],
+            ['  Frameworks:   Laravel, React, Next.js, ASP.NET Core', 'output'],
+            ['  Database:     MySQL, Redis (Caching, Pub/Sub)', 'output'],
+            ['  Security:     CSP, JWT, Rate Limiting, SQLi/XSS Mitigation', 'output'],
+            ['  Tools:        Docker, Nginx, Git, Laravel Horizon', 'output'],
+            ['  Libraries:    TanStack Query, React Hook Form, Zod', 'output'],
           ].forEach(([text, type]) => addLine(text, type as TerminalLine['type']));
           break;
         case 'projects':
@@ -232,10 +236,10 @@ export function ContactSection() {
           <p className="text-ink-400 mt-4 text-sm">
             Prefer email?{' '}
             <a
-              href="mailto:nguyenminhtoan2712py@gmail.com"
+              href={`mailto:${import.meta.env.VITE_EMAIL_ADDRESS}`}
               className="font-medium text-cyan-600 transition-colors hover:text-cyan-700"
             >
-              [EMAIL_ADDRESS]
+              {import.meta.env.VITE_EMAIL_ADDRESS}
             </a>
           </p>
         </div>

@@ -1,8 +1,71 @@
 'use client';
 
 import { Icon } from '@iconify/react';
-
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
+
+// Danh sách skill với icon Iconify
+const SKILL_GROUPS = [
+  {
+    category: 'Backend',
+    color: 'from-orange-500 to-red-500',
+    textColor: 'text-orange-600',
+    borderColor: 'border-orange-400/20',
+    bgColor: 'bg-orange-500/8',
+    glowClass: 'skill-glow-orange',
+    skills: [
+      { name: 'Laravel', icon: 'mdi:laravel', color: '#FF2D20' },
+      { name: 'PHP', icon: 'mdi:language-php', color: '#777BB4' },
+      { name: 'NestJS', icon: 'simple-icons:nestjs', color: '#E0234E' },
+      { name: 'Node.js', icon: 'mdi:nodejs', color: '#339933' },
+      { name: 'REST API', icon: 'mdi:api', color: '#FF6B35' },
+    ],
+  },
+  {
+    category: 'Frontend',
+    color: 'from-cyan-500 to-blue-500',
+    textColor: 'text-cyan-600',
+    borderColor: 'border-cyan-400/20',
+    bgColor: 'bg-cyan-500/8',
+    glowClass: 'skill-glow-cyan',
+    skills: [
+      { name: 'React', icon: 'mdi:react', color: '#61DAFB' },
+      { name: 'Next.js', icon: 'ri:nextjs-fill', color: '#000000' },
+      { name: 'TypeScript', icon: 'mdi:language-typescript', color: '#3178C6' },
+      { name: 'Tailwind', icon: 'mdi:tailwind', color: '#06B6D4' },
+      { name: 'TanStack', icon: 'simple-icons:reactquery', color: '#FF4154' },
+    ],
+  },
+  {
+    category: 'Database',
+    color: 'from-emerald-500 to-teal-500',
+    textColor: 'text-emerald-600',
+    borderColor: 'border-emerald-400/20',
+    bgColor: 'bg-emerald-500/8',
+    glowClass: 'skill-glow-green',
+    skills: [
+      { name: 'MySQL', icon: 'simple-icons:mysql', color: '#4479A1' },
+      { name: 'Redis', icon: 'simple-icons:redis', color: '#DC382D' },
+      { name: 'MongoDB', icon: 'simple-icons:mongodb', color: '#47A248' },
+      { name: 'Prisma', icon: 'simple-icons:prisma', color: '#2D3748' },
+      { name: 'Query Opt', icon: 'mdi:database-search', color: '#10B981' },
+    ],
+  },
+  {
+    category: 'DevOps',
+    color: 'from-purple-500 to-indigo-500',
+    textColor: 'text-purple-600',
+    borderColor: 'border-purple-400/20',
+    bgColor: 'bg-purple-500/8',
+    glowClass: 'skill-glow-purple',
+    skills: [
+      { name: 'Docker', icon: 'mdi:docker', color: '#2496ED' },
+      { name: 'AWS S3', icon: 'mdi:aws', color: '#FF9900' },
+      { name: 'Nginx', icon: 'simple-icons:nginx', color: '#009639' },
+      { name: 'Git', icon: 'mdi:git', color: '#F05032' },
+      { name: 'Linux', icon: 'mdi:linux', color: '#FCC624' },
+    ],
+  },
+];
 
 export const TechStack = () => {
   const sectionRef = useScrollReveal();
@@ -11,224 +74,97 @@ export const TechStack = () => {
     <section
       id="stack"
       ref={sectionRef}
-      className="relative bg-white py-24 md:py-32"
+      className="relative py-20 md:py-28"
     >
-      <div className="dot-grid-light absolute inset-0 opacity-40"></div>
-      <div className="pointer-events-none absolute left-1/2 top-1/2 size-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/5 blur-[120px]"></div>
-      <div className="relative mx-auto max-w-7xl px-6">
-        <div className="reveal mb-16 text-center">
-          <div className="glass-light mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-xs text-cyan-600 shadow-sm">
+      {/* Dot grid overlay */}
+      <div className="dot-grid-dark absolute inset-0 opacity-20 pointer-events-none" />
+
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
+        {/* Tiêu đề */}
+        <div className="reveal mb-14 text-center">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-xs text-cyan-400 backdrop-blur-sm">
             <Icon icon="mdi:view-grid" width="14" />
             Tech Stack
           </div>
-          <h2 className="text-3xl font-bold tracking-tight text-ink-800 md:text-4xl">
-            Tools of <span className="text-gradient-cyan">the Trade</span>
+          <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
+            Tools of{' '}
+            <span className="text-gradient-cyan">the Trade</span>
           </h2>
+          <p className="mx-auto mt-3 max-w-lg text-sm text-white/50">
+            Công nghệ tôi sử dụng hàng ngày để xây dựng sản phẩm chất lượng cao.
+          </p>
         </div>
 
-        <div className="grid min-h-[520px] grid-cols-2 gap-4 md:grid-cols-4 md:grid-rows-3">
-          {/* TypeScript */}
-          <div
-            className="glow-border bento-large card-3d reveal-scale col-span-2 row-span-1 md:row-span-2"
-            style={{ '--stagger': 0 } as any}
-          >
-            <div className="card-3d-inner glass-light group flex h-full cursor-default flex-col justify-between rounded-2xl p-6">
-              <div>
-                <div className="mb-4 flex items-center justify-between">
-                  <div className="flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-700 shadow-lg shadow-cyan-500/20 transition-all duration-500 group-hover:rotate-6 group-hover:scale-110 group-hover:shadow-cyan-500/30">
-                    <Icon
-                      icon="mdi:language-typescript"
-                      className="text-white"
-                      width="26"
-                    />
-                  </div>
-                  <span className="rounded-md bg-surface-100 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-ink-400">
-                    Primary
-                  </span>
+        {/* 4 cột skill groups */}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {SKILL_GROUPS.map((group) => (
+            <div
+              key={group.category}
+              className={`skill-card-dark reveal-scale group relative overflow-hidden rounded-2xl border ${group.borderColor} bg-white/5 p-5 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-white/20 hover:bg-white/8 hover:shadow-xl`}
+            >
+              {/* Header category */}
+              <div className="mb-4 flex items-center gap-3">
+                <div
+                  className={`flex size-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br ${group.color} shadow-md`}
+                >
+                  <Icon icon="mdi:layers-triple" className="text-white" width="16" />
                 </div>
-                <h3 className="mb-2 text-xl font-bold text-ink-800">
-                  TypeScript
-                </h3>
-                <p className="text-sm leading-relaxed text-ink-500">
-                  End-to-end type safety. Zero ambiguity from API contracts to
-                  UI props.
-                </p>
+                <div>
+                  <h3 className="text-sm font-bold text-white">{group.category}</h3>
+                  <div className={`h-0.5 w-8 rounded-full bg-gradient-to-r ${group.color} mt-0.5`} />
+                </div>
               </div>
-              <div className="code-block-light mt-4 px-4 py-3 text-[11px] shadow-lg shadow-black/5">
-                <span className="code-keyword">type</span>{' '}
-                <span className="code-type">APIResponse</span>
-                <span className="code-operator">&lt;</span>
-                <span className="code-type">T</span>
-                <span className="code-operator">&gt;</span>{' '}
-                <span className="code-operator">=</span>{' '}
-                <span className="code-operator">{'{'}</span>
-                <br />
-                &nbsp;&nbsp;<span className="code-function">data</span>
-                <span className="code-operator">:</span>{' '}
-                <span className="code-type">T</span>
-                <span className="code-operator">;</span>
-                <br />
-                &nbsp;&nbsp;<span className="code-function">latency</span>
-                <span className="code-operator">:</span>{' '}
-                <span className="code-string">
-                  `${'{'}number{'}'}ms`
-                </span>
-                <span className="code-operator">;</span>
-                <br />
-                <span className="code-operator">{'}'};</span>
+
+              {/* Skill tags */}
+              <div className="flex flex-wrap gap-2">
+                {group.skills.map((skill) => (
+                  <div
+                    key={skill.name}
+                    className={`flex items-center gap-1.5 rounded-lg border ${group.borderColor} ${group.bgColor} px-2.5 py-1.5 transition-all duration-200 hover:scale-105`}
+                  >
+                    <Icon
+                      icon={skill.icon}
+                      width="14"
+                      style={{ color: skill.color }}
+                      className="shrink-0"
+                    />
+                    <span className={`font-mono text-[11px] font-medium ${group.textColor}`}>
+                      {skill.name}
+                    </span>
+                  </div>
+                ))}
               </div>
-            </div>
-          </div>
 
-          {/* Docker */}
-          <div
-            className="glow-border card-3d reveal-scale"
-            style={{ '--stagger': 1 } as any}
-          >
-            <div className="card-3d-inner glass-light group flex h-full cursor-default flex-col items-center justify-center rounded-2xl p-5 text-center">
-              <Icon
-                icon="mdi:docker"
-                className="mb-2 text-sky-500 transition-all duration-500 group-hover:rotate-12 group-hover:scale-125"
-                width="36"
+              {/* Decoration glow */}
+              <div
+                className={`pointer-events-none absolute -right-6 -top-6 size-24 rounded-full bg-gradient-to-br ${group.color} opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-15`}
               />
-              <span className="text-sm font-semibold text-ink-800">Docker</span>
-              <span className="mt-1 font-mono text-[10px] text-ink-400">
-                Containerization
-              </span>
             </div>
-          </div>
+          ))}
+        </div>
 
-          {/* Redis */}
-          <div
-            className="glow-border ember-glow card-3d reveal-scale"
-            style={{ '--stagger': 2 } as any}
-          >
-            <div className="card-3d-inner glass-light group flex h-full cursor-default flex-col items-center justify-center rounded-2xl p-5 text-center">
-              <Icon
-                icon="mdi:database-flash"
-                className="mb-2 text-ember-500 transition-all duration-500 group-hover:-rotate-12 group-hover:scale-125"
-                width="36"
-              />
-              <span className="text-sm font-semibold text-ink-800">Redis</span>
-              <span className="mt-1 font-mono text-[10px] text-ink-400">
-                Cache Layer
-              </span>
-            </div>
-          </div>
-
-          {/* Next.js */}
-          <div
-            className="glow-border bento-wide card-3d reveal-scale col-span-2 md:col-span-2"
-            style={{ '--stagger': 3 } as any}
-          >
-            <div className="card-3d-inner glass-light group flex h-full cursor-default items-center gap-5 rounded-2xl p-5">
-              <div className="flex size-14 shrink-0 items-center justify-center rounded-xl bg-black shadow-lg shadow-black/10 transition-all duration-500 group-hover:scale-110">
-                <Icon icon="ri:nextjs-fill" className="text-white" width="32" />
-              </div>
-              <div>
-                <h3 className="text-base font-bold text-ink-800">Next.js</h3>
-                <p className="mt-1 text-xs text-ink-500">
-                  SSR, ISR, App Router — lightning-fast page loads.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* MySQL */}
-          <div
-            className="glow-border ember-glow card-3d reveal-scale"
-            style={{ '--stagger': 4 } as any}
-          >
-            <div className="card-3d-inner glass-light group flex h-full cursor-default flex-col items-center justify-center rounded-2xl p-5 text-center">
-              <Icon
-                icon="mdi:database"
-                className="mb-2 text-ember-500 transition-all duration-500 group-hover:rotate-12 group-hover:scale-125"
-                width="36"
-              />
-              <span className="text-sm font-semibold text-ink-800">MySQL</span>
-              <span className="mt-1 font-mono text-[10px] text-ink-400">
-                Relational DB
-              </span>
-            </div>
-          </div>
-
-          {/* MongoDB */}
-          <div
-            className="glow-border card-3d reveal-scale"
-            style={{ '--stagger': 5 } as any}
-          >
-            <div className="card-3d-inner glass-light group flex h-full cursor-default flex-col items-center justify-center rounded-2xl p-5 text-center">
-              <Icon
-                icon="mdi:leaf"
-                className="mb-2 text-green-500 transition-all duration-500 group-hover:-rotate-12 group-hover:scale-125"
-                width="36"
-              />
-              <span className="text-sm font-semibold text-ink-800">
-                MongoDB
-              </span>
-              <span className="mt-1 font-mono text-[10px] text-ink-400">
-                NoSQL Store
-              </span>
-            </div>
-          </div>
-
-          {/* Tailwind CSS */}
-          <div
-            className="glow-border bento-wide card-3d reveal-scale col-span-2 md:col-span-2"
-            style={{ '--stagger': 6 } as any}
-          >
-            <div className="card-3d-inner glass-light group flex h-full cursor-default items-center gap-5 rounded-2xl p-5">
-              <div className="flex size-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-cyan-600 shadow-lg shadow-cyan-500/15 transition-all duration-500 group-hover:scale-110">
-                <Icon icon="mdi:tailwind" className="text-white" width="32" />
-              </div>
-              <div>
-                <h3 className="text-base font-bold text-ink-800">
-                  Tailwind CSS
-                </h3>
-                <p className="mt-1 text-xs text-ink-500">
-                  Utility-first CSS, zero runtime overhead.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Laravel */}
-          <div
-            className="glow-border ember-glow card-3d reveal-scale"
-            style={{ '--stagger': 7 } as any}
-          >
-            <div className="card-3d-inner glass-light group flex h-full cursor-default flex-col items-center justify-center rounded-2xl p-5 text-center">
-              <Icon
-                icon="mdi:laravel"
-                className="mb-2 text-laravel transition-all duration-500 group-hover:rotate-12 group-hover:scale-125"
-                width="36"
-              />
-              <span className="text-sm font-semibold text-ink-800">
-                Laravel
-              </span>
-              <span className="mt-1 font-mono text-[10px] text-ink-400">
-                PHP Backend
-              </span>
-            </div>
-          </div>
-
-          {/* NestJS */}
-          <div
-            className="glow-border ember-glow card-3d reveal-scale"
-            style={{ '--stagger': 8 } as any}
-          >
-            <div className="card-3d-inner glass-light group flex h-full cursor-default flex-col items-center justify-center rounded-2xl p-5 text-center">
-              <Icon
-                icon="mdi:nodejs"
-                className="mb-2 text-ember-500 transition-all duration-500 group-hover:-rotate-12 group-hover:scale-125"
-                width="36"
-              />
-              <span className="text-sm font-semibold text-ink-800">NestJS</span>
-              <span className="mt-1 font-mono text-[10px] text-ink-400">
-                Node Framework
-              </span>
-            </div>
-          </div>
+        {/* Bottom featured tools strip */}
+        <div className="reveal mt-10 flex flex-wrap items-center justify-center gap-6 opacity-40">
+          {[
+            { icon: 'mdi:laravel', color: '#FF2D20' },
+            { icon: 'mdi:react', color: '#61DAFB' },
+            { icon: 'ri:nextjs-fill', color: '#ffffff' },
+            { icon: 'mdi:language-typescript', color: '#3178C6' },
+            { icon: 'simple-icons:mysql', color: '#4479A1' },
+            { icon: 'simple-icons:redis', color: '#DC382D' },
+            { icon: 'mdi:docker', color: '#2496ED' },
+            { icon: 'mdi:aws', color: '#FF9900' },
+            { icon: 'mdi:git', color: '#F05032' },
+          ].map((item) => (
+            <Icon
+              key={item.icon}
+              icon={item.icon}
+              width="28"
+              style={{ color: item.color }}
+              className="transition-all duration-300 hover:opacity-100 hover:scale-125"
+            />
+          ))}
         </div>
       </div>
     </section>

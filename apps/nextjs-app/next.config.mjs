@@ -3,6 +3,10 @@ import { setupDevPlatform } from '@cloudflare/next-on-pages/next-dev';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  images: {
+    // Edge runtime (Cloudflare) không hỗ trợ Next/Image optimization server-side
+    unoptimized: true,
+  },
   // Required for `process.env.NEXT_PUBLIC_*` to be inlined at build time on
   // Cloudflare Pages. Cloudflare will substitute them from the Pages dashboard
   // or from `wrangler.toml` [vars] during `next build`.
@@ -15,6 +19,8 @@ const nextConfig = {
       process.env.NEXT_PUBLIC_ENABLE_API_MOCKING ?? 'false',
     NEXT_PUBLIC_MOCK_API_PORT:
       process.env.NEXT_PUBLIC_MOCK_API_PORT ?? '8080',
+    NEXT_PUBLIC_EMAIL_ADDRESS:
+      process.env.NEXT_PUBLIC_EMAIL_ADDRESS ?? 'nguyenminhtoan2712py@gmail.com',
   },
 };
 

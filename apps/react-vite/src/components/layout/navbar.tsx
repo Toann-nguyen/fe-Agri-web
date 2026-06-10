@@ -48,7 +48,7 @@ export function Navbar() {
 
           <div className="flex items-center gap-4">
             <a
-              href="https://github.com"
+              href="https://github.com/Toann-nguyen"
               target="_blank"
               rel="noopener noreferrer"
               className="text-ink-400 transition-all duration-200 hover:scale-110 hover:text-cyan-600"

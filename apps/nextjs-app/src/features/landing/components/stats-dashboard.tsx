@@ -57,7 +57,7 @@ const Counter = ({
   return (
     <div
       ref={countRef}
-      className="mb-1 font-mono text-4xl font-bold text-ink-800"
+      className="mb-1 font-mono text-4xl font-bold text-white"
     >
       {decimal ? count.toFixed(1) : Math.round(count)}
       {suffix}
@@ -69,21 +69,21 @@ export const StatsDashboard = () => {
   const sectionRef = useScrollReveal();
   return (
     <section ref={sectionRef} className="relative py-24 md:py-32">
-      <div className="dot-grid-light absolute inset-0 opacity-40"></div>
+      <div className="dot-grid-dark absolute inset-0 opacity-20"></div>
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="reveal mb-16 text-center">
-          <div className="glass-light mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-xs text-cyan-600 shadow-sm">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-xs text-cyan-400 backdrop-blur-sm">
             <Icon icon="mdi:chart-areaspline" width="14" />
             By The Numbers
           </div>
-          <h2 className="text-3xl font-bold tracking-tight text-ink-800 md:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
             Impact <span className="text-gradient-cyan">Dashboard</span>
           </h2>
         </div>
 
         <div className="grid gap-5 md:grid-cols-4">
           {/* Stat 1 */}
-          <div className="glow-border reveal glass-light rounded-2xl p-6 text-center">
+          <div className="glow-border reveal bg-slate-900/50 border border-white/10 backdrop-blur-sm rounded-2xl p-6 text-center">
             <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-2xl border border-cyan-500/15 bg-cyan-500/10">
               <Icon
                 icon="mdi:rocket-launch"
@@ -92,7 +92,7 @@ export const StatsDashboard = () => {
               />
             </div>
             <Counter target={20} suffix="+" />
-            <div className="text-sm font-medium text-ink-400">
+            <div className="text-sm font-medium text-white/60">
               Projects Delivered
             </div>
             <div className="mt-4 flex h-16 items-end justify-center gap-1">
@@ -111,7 +111,7 @@ export const StatsDashboard = () => {
 
           {/* Stat 2 */}
           <div
-            className="glow-border reveal glass-light rounded-2xl p-6 text-center"
+            className="glow-border reveal bg-slate-900/50 border border-white/10 backdrop-blur-sm rounded-2xl p-6 text-center"
             style={{ animationDelay: '120ms' }}
           >
             <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-2xl border border-ember-500/15 bg-ember-500/10">
@@ -122,7 +122,7 @@ export const StatsDashboard = () => {
               />
             </div>
             <Counter target={23} suffix="ms" />
-            <div className="text-sm font-medium text-ink-400">
+            <div className="text-sm font-medium text-white/60">
               Avg Response Time
             </div>
             <div className="mt-4 flex items-center justify-center gap-1">
@@ -160,7 +160,7 @@ export const StatsDashboard = () => {
 
           {/* Stat 3 */}
           <div
-            className="glow-border reveal glass-light rounded-2xl p-6 text-center"
+            className="glow-border reveal bg-slate-900/50 border border-white/10 backdrop-blur-sm rounded-2xl p-6 text-center"
             style={{ animationDelay: '240ms' }}
           >
             <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-2xl border border-emerald-500/15 bg-emerald-500/10">
@@ -171,7 +171,7 @@ export const StatsDashboard = () => {
               />
             </div>
             <Counter target={99.9} suffix="%" decimal />
-            <div className="text-sm font-medium text-ink-400">
+            <div className="text-sm font-medium text-white/60">
               Uptime Guarantee
             </div>
             <div className="relative mx-auto mt-4 size-16">
@@ -205,7 +205,7 @@ export const StatsDashboard = () => {
 
           {/* Stat 4 */}
           <div
-            className="glow-border reveal glass-light rounded-2xl p-6 text-center"
+            className="glow-border reveal bg-slate-900/50 border border-white/10 backdrop-blur-sm rounded-2xl p-6 text-center"
             style={{ animationDelay: '360ms' }}
           >
             <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-2xl border border-purple-500/15 bg-purple-500/10">
@@ -216,7 +216,7 @@ export const StatsDashboard = () => {
               />
             </div>
             <Counter target={50} suffix="K+" />
-            <div className="text-sm font-medium text-ink-400">
+            <div className="text-sm font-medium text-white/60">
               Lines of Code
             </div>
             <div className="mt-4 flex h-16 items-end justify-center gap-[3px]">

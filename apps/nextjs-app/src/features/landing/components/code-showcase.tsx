@@ -8,18 +8,18 @@ export const CodeShowcase = () => {
   const sectionRef = useScrollReveal();
 
   return (
-    <section ref={sectionRef} className="relative bg-white py-24 md:py-32">
-      <div className="dot-grid-light absolute inset-0 opacity-30"></div>
+    <section ref={sectionRef} className="relative py-24 md:py-32">
+      <div className="dot-grid-dark absolute inset-0 opacity-20"></div>
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="reveal mb-16 text-center">
-          <div className="glass-light mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-xs text-cyan-600 shadow-sm">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-xs text-cyan-400 backdrop-blur-sm">
             <Icon icon="mdi:code-tags" width="14" />
             Code Showcase
           </div>
-          <h2 className="text-3xl font-bold tracking-tight text-ink-800 md:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
             Real <span className="text-gradient-cyan">Code</span>, Real Impact
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-sm text-ink-400">
+          <p className="mx-auto mt-4 max-w-lg text-sm text-white/60">
             Snippets that demonstrate my approach to solving real engineering
             problems.
           </p>
@@ -28,7 +28,7 @@ export const CodeShowcase = () => {
         <div className="grid gap-6 md:grid-cols-2">
           {/* Code 1: N+1 Fix */}
           <div className="reveal-left" style={{ '--stagger': 0 } as any}>
-            <div className="glass-light overflow-hidden rounded-2xl shadow-lg shadow-black/5 transition-shadow duration-500 hover:shadow-xl">
+            <div className="bg-slate-900/60 border border-white/10 backdrop-blur-sm overflow-hidden rounded-2xl shadow-lg shadow-black/20 transition-all duration-500 hover:shadow-xl hover:shadow-cyan-500/5">
               <div className="flex items-center justify-between bg-ink-900 px-5 py-3">
                 <div className="flex items-center gap-2">
                   <span className="size-2.5 rounded-full bg-red-500/70"></span>
@@ -114,7 +114,7 @@ export const CodeShowcase = () => {
 
           {/* Code 2: Redis Caching */}
           <div className="reveal-right" style={{ '--stagger': 1 } as any}>
-            <div className="glass-light overflow-hidden rounded-2xl shadow-lg shadow-black/5 transition-shadow duration-500 hover:shadow-xl">
+            <div className="bg-slate-900/60 border border-white/10 backdrop-blur-sm overflow-hidden rounded-2xl shadow-lg shadow-black/20 transition-all duration-500 hover:shadow-xl hover:shadow-cyan-500/5">
               <div className="flex items-center justify-between bg-ink-900 px-5 py-3">
                 <div className="flex items-center gap-2">
                   <span className="size-2.5 rounded-full bg-red-500/70"></span>

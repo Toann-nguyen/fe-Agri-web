@@ -10,13 +10,16 @@ import {
   Architecture,
   ContactTerminal,
   Footer,
+  PageBackground,
 } from '@/features/landing/components';
 
 const HomePage = () => {
   return (
     <main>
+      <PageBackground />
       <Navbar />
       <Hero />
+
       <Expertise />
       <TechStack />
       <Experience />

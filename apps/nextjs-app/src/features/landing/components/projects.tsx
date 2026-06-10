@@ -11,17 +11,17 @@ export const Projects = () => {
     <section
       id="projects"
       ref={sectionRef}
-      className="relative bg-white py-24 md:py-32"
+      className="relative py-24 md:py-32"
     >
-      <div className="dot-grid-light absolute inset-0 opacity-40"></div>
+      <div className="dot-grid-dark absolute inset-0 opacity-20"></div>
       <div className="pointer-events-none absolute right-0 top-0 size-[400px] rounded-full bg-ember-400/5 blur-[120px]"></div>
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="reveal mb-16 text-center">
-          <div className="glass-light mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-xs text-cyan-600 shadow-sm">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-xs text-cyan-400 backdrop-blur-sm">
             <Icon icon="mdi:rocket-launch" width="14" />
             Featured Projects
           </div>
-          <h2 className="text-3xl font-bold tracking-tight text-ink-800 md:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
             The <span className="text-gradient-mixed">Bridge</span>
           </h2>
         </div>
@@ -29,7 +29,7 @@ export const Projects = () => {
         <div className="grid gap-6 md:grid-cols-2">
           {/* Project 1 */}
           <div
-            className="glow-border project-card reveal-left glass-light group overflow-hidden rounded-2xl"
+            className="glow-border project-card reveal-left bg-slate-900/50 border border-white/10 backdrop-blur-sm group overflow-hidden rounded-2xl"
             style={{ '--stagger': 0 } as any}
           >
             <div className="relative h-56 overflow-hidden">
@@ -38,7 +38,8 @@ export const Projects = () => {
                 alt="AgriTech"
                 className="project-card-img size-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
+
               <div className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full bg-gradient-to-r from-cyan-500 to-ember-500 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-lg">
                 <Icon icon="mdi:star-four-points" width="12" />
                 Flagship
@@ -67,13 +68,14 @@ export const Projects = () => {
                   In Development
                 </span>
               </div>
-              <h3 className="mb-2 text-xl font-bold text-ink-800 transition-colors duration-300 group-hover:text-cyan-700">
+              <h3 className="mb-2 text-xl font-bold text-white transition-colors duration-300 group-hover:text-cyan-400">
                 AgriTech Vision AI
               </h3>
-              <p className="mb-4 text-sm leading-relaxed text-ink-500">
+              <p className="mb-4 text-sm leading-relaxed text-white/70">
                 AI-powered crop disease detection. Real-time field scanning with
                 TensorFlow.js, processed through Laravel API with Redis queue.
               </p>
+
               <div className="mb-5 flex flex-wrap gap-2">
                 {[
                   {
@@ -118,7 +120,7 @@ export const Projects = () => {
 
           {/* Project 2 */}
           <div
-            className="glow-border project-card reveal-right glass-light group overflow-hidden rounded-2xl"
+            className="glow-border project-card reveal-right bg-slate-900/50 border border-white/10 backdrop-blur-sm group overflow-hidden rounded-2xl"
             style={{ '--stagger': 1 } as any}
           >
             <div className="relative h-56 overflow-hidden">
@@ -127,7 +129,7 @@ export const Projects = () => {
                 alt="Streaming"
                 className="project-card-img size-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
               <div className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full bg-red-500 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-lg">
                 <span className="relative flex size-1.5">
                   <span className="absolute inline-flex size-full animate-ping rounded-full bg-white opacity-75"></span>
@@ -135,10 +137,11 @@ export const Projects = () => {
                 </span>
                 Live
               </div>
-              <div className="glass-light absolute bottom-4 right-4 translate-y-2 rounded-lg px-3 py-2 opacity-0 shadow-lg transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                <div className="mb-1.5 font-mono text-[9px] text-ink-400">
+              <div className="bg-slate-950/80 border border-white/10 backdrop-blur-sm absolute bottom-4 right-4 translate-y-2 rounded-lg px-3 py-2 opacity-0 shadow-lg transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                <div className="mb-1.5 font-mono text-[9px] text-white/50">
                   Server Load
                 </div>
+
                 <div className="flex h-5 items-end gap-0.5">
                   {[30, 50, 45, 70, 55, 40].map((h, i) => (
                     <div
@@ -157,14 +160,15 @@ export const Projects = () => {
                   Production
                 </span>
               </div>
-              <h3 className="mb-2 text-xl font-bold text-ink-800 transition-colors duration-300 group-hover:text-cyan-700">
+              <h3 className="mb-2 text-xl font-bold text-white transition-colors duration-300 group-hover:text-cyan-400">
                 High-Concurrency Streaming
               </h3>
-              <p className="mb-4 text-sm leading-relaxed text-ink-500">
+              <p className="mb-4 text-sm leading-relaxed text-white/70">
                 Real-time streaming platform handling 10K+ concurrent
                 connections. Load-balanced WebSocket with NestJS and Redis
                 pub/sub.
               </p>
+
               <div className="mb-5 flex flex-wrap gap-2">
                 {[
                   {

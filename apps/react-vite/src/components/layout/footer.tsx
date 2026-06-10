@@ -8,12 +8,12 @@ export function Footer() {
               T
             </div>
             <span className="text-sm text-ink-400">
-              © <span className="font-mono">2024</span> Nguyen Minh Toan. Engineered with precision.
+              © <span className="font-mono">2026</span> Nguyen Minh Toan. Engineered with precision.
             </span>
           </div>
           <div className="flex items-center gap-5">
             <a
-              href="https://github.com"
+              href="https://github.com/Toann-nguyen"
               target="_blank"
               rel="noopener noreferrer"
               className="text-ink-300 transition-all duration-200 hover:scale-110 hover:text-cyan-600"
@@ -33,7 +33,7 @@ export function Footer() {
               </svg>
             </a>
             <a
-              href="mailto:toan@example.com"
+              href="mailto:[EMAIL_ADDRESS]"
               className="text-ink-300 transition-all duration-200 hover:scale-110 hover:text-cyan-600"
             >
               <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">

@@ -84,7 +84,7 @@ export const ContactTerminal = () => {
         addLine('Opening mailto client...', 'info');
 
         setTimeout(() => {
-          window.location.href = `mailto:toan@example.com?subject=${encodeURIComponent(
+          window.location.href = `mailto:${process.env.NEXT_PUBLIC_EMAIL_ADDRESS}?subject=${encodeURIComponent(
             'Contact from ' + finalData.name,
           )}&body=${encodeURIComponent(finalData.message + '\n\n— ' + finalData.name)}`;
         }, 1000);
@@ -113,10 +113,13 @@ export const ContactTerminal = () => {
         break;
       case 'about':
         [
-          ['Nguyen Minh Toan — Full-Stack Developer', 'highlight'],
+          ['Nguyen Minh Toan — Full-Stack Web Developer', 'highlight'],
           ['', 'output'],
-          ['Performance-driven developer with 3+ years', 'output'],
-          ['building scalable web applications.', 'output'],
+          ['Full-Stack Web Developer @ INFINILAB', 'output'],
+          ['Database, Security, and Performance Engineer', 'output'],
+          ['', 'output'],
+          ['ACID compliance • JWT auth • Redis rate limiting', 'output'],
+          ['N+1 query resolution • CSP hardening • TanStack Query', 'output'],
           ['', 'output'],
           ['Philosophy: "Every millisecond matters."', 'info'],
         ].forEach(([t, p]) => addLine(t, p as any));
@@ -125,11 +128,12 @@ export const ContactTerminal = () => {
         [
           ['Technical Skills:', 'highlight'],
           ['', 'output'],
-          ['  Frontend:   React, Next.js, TypeScript, Tailwind', 'output'],
-          ['  Backend:    Laravel, NestJS, Node.js, PHP', 'output'],
-          ['  Database:   MySQL, MongoDB, Redis', 'output'],
-          ['  DevOps:     Docker, Git, CI/CD, Linux', 'output'],
-          ['  Patterns:   Repository, Observer, Factory', 'output'],
+          ['  Languages:    PHP, JavaScript/TypeScript, SQL, Shell', 'output'],
+          ['  Frameworks:   Laravel, React, Next.js, ASP.NET Core', 'output'],
+          ['  Database:     MySQL, Redis (Caching, Pub/Sub)', 'output'],
+          ['  Security:     CSP, JWT, Rate Limiting, SQLi/XSS Mitigation', 'output'],
+          ['  Tools:        Docker, Nginx, Git, Laravel Horizon', 'output'],
+          ['  Libraries:    TanStack Query, React Hook Form, Zod', 'output'],
         ].forEach(([t, p]) => addLine(t, p as any));
         break;
       case 'projects':
@@ -193,26 +197,26 @@ export const ContactTerminal = () => {
     <section
       ref={sectionRef}
       id="contact"
-      className="relative bg-white py-24 md:py-32"
+      className="relative py-24 md:py-32"
     >
-      <div className="dot-grid-light absolute inset-0 opacity-30"></div>
+      <div className="dot-grid-dark absolute inset-0 opacity-20"></div>
       <div className="pointer-events-none absolute bottom-0 left-1/2 h-[300px] w-[500px] -translate-x-1/2 rounded-full bg-cyan-400/5 blur-[100px]"></div>
       <div className="relative mx-auto max-w-3xl px-6">
         <div className="reveal mb-12 text-center">
-          <div className="glass-light mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-xs text-cyan-600 shadow-sm">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-xs text-cyan-400 backdrop-blur-sm">
             <Icon icon="mdi:console" width="14" />
             Contact Terminal
           </div>
-          <h2 className="text-3xl font-bold tracking-tight text-ink-800 md:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
             Let&apos;s <span className="text-gradient-cyan">Connect</span>
           </h2>
-          <p className="mt-4 text-sm text-ink-400">
+          <p className="mt-4 text-sm text-white/60">
             Prefer email?{' '}
             <a
-              href="mailto:toan@example.com"
-              className="font-medium text-cyan-600 transition-colors hover:text-cyan-700"
+              href={`mailto:${process.env.NEXT_PUBLIC_EMAIL_ADDRESS}`}
+              className="font-medium text-cyan-400 transition-colors hover:text-cyan-300"
             >
-              toan@example.com
+              {process.env.NEXT_PUBLIC_EMAIL_ADDRESS}
             </a>
           </p>
         </div>
@@ -303,7 +307,7 @@ export const ContactTerminal = () => {
                 processCommand(cmd);
                 inputRef.current?.focus();
               }}
-              className="cursor-pointer rounded-lg border border-ink-300/15 bg-surface-50 px-3 py-1.5 font-mono text-[11px] text-ink-500 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-300 hover:text-cyan-600 hover:shadow-md"
+              className="cursor-pointer rounded-lg border border-white/10 bg-slate-900/60 px-3 py-1.5 font-mono text-[11px] text-white/70 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-400 hover:text-cyan-400 hover:shadow-md"
             >
               {cmd}
             </button>
@@ -313,10 +317,11 @@ export const ContactTerminal = () => {
               processCommand('sudo send --message');
               inputRef.current?.focus();
             }}
-            className="cursor-pointer rounded-lg border border-cyan-200 bg-cyan-50 px-3 py-1.5 font-mono text-[11px] font-semibold text-cyan-600 transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan-100 hover:shadow-md"
+            className="cursor-pointer rounded-lg border border-cyan-500/30 bg-cyan-500/10 px-3 py-1.5 font-mono text-[11px] font-semibold text-cyan-400 transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan-500/20 hover:shadow-md"
           >
             sudo send --message
           </button>
+
         </div>
       </div>
     </section>

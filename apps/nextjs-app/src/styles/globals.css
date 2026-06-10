@@ -89,6 +89,29 @@
     -webkit-backdrop-filter: blur(30px);
     border: 1px solid rgba(0, 0, 0, 0.08);
   }
+  /* Glass cho hero section trên background tối */
+  .glass-hero {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  /* Dot grid cho dark background */
+  .dot-grid-dark {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Text gradient cho hero trên nền tối */
+  .text-gradient-hero {
+    background: linear-gradient(135deg, #22d3ee 20%, #67e8f9 40%, #fb923c 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% auto;
+    animation: gradient-shift 4s ease infinite;
+  }
 
   .glow-border {
     position: relative;
@@ -276,6 +299,26 @@
     background: #06b6d4;
     animation: node-glow 2s ease infinite;
   }
+
+  /* Expertise card enhanced */
+  .expertise-card {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  }
+  .expertise-card:hover {
+    transform: translateY(-6px);
+  }
+
+  /* Skill card dark (dùng trong TechStack với background tối) */
+  .skill-card-dark {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+  }
+
+  /* Animation gradient-shift */
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 }
 
 ::selection {
@@ -353,4 +396,58 @@
 @keyframes wave {
   0%, 100% { transform: scaleY(1); }
   50% { transform: scaleY(1.8); }
+}
+
+/* ── Hero animation helper classes ── */
+.anim-fade-down {
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeDown 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.anim-fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.anim-blur-in {
+  opacity: 0;
+  filter: blur(8px);
+  animation: blurIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.anim-slide-up {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95);
+  animation: slideUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.anim-fade-in {
+  opacity: 0;
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* Delay utilities cho hero animations */
+.delay-100 { animation-delay: 0.1s; }
+.delay-150 { animation-delay: 0.15s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+.delay-1000 { animation-delay: 1s; }
+.delay-1200 { animation-delay: 1.2s; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Morph blob animation */
+.morph-blob {
+  animation: morph-blob 10s ease-in-out infinite;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+}
+@keyframes morph-blob {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
 }
