@@ -1,15 +1,25 @@
 {
-  "name": "fe-eduschool",
+  "name": "fe-agri",
   "private": true,
   "version": "1.0.0",
-  "description": "A simple, scalable, and powerful architecture for building production ready React applications.",
+  "description": "Agri-web-app",
   "scripts": {
+    "lint": "eslint .",
+    "typecheck": "pnpm -r exec tsc --noEmit",
+    "format:check": "prettier --check .",
+    "check-before-push": "pnpm run typecheck && pnpm --filter nextjs-app run build:cf && pnpm --filter react-vite run build",
     "prepare": "husky",
-    "lint-staged": "lint-staged"
+    "lint-staged": {
+      "*.{js,jsx,ts,tsx}": [
+        "eslint --fix",
+        "prettier --write"
+      ]
+    }
   },
   "devDependencies": {
     "husky": "^9.0.11",
-    "lint-staged": "^15.2.2"
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.8.4"
   },
   "author": "Robert",
   "license": "MIT",

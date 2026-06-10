@@ -1,4 +1,9 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+echo "🔍 Running fast pre-commit checks..."
 
-pnpm lint-staged
+# 1. Kiểm tra format
+pnpm run format:check || { echo "❌ Formatting failed! Run 'pnpm exec prettier --write .' to fix."; exit 1; }
+
+# 2. Chạy lint-staged (quét các file đang sửa)
+pnpm exec lint-staged || { echo "❌ Lint-staged failed!"; exit 1; }
+
+echo "✅ Pre-commit passed!"
