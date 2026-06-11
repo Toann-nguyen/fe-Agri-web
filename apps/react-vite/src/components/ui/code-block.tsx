@@ -10,11 +10,11 @@ export function CodeBlock({ children, filename, className = '' }: CodeBlockProps
   return (
     <div className={`code-block-light px-5 py-4 text-left shadow-xl shadow-black/10 ${className}`}>
       {filename && (
-        <div className="mb-3 flex items-center gap-2 border-b border-white/5 pb-3">
-          <span className="size-2.5 rounded-full bg-red-500/70"></span>
-          <span className="size-2.5 rounded-full bg-yellow-500/70"></span>
-          <span className="size-2.5 rounded-full bg-green-500/70"></span>
-          <span className="ml-2 font-mono text-[10px] text-gray-600">{filename}</span>
+        <div className='mb-3 flex items-center gap-2 border-b border-white/5 pb-3'>
+          <span className='size-2.5 rounded-full bg-red-500/70'></span>
+          <span className='size-2.5 rounded-full bg-yellow-500/70'></span>
+          <span className='size-2.5 rounded-full bg-green-500/70'></span>
+          <span className='ml-2 font-mono text-[10px] text-gray-600'>{filename}</span>
         </div>
       )}
       <div>{children}</div>

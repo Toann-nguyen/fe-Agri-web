@@ -13,7 +13,7 @@ import {
 
 const LandingRoute = () => {
   return (
-    <div className="overflow-x-hidden bg-surface-50 font-sans text-ink-600 antialiased">
+    <div className='overflow-x-hidden bg-surface-50 font-sans text-ink-600 antialiased'>
       <Navbar />
       <main>
         <HeroSection />

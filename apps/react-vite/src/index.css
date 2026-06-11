@@ -79,8 +79,9 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -137,7 +138,9 @@ code {
   border-radius: inherit;
   padding: 1px;
   background: linear-gradient(135deg, transparent 30%, #06b6d4 50%, transparent 70%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   opacity: 0;
@@ -150,7 +153,9 @@ code {
 
 .glow-border:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(6, 182, 212, 0.1), 0 8px 16px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 20px 40px rgba(6, 182, 212, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.04);
 }
 
 .ember-glow::before {
@@ -158,7 +163,9 @@ code {
 }
 
 .ember-glow:hover {
-  box-shadow: 0 20px 40px rgba(249, 115, 22, 0.1), 0 8px 16px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 20px 40px rgba(249, 115, 22, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.04);
 }
 
 .text-gradient-cyan {
@@ -452,43 +459,89 @@ code {
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes blurIn {
-  from { opacity: 0; filter: blur(10px); transform: translateY(20px); }
-  to { opacity: 1; filter: blur(0); transform: translateY(0); }
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(60px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.8); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes node-glow {
-  0%, 100% { boxShadow: 0 0 0 0 rgba(6, 182, 212, 0.4); }
-  50% { boxShadow: 0 0 0 8px rgba(6, 182, 212, 0); }
+  0%,
+  100% {
+    boxshadow: 0 0 0 0 rgba(6, 182, 212, 0.4);
+  }
+  50% {
+    boxshadow: 0 0 0 8px rgba(6, 182, 212, 0);
+  }
 }
 
 @keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 @keyframes gradient-shift {
-  0%, 100% { background-position: 0% center; }
-  50% { background-position: 100% center; }
+  0%,
+  100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
 }
 
 @media (max-width: 768px) {

@@ -27,9 +27,9 @@ type SideNavigationItem = {
 
 const Logo = () => {
   return (
-    <Link className="flex items-center text-white" to={paths.home.getHref()}>
-      <img className="h-8 w-auto" src={logo} alt="Workflow" />
-      <span className="text-sm font-semibold text-white">Bulletproof React</span>
+    <Link className='flex items-center text-white' to={paths.home.getHref()}>
+      <img className='h-8 w-auto' src={logo} alt='Workflow' />
+      <span className='text-sm font-semibold text-white'>Bulletproof React</span>
     </Link>
   );
 };
@@ -68,7 +68,7 @@ const Progress = () => {
 
   return (
     <div
-      className="fixed left-0 top-0 h-1 bg-blue-500 transition-all duration-200 ease-in-out"
+      className='fixed left-0 top-0 h-1 bg-blue-500 transition-all duration-200 ease-in-out'
       style={{ width: `${progress}%` }}
     ></div>
   );
@@ -91,10 +91,10 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   ].filter(Boolean) as SideNavigationItem[];
 
   return (
-    <div className="flex min-h-screen w-full flex-col bg-muted/40">
-      <aside className="fixed inset-y-0 left-0 z-10 hidden w-60 flex-col border-r bg-black sm:flex">
-        <nav className="flex flex-col items-center gap-4 px-2 py-4">
-          <div className="flex h-16 shrink-0 items-center px-4">
+    <div className='flex min-h-screen w-full flex-col bg-muted/40'>
+      <aside className='fixed inset-y-0 left-0 z-10 hidden w-60 flex-col border-r bg-black sm:flex'>
+        <nav className='flex flex-col items-center gap-4 px-2 py-4'>
+          <div className='flex h-16 shrink-0 items-center px-4'>
             <Logo />
           </div>
           {navigation.map((item) => (
@@ -112,26 +112,26 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
             >
               <item.icon
                 className={cn('text-gray-400 group-hover:text-gray-300', 'mr-4 size-6 shrink-0')}
-                aria-hidden="true"
+                aria-hidden='true'
               />
               {item.name}
             </NavLink>
           ))}
         </nav>
       </aside>
-      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-60">
-        <header className="sticky top-0 z-30 flex h-14 items-center justify-between gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:justify-end sm:border-0 sm:bg-transparent sm:px-6">
+      <div className='flex flex-col sm:gap-4 sm:py-4 sm:pl-60'>
+        <header className='sticky top-0 z-30 flex h-14 items-center justify-between gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:justify-end sm:border-0 sm:bg-transparent sm:px-6'>
           <Progress />
           <Drawer>
             <DrawerTrigger asChild>
-              <Button size="icon" variant="outline" className="sm:hidden">
-                <PanelLeft className="size-5" />
-                <span className="sr-only">Toggle Menu</span>
+              <Button size='icon' variant='outline' className='sm:hidden'>
+                <PanelLeft className='size-5' />
+                <span className='sr-only'>Toggle Menu</span>
               </Button>
             </DrawerTrigger>
-            <DrawerContent side="left" className="bg-black pt-10 text-white sm:max-w-60">
-              <nav className="grid gap-6 text-lg font-medium">
-                <div className="flex h-16 shrink-0 items-center px-4">
+            <DrawerContent side='left' className='bg-black pt-10 text-white sm:max-w-60'>
+              <nav className='grid gap-6 text-lg font-medium'>
+                <div className='flex h-16 shrink-0 items-center px-4'>
                   <Logo />
                 </div>
                 {navigation.map((item) => (
@@ -148,11 +148,8 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                     }
                   >
                     <item.icon
-                      className={cn(
-                        'text-gray-400 group-hover:text-gray-300',
-                        'mr-4 size-6 shrink-0',
-                      )}
-                      aria-hidden="true"
+                      className={cn('text-gray-400 group-hover:text-gray-300', 'mr-4 size-6 shrink-0')}
+                      aria-hidden='true'
                     />
                     {item.name}
                   </NavLink>
@@ -162,12 +159,12 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
           </Drawer>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon" className="overflow-hidden rounded-full">
-                <span className="sr-only">Open user menu</span>
-                <User2 className="size-6 rounded-full" />
+              <Button variant='outline' size='icon' className='overflow-hidden rounded-full'>
+                <span className='sr-only'>Open user menu</span>
+                <User2 className='size-6 rounded-full' />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align='end'>
               <DropdownMenuItem
                 onClick={() => navigate(paths.app.profile.getHref())}
                 className={cn('block px-4 py-2 text-sm text-gray-700')}
@@ -184,9 +181,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
-        <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-          {children}
-        </main>
+        <main className='grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8'>{children}</main>
       </div>
     </div>
   );

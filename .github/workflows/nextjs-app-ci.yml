@@ -1,15 +1,15 @@
 name: Next.js App CI
 on:
   push:
-    branches: ["*"]
+    branches: ['*']
     paths-ignore:
-      - "README.md"
-      - "docs/**"
+      - 'README.md'
+      - 'docs/**'
   pull_request:
     branches: [main]
     paths-ignore:
-      - "README.md"
-      - "docs/**"
+      - 'README.md'
+      - 'docs/**'
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true

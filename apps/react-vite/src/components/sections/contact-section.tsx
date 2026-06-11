@@ -219,95 +219,101 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative bg-white py-24 md:py-32">
-      <div className="dot-grid-light absolute inset-0 opacity-30"></div>
-      <div className="pointer-events-none absolute bottom-0 left-1/2 h-[300px] w-[500px] -translate-x-1/2 rounded-full bg-cyan-400/5 blur-[100px]"></div>
-      <div className="relative mx-auto max-w-3xl px-6">
-        <div className="reveal active mb-12 text-center">
-          <div className="glass-light mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-xs text-cyan-600 shadow-sm">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
-              <path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z" />
+    <section id='contact' className='relative bg-white py-24 md:py-32'>
+      <div className='dot-grid-light absolute inset-0 opacity-30'></div>
+      <div className='pointer-events-none absolute bottom-0 left-1/2 h-[300px] w-[500px] -translate-x-1/2 rounded-full bg-cyan-400/5 blur-[100px]'></div>
+      <div className='relative mx-auto max-w-3xl px-6'>
+        <div className='reveal active mb-12 text-center'>
+          <div className='glass-light mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-xs text-cyan-600 shadow-sm'>
+            <svg viewBox='0 0 24 24' fill='currentColor' width='14' height='14'>
+              <path d='M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z' />
             </svg>
             Contact Terminal
           </div>
-          <h2 className="text-ink-800 text-3xl font-bold tracking-tight md:text-4xl">
-            Let&apos;s <span className="text-gradient-cyan">Connect</span>
+          <h2 className='text-3xl font-bold tracking-tight text-ink-800 md:text-4xl'>
+            Let&apos;s <span className='text-gradient-cyan'>Connect</span>
           </h2>
-          <p className="text-ink-400 mt-4 text-sm">
+          <p className='mt-4 text-sm text-ink-400'>
             Prefer email?{' '}
             <a
               href={`mailto:${import.meta.env.VITE_EMAIL_ADDRESS}`}
-              className="font-medium text-cyan-600 transition-colors hover:text-cyan-700"
+              className='font-medium text-cyan-600 transition-colors hover:text-cyan-700'
             >
               {import.meta.env.VITE_EMAIL_ADDRESS}
             </a>
           </p>
         </div>
 
-        <Reveal direction="scale">
-          <div className="overflow-hidden rounded-2xl shadow-2xl shadow-black/10">
-            <div className="bg-ink-900 flex items-center gap-2 border-b border-white/5 px-5 py-3.5">
-              <span className="size-3 cursor-pointer rounded-full bg-red-500/80 transition-colors hover:bg-red-400"></span>
-              <span className="size-3 cursor-pointer rounded-full bg-yellow-500/80 transition-colors hover:bg-yellow-400"></span>
-              <span className="size-3 cursor-pointer rounded-full bg-green-500/80 transition-colors hover:bg-green-400"></span>
-              <span className="ml-3 font-mono text-xs text-gray-500">contact@toan-dev:~</span>
-              <div className="ml-auto flex items-center gap-1">
-                <span className="size-1.5 animate-pulse rounded-full bg-emerald-400"></span>
-                <span className="font-mono text-[9px] text-emerald-400/60">connected</span>
+        <Reveal direction='scale'>
+          <div className='overflow-hidden rounded-2xl shadow-2xl shadow-black/10'>
+            <div className='flex items-center gap-2 border-b border-white/5 bg-ink-900 px-5 py-3.5'>
+              <span className='size-3 cursor-pointer rounded-full bg-red-500/80 transition-colors hover:bg-red-400'></span>
+              <span className='size-3 cursor-pointer rounded-full bg-yellow-500/80 transition-colors hover:bg-yellow-400'></span>
+              <span className='size-3 cursor-pointer rounded-full bg-green-500/80 transition-colors hover:bg-green-400'></span>
+              <span className='ml-3 font-mono text-xs text-gray-500'>contact@toan-dev:~</span>
+              <div className='ml-auto flex items-center gap-1'>
+                <span className='size-1.5 animate-pulse rounded-full bg-emerald-400'></span>
+                <span className='font-mono text-[9px] text-emerald-400/60'>connected</span>
               </div>
             </div>
             <div
               ref={terminalBodyRef}
-              className="bg-ink-900 max-h-[400px] min-h-[280px] overflow-y-auto p-5 font-mono text-sm"
+              className='max-h-[400px] min-h-[280px] overflow-y-auto bg-ink-900 p-5 font-mono text-sm'
             >
               {lines.map((line, index) => (
                 <div key={index} className={`mb-1 ${getTypeColor(line.type)}`}>
                   {line.text}
                 </div>
               ))}
-              <div className="flex items-center gap-2">
-                <span className="shrink-0 text-cyan-400">~</span>
-                <span className="shrink-0 text-gray-500">$</span>
+              <div className='flex items-center gap-2'>
+                <span className='shrink-0 text-cyan-400'>~</span>
+                <span className='shrink-0 text-gray-500'>$</span>
                 <input
                   ref={inputRef}
-                  type="text"
+                  type='text'
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  className="terminal-input"
+                  className='terminal-input'
                   placeholder={
-                    sendState === 'name' ? 'Your name' : sendState === 'email' ? 'email@example.com' : sendState === 'message' ? 'Type your message...' : 'Type a command...'
+                    sendState === 'name'
+                      ? 'Your name'
+                      : sendState === 'email'
+                        ? 'email@example.com'
+                        : sendState === 'message'
+                          ? 'Type your message...'
+                          : 'Type a command...'
                   }
-                  autoComplete="off"
-                  spellCheck="false"
+                  autoComplete='off'
+                  spellCheck='false'
                 />
               </div>
             </div>
           </div>
         </Reveal>
 
-        <div className="reveal active mt-6 flex flex-wrap justify-center gap-2">
+        <div className='reveal active mt-6 flex flex-wrap justify-center gap-2'>
           <button
             onClick={() => executeQuickCommand('help')}
-            className="border-ink-300/15 bg-surface-50 text-ink-500 cursor-pointer rounded-lg border px-3 py-1.5 font-mono text-[11px] transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-300 hover:text-cyan-600 hover:shadow-md"
+            className='cursor-pointer rounded-lg border border-ink-300/15 bg-surface-50 px-3 py-1.5 font-mono text-[11px] text-ink-500 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-300 hover:text-cyan-600 hover:shadow-md'
           >
             help
           </button>
           <button
             onClick={() => executeQuickCommand('about')}
-            className="border-ink-300/15 bg-surface-50 text-ink-500 cursor-pointer rounded-lg border px-3 py-1.5 font-mono text-[11px] transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-300 hover:text-cyan-600 hover:shadow-md"
+            className='cursor-pointer rounded-lg border border-ink-300/15 bg-surface-50 px-3 py-1.5 font-mono text-[11px] text-ink-500 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-300 hover:text-cyan-600 hover:shadow-md'
           >
             about
           </button>
           <button
             onClick={() => executeQuickCommand('skills')}
-            className="border-ink-300/15 bg-surface-50 text-ink-500 cursor-pointer rounded-lg border px-3 py-1.5 font-mono text-[11px] transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-300 hover:text-cyan-600 hover:shadow-md"
+            className='cursor-pointer rounded-lg border border-ink-300/15 bg-surface-50 px-3 py-1.5 font-mono text-[11px] text-ink-500 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-300 hover:text-cyan-600 hover:shadow-md'
           >
             skills
           </button>
           <button
             onClick={() => executeQuickCommand('sudo send --message')}
-            className="cursor-pointer rounded-lg border border-cyan-200 bg-cyan-50 px-3 py-1.5 font-mono text-[11px] font-semibold text-cyan-600 transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan-100 hover:shadow-md"
+            className='cursor-pointer rounded-lg border border-cyan-200 bg-cyan-50 px-3 py-1.5 font-mono text-[11px] font-semibold text-cyan-600 transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan-100 hover:shadow-md'
           >
             sudo send --message
           </button>

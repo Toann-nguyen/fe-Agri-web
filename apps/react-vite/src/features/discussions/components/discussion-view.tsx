@@ -12,8 +12,8 @@ export const DiscussionView = ({ discussionId }: { discussionId: string }) => {
 
   if (discussionQuery.isLoading) {
     return (
-      <div className="flex h-48 w-full items-center justify-center">
-        <Spinner size="lg" />
+      <div className='flex h-48 w-full items-center justify-center'>
+        <Spinner size='lg' />
       </div>
     );
   }
@@ -24,20 +24,20 @@ export const DiscussionView = ({ discussionId }: { discussionId: string }) => {
 
   return (
     <div>
-      <span className="text-xs font-bold">{formatDate(discussion.createdAt)}</span>
+      <span className='text-xs font-bold'>{formatDate(discussion.createdAt)}</span>
       {discussion.author && (
-        <span className="ml-2 text-sm font-bold">
+        <span className='ml-2 text-sm font-bold'>
           by {discussion.author.firstName} {discussion.author.lastName}
         </span>
       )}
-      <div className="mt-6 flex flex-col space-y-16">
-        <div className="flex justify-end">
+      <div className='mt-6 flex flex-col space-y-16'>
+        <div className='flex justify-end'>
           <UpdateDiscussion discussionId={discussionId} />
         </div>
         <div>
-          <div className="overflow-hidden bg-white shadow sm:rounded-lg">
-            <div className="px-4 py-5 sm:px-6">
-              <div className="mt-1 max-w-2xl text-sm text-gray-500">
+          <div className='overflow-hidden bg-white shadow sm:rounded-lg'>
+            <div className='px-4 py-5 sm:px-6'>
+              <div className='mt-1 max-w-2xl text-sm text-gray-500'>
                 <MDPreview value={discussion.body} />
               </div>
             </div>

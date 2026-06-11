@@ -22,11 +22,11 @@ export const clientLoader =
 const DiscussionsRoute = () => {
   const queryClient = useQueryClient();
   return (
-    <ContentLayout title="Discussions">
-      <div className="flex justify-end">
+    <ContentLayout title='Discussions'>
+      <div className='flex justify-end'>
         <CreateDiscussion />
       </div>
-      <div className="mt-4">
+      <div className='mt-4'>
         <DiscussionsList
           onDiscussionPrefetch={(id) => {
             // Prefetch the comments data when the user hovers over the link in the list

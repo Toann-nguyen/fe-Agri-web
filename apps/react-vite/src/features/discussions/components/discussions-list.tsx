@@ -26,8 +26,8 @@ export const DiscussionsList = ({ onDiscussionPrefetch }: DiscussionsListProps) 
 
   if (discussionsQuery.isLoading) {
     return (
-      <div className="flex h-48 w-full items-center justify-center">
-        <Spinner size="lg" />
+      <div className='flex h-48 w-full items-center justify-center'>
+        <Spinner size='lg' />
       </div>
     );
   }

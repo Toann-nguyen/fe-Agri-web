@@ -13,12 +13,10 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_API_URL:
       process.env.NEXT_PUBLIC_API_URL ?? 'https://api.toanrobert.online/api',
-    NEXT_PUBLIC_URL:
-      process.env.NEXT_PUBLIC_URL ?? 'https://toanrobert.online',
+    NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL ?? 'https://toanrobert.online',
     NEXT_PUBLIC_ENABLE_API_MOCKING:
       process.env.NEXT_PUBLIC_ENABLE_API_MOCKING ?? 'false',
-    NEXT_PUBLIC_MOCK_API_PORT:
-      process.env.NEXT_PUBLIC_MOCK_API_PORT ?? '8080',
+    NEXT_PUBLIC_MOCK_API_PORT: process.env.NEXT_PUBLIC_MOCK_API_PORT ?? '8080',
     NEXT_PUBLIC_EMAIL_ADDRESS:
       process.env.NEXT_PUBLIC_EMAIL_ADDRESS ?? 'nguyenminhtoan2712py@gmail.com',
   },

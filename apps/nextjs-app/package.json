@@ -14,6 +14,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "run-mock-server": "tsx ./mock-server.ts",
+    "test-e2e": "pm2 start \"pnpm run-mock-server\" --name server && pnpm playwright test",
     "build:cf": "pnpm dlx @cloudflare/next-on-pages",
     "build:cf:clean": "rm -rf .next .vercel/output && pnpm build:cf",
     "deploy:cf": "wrangler pages deploy .vercel/output/static --project-name=fe-agri-nextjs-app"

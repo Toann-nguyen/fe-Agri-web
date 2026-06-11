@@ -3,15 +3,7 @@ import * as React from 'react';
 import { useDisclosure } from '@/hooks/use-disclosure';
 
 import { Button } from '../button';
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTrigger,
-  DrawerTitle,
-} from '../drawer';
+import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTrigger, DrawerTitle } from '../drawer';
 
 type FormDrawerProps = {
   isDone: boolean;
@@ -21,13 +13,7 @@ type FormDrawerProps = {
   children: React.ReactNode;
 };
 
-export const FormDrawer = ({
-  title,
-  children,
-  isDone,
-  triggerButton,
-  submitButton,
-}: FormDrawerProps) => {
+export const FormDrawer = ({ title, children, isDone, triggerButton, submitButton }: FormDrawerProps) => {
   const { close, open, isOpen } = useDisclosure();
 
   React.useEffect(() => {
@@ -48,8 +34,8 @@ export const FormDrawer = ({
       }}
     >
       <DrawerTrigger asChild>{triggerButton}</DrawerTrigger>
-      <DrawerContent className="flex max-w-[800px] flex-col justify-between sm:max-w-[540px]">
-        <div className="flex flex-col">
+      <DrawerContent className='flex max-w-[800px] flex-col justify-between sm:max-w-[540px]'>
+        <div className='flex flex-col'>
           <DrawerHeader>
             <DrawerTitle>{title}</DrawerTitle>
           </DrawerHeader>
@@ -57,7 +43,7 @@ export const FormDrawer = ({
         </div>
         <DrawerFooter>
           <DrawerClose asChild>
-            <Button variant="outline" type="submit">
+            <Button variant='outline' type='submit'>
               Close
             </Button>
           </DrawerClose>

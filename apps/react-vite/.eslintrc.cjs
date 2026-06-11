@@ -5,11 +5,7 @@ module.exports = {
     es6: true,
   },
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  ignorePatterns: [
-    'node_modules/*',
-    'public/mockServiceWorker.js',
-    'generators/*',
-  ],
+  ignorePatterns: ['node_modules/*', 'public/mockServiceWorker.js', 'generators/*'],
   extends: ['eslint:recommended'],
   plugins: ['check-file'],
   overrides: [
@@ -84,13 +80,7 @@ module.exports = {
 
               // e.g src/features and src/app can import from these shared modules but not the other way around
               {
-                target: [
-                  './src/components',
-                  './src/hooks',
-                  './src/lib',
-                  './src/types',
-                  './src/utils',
-                ],
+                target: ['./src/components', './src/hooks', './src/lib', './src/types', './src/utils'],
                 from: ['./src/features', './src/app'],
               },
             ],
@@ -102,15 +92,7 @@ module.exports = {
         'import/order': [
           'error',
           {
-            groups: [
-              'builtin',
-              'external',
-              'internal',
-              'parent',
-              'sibling',
-              'index',
-              'object',
-            ],
+            groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object'],
             'newlines-between': 'always',
             alphabetize: { order: 'asc', caseInsensitive: true },
           },

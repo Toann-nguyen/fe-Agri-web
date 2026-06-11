@@ -28,17 +28,17 @@ export const CreateComment = ({ discussionId }: CreateCommentProps) => {
     <FormDrawer
       isDone={createCommentMutation.isSuccess}
       triggerButton={
-        <Button size="sm" icon={<Plus className="size-4" />}>
+        <Button size='sm' icon={<Plus className='size-4' />}>
           Create Comment
         </Button>
       }
-      title="Create Comment"
+      title='Create Comment'
       submitButton={
         <Button
           isLoading={createCommentMutation.isPending}
-          form="create-comment"
-          type="submit"
-          size="sm"
+          form='create-comment'
+          type='submit'
+          size='sm'
           disabled={createCommentMutation.isPending}
         >
           Submit
@@ -46,7 +46,7 @@ export const CreateComment = ({ discussionId }: CreateCommentProps) => {
       }
     >
       <Form
-        id="create-comment"
+        id='create-comment'
         onSubmit={(values) => {
           createCommentMutation.mutate({
             data: values,
@@ -61,7 +61,7 @@ export const CreateComment = ({ discussionId }: CreateCommentProps) => {
         }}
       >
         {({ register, formState }) => (
-          <Textarea label="Body" error={formState.errors['body']} registration={register('body')} />
+          <Textarea label='Body' error={formState.errors['body']} registration={register('body')} />
         )}
       </Form>
     </FormDrawer>

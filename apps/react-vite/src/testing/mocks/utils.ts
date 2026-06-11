@@ -5,17 +5,13 @@ import { db } from './db';
 
 export const encode = (obj: any) => {
   const btoa =
-    typeof window === 'undefined'
-      ? (str: string) => Buffer.from(str, 'binary').toString('base64')
-      : window.btoa;
+    typeof window === 'undefined' ? (str: string) => Buffer.from(str, 'binary').toString('base64') : window.btoa;
   return btoa(JSON.stringify(obj));
 };
 
 export const decode = (str: string) => {
   const atob =
-    typeof window === 'undefined'
-      ? (str: string) => Buffer.from(str, 'base64').toString('binary')
-      : window.atob;
+    typeof window === 'undefined' ? (str: string) => Buffer.from(str, 'base64').toString('binary') : window.atob;
   return JSON.parse(atob(str));
 };
 

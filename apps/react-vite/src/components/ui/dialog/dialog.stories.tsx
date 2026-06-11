@@ -30,18 +30,18 @@ const DemoDialog = () => {
       }}
     >
       <DialogTrigger asChild>
-        <Button variant="outline">Open Dialog</Button>
+        <Button variant='outline'>Open Dialog</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
           <DialogTitle>Edit profile</DialogTitle>
           <DialogDescription>Lorem ipsum</DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">Lorem ipsum</div>
+        <div className='grid gap-4 py-4'>Lorem ipsum</div>
 
         <DialogFooter>
-          <Button type="submit">Save changes</Button>
-          <Button ref={cancelButtonRef} variant="outline" onClick={close}>
+          <Button type='submit'>Save changes</Button>
+          <Button ref={cancelButtonRef} variant='outline' onClick={close}>
             Cancel
           </Button>
         </DialogFooter>

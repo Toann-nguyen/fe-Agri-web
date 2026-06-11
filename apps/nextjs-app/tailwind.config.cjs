@@ -139,7 +139,11 @@ module.exports = {
           to: { opacity: '1', transform: 'translateY(0)' },
         },
         blurIn: {
-          from: { opacity: '0', filter: 'blur(10px)', transform: 'translateY(20px)' },
+          from: {
+            opacity: '0',
+            filter: 'blur(10px)',
+            transform: 'translateY(20px)',
+          },
           to: { opacity: '1', filter: 'blur(0)', transform: 'translateY(0)' },
         },
         slideUp: {

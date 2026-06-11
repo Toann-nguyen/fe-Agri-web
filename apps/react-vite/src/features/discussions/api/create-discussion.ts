@@ -14,11 +14,7 @@ export const createDiscussionInputSchema = z.object({
 
 export type CreateDiscussionInput = z.infer<typeof createDiscussionInputSchema>;
 
-export const createDiscussion = ({
-  data,
-}: {
-  data: CreateDiscussionInput;
-}): Promise<Discussion> => {
+export const createDiscussion = ({ data }: { data: CreateDiscussionInput }): Promise<Discussion> => {
   return api.post(`/discussions`, data);
 };
 

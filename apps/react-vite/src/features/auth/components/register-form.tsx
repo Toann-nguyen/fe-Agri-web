@@ -14,12 +14,7 @@ type RegisterFormProps = {
   teams?: Team[];
 };
 
-export const RegisterForm = ({
-  onSuccess,
-  chooseTeam,
-  setChooseTeam,
-  teams,
-}: RegisterFormProps) => {
+export const RegisterForm = ({ onSuccess, chooseTeam, setChooseTeam, teams }: RegisterFormProps) => {
   const registering = useRegister({ onSuccess });
   const [searchParams] = useSearchParams();
   const redirectTo = searchParams.get('redirectTo');
@@ -38,45 +33,45 @@ export const RegisterForm = ({
         {({ register, formState }) => (
           <>
             <Input
-              type="text"
-              label="First Name"
+              type='text'
+              label='First Name'
               error={formState.errors['firstName']}
               registration={register('firstName')}
             />
             <Input
-              type="text"
-              label="Last Name"
+              type='text'
+              label='Last Name'
               error={formState.errors['lastName']}
               registration={register('lastName')}
             />
             <Input
-              type="email"
-              label="Email Address"
+              type='email'
+              label='Email Address'
               error={formState.errors['email']}
               registration={register('email')}
             />
             <Input
-              type="password"
-              label="Password"
+              type='password'
+              label='Password'
               error={formState.errors['password']}
               registration={register('password')}
             />
 
-            <div className="flex items-center space-x-2">
+            <div className='flex items-center space-x-2'>
               <Switch
                 checked={chooseTeam}
                 onCheckedChange={setChooseTeam}
                 className={`${
                   chooseTeam ? 'bg-blue-600' : 'bg-gray-200'
                 } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2`}
-                id="choose-team"
+                id='choose-team'
               />
-              <Label htmlFor="airplane-mode">Join Existing Team</Label>
+              <Label htmlFor='airplane-mode'>Join Existing Team</Label>
             </div>
 
             {chooseTeam && teams ? (
               <Select
-                label="Team"
+                label='Team'
                 error={formState.errors['teamId']}
                 registration={register('teamId')}
                 options={teams?.map((team) => ({
@@ -86,26 +81,23 @@ export const RegisterForm = ({
               />
             ) : (
               <Input
-                type="text"
-                label="Team Name"
+                type='text'
+                label='Team Name'
                 error={formState.errors['teamName']}
                 registration={register('teamName')}
               />
             )}
             <div>
-              <Button isLoading={registering.isPending} type="submit" className="w-full">
+              <Button isLoading={registering.isPending} type='submit' className='w-full'>
                 Register
               </Button>
             </div>
           </>
         )}
       </Form>
-      <div className="mt-2 flex items-center justify-end">
-        <div className="text-sm">
-          <Link
-            to={paths.auth.login.getHref(redirectTo)}
-            className="font-medium text-blue-600 hover:text-blue-500"
-          >
+      <div className='mt-2 flex items-center justify-end'>
+        <div className='text-sm'>
+          <Link to={paths.auth.login.getHref(redirectTo)} className='font-medium text-blue-600 hover:text-blue-500'>
             Log In
           </Link>
         </div>

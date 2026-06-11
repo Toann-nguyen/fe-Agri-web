@@ -4,8 +4,8 @@ on:
   push:
     branches: [main]
     paths:
-      - "apps/react-vite/**"
-      - ".github/workflows/react-vite-cd.yml"
+      - 'apps/react-vite/**'
+      - '.github/workflows/react-vite-cd.yml'
 
 jobs:
   deploy:
@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "24"
+          node-version: '24'
 
       - name: Setup pnpm
         run: corepack enable

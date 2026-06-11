@@ -20,18 +20,18 @@ const MyForm = ({ hideSubmit = false }: { hideSubmit?: boolean }) => {
         description: z.string().min(1, 'Required'),
         type: z.string().min(1, 'Required'),
       })}
-      id="my-form"
+      id='my-form'
     >
       {({ register, formState }) => (
         <>
-          <Input label="Title" error={formState.errors['title']} registration={register('title')} />
+          <Input label='Title' error={formState.errors['title']} registration={register('title')} />
           <Textarea
-            label="Description"
+            label='Description'
             error={formState.errors['description']}
             registration={register('description')}
           />
           <Select
-            label="Type"
+            label='Type'
             error={formState.errors['type']}
             registration={register('type')}
             options={['A', 'B', 'C'].map((type) => ({
@@ -42,7 +42,7 @@ const MyForm = ({ hideSubmit = false }: { hideSubmit?: boolean }) => {
 
           {!hideSubmit && (
             <div>
-              <Button type="submit" className="w-full">
+              <Button type='submit' className='w-full'>
                 Submit
               </Button>
             </div>
@@ -70,9 +70,9 @@ export const AsFormDrawer: Story = {
     <FormDrawer
       triggerButton={<Button>Open Form</Button>}
       isDone={true}
-      title="My Form"
+      title='My Form'
       submitButton={
-        <Button form="my-form" type="submit">
+        <Button form='my-form' type='submit'>
           Submit
         </Button>
       }

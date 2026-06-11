@@ -5,14 +5,7 @@ import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useDisclosure } from '@/hooks/use-disclosure';
 
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '../dialog';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '../dialog';
 
 export type ConfirmationDialogProps = {
   triggerButton: React.ReactElement;
@@ -54,21 +47,19 @@ export const ConfirmationDialog = ({
       }}
     >
       <DialogTrigger asChild>{triggerButton}</DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader className="flex">
-          <DialogTitle className="flex items-center gap-2">
+      <DialogContent className='sm:max-w-[425px]'>
+        <DialogHeader className='flex'>
+          <DialogTitle className='flex items-center gap-2'>
             {' '}
-            {icon === 'danger' && (
-              <CircleAlert className="size-6 text-red-600" aria-hidden="true" />
-            )}
-            {icon === 'info' && <Info className="size-6 text-blue-600" aria-hidden="true" />}
+            {icon === 'danger' && <CircleAlert className='size-6 text-red-600' aria-hidden='true' />}
+            {icon === 'info' && <Info className='size-6 text-blue-600' aria-hidden='true' />}
             {title}
           </DialogTitle>
         </DialogHeader>
 
-        <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+        <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left'>
           {body && (
-            <div className="mt-2">
+            <div className='mt-2'>
               <p>{body}</p>
             </div>
           )}
@@ -76,7 +67,7 @@ export const ConfirmationDialog = ({
 
         <DialogFooter>
           {confirmButton}
-          <Button ref={cancelButtonRef} variant="outline" onClick={close}>
+          <Button ref={cancelButtonRef} variant='outline' onClick={close}>
             {cancelButtonText}
           </Button>
         </DialogFooter>

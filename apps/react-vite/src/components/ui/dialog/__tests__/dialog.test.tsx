@@ -4,14 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useDisclosure } from '@/hooks/use-disclosure';
 import { rtlRender, screen, userEvent, waitFor } from '@/testing/test-utils';
 
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '../dialog';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '../dialog';
 
 const openButtonText = 'Open Modal';
 const cancelButtonText = 'Cancel';
@@ -33,16 +26,16 @@ const TestDialog = () => {
       }}
     >
       <DialogTrigger asChild>
-        <Button variant="outline">{openButtonText}</Button>
+        <Button variant='outline'>{openButtonText}</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
           <DialogTitle>{titleText}</DialogTitle>
         </DialogHeader>
 
         <DialogFooter>
-          <Button type="submit">Submit</Button>
-          <Button ref={cancelButtonRef} variant="outline" onClick={close}>
+          <Button type='submit'>Submit</Button>
+          <Button ref={cancelButtonRef} variant='outline' onClick={close}>
             {cancelButtonText}
           </Button>
         </DialogFooter>

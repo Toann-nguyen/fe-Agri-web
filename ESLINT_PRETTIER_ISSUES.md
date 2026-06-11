@@ -25,6 +25,7 @@ Hoặc tạo file `.lintstagedrc` ở root:
 ## 2. Inconsistent printWidth giữa các apps
 
 **Vấn đề:**
+
 - `nextjs-app/.prettierrc` → `printWidth: 80`
 - `nextjs-pages/.prettierrc` → `printWidth: 80`
 - `react-vite/.prettierrc` → `printWidth: 120`
@@ -47,6 +48,7 @@ Hoặc tạo file `.lintstagedrc` ở root:
 ## 3. Inconsistent prettier/prettier rule
 
 **Vấn đề:**
+
 - `nextjs-app/.eslintrc.cjs` → `['error', {}, { usePrettierrc: true }]`
 - `nextjs-pages/.eslintrc.cjs` → `['error', {}, { usePrettierrc: true }]`
 - `react-vite/.eslintrc.cjs` → `['warn', {}, { usePrettierrc: true }]`
@@ -107,13 +109,13 @@ Sau đó xóa `.prettierrc` ở các app, hoặc giữ nếu cần override riê
 
 ## Tóm tắt các files cần sửa
 
-| File | Issue | Action |
-|------|-------|--------|
-| `package.json` (root) | Thiếu lint-staged config | Thêm config |
-| `apps/react-vite/.prettierrc` | printWidth: 120 | Đổi thành 80 |
-| `apps/react-vite/.eslintrc.cjs` | prettier rule = warn | Đổi thành error, bỏ usePrettierrc |
-| `apps/nextjs-app/.eslintrc.cjs` | usePrettierrc deprecated | Bỏ option deprecated |
-| `apps/nextjs-pages/.eslintrc.cjs` | usePrettierrc deprecated | Bỏ option deprecated |
+| File                              | Issue                    | Action                            |
+| --------------------------------- | ------------------------ | --------------------------------- |
+| `package.json` (root)             | Thiếu lint-staged config | Thêm config                       |
+| `apps/react-vite/.prettierrc`     | printWidth: 120          | Đổi thành 80                      |
+| `apps/react-vite/.eslintrc.cjs`   | prettier rule = warn     | Đổi thành error, bỏ usePrettierrc |
+| `apps/nextjs-app/.eslintrc.cjs`   | usePrettierrc deprecated | Bỏ option deprecated              |
+| `apps/nextjs-pages/.eslintrc.cjs` | usePrettierrc deprecated | Bỏ option deprecated              |
 
 ---
 

@@ -25,24 +25,19 @@ export const UpdateProfile = () => {
     <FormDrawer
       isDone={updateProfileMutation.isSuccess}
       triggerButton={
-        <Button icon={<Pen className="size-4" />} size="sm">
+        <Button icon={<Pen className='size-4' />} size='sm'>
           Update Profile
         </Button>
       }
-      title="Update Profile"
+      title='Update Profile'
       submitButton={
-        <Button
-          form="update-profile"
-          type="submit"
-          size="sm"
-          isLoading={updateProfileMutation.isPending}
-        >
+        <Button form='update-profile' type='submit' size='sm' isLoading={updateProfileMutation.isPending}>
           Submit
         </Button>
       }
     >
       <Form
-        id="update-profile"
+        id='update-profile'
         onSubmit={(values) => {
           updateProfileMutation.mutate({ data: values });
         }}
@@ -58,24 +53,16 @@ export const UpdateProfile = () => {
       >
         {({ register, formState }) => (
           <>
+            <Input label='First Name' error={formState.errors['firstName']} registration={register('firstName')} />
+            <Input label='Last Name' error={formState.errors['lastName']} registration={register('lastName')} />
             <Input
-              label="First Name"
-              error={formState.errors['firstName']}
-              registration={register('firstName')}
-            />
-            <Input
-              label="Last Name"
-              error={formState.errors['lastName']}
-              registration={register('lastName')}
-            />
-            <Input
-              label="Email Address"
-              type="email"
+              label='Email Address'
+              type='email'
               error={formState.errors['email']}
               registration={register('email')}
             />
 
-            <Textarea label="Bio" error={formState.errors['bio']} registration={register('bio')} />
+            <Textarea label='Bio' error={formState.errors['bio']} registration={register('bio')} />
           </>
         )}
       </Form>

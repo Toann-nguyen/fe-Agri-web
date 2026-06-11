@@ -71,9 +71,9 @@ export const WithRadioItems = () => {
         <DropdownMenuLabel>Select an option</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup value={value} onValueChange={setValue}>
-          <DropdownMenuRadioItem value="one">Option One</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="two">Option Two</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="three">Option Three</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value='one'>Option One</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value='two'>Option Two</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value='three'>Option Three</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>

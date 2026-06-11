@@ -4,11 +4,7 @@ import { api } from '@/lib/api-client';
 import { QueryConfig } from '@/lib/react-query';
 import { Discussion } from '@/types/api';
 
-export const getDiscussion = ({
-  discussionId,
-}: {
-  discussionId: string;
-}): Promise<{ data: Discussion }> => {
+export const getDiscussion = ({ discussionId }: { discussionId: string }): Promise<{ data: Discussion }> => {
   return api.get(`/discussions/${discussionId}`);
 };
 

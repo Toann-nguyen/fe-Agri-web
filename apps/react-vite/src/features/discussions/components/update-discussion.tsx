@@ -33,24 +33,19 @@ export const UpdateDiscussion = ({ discussionId }: UpdateDiscussionProps) => {
       <FormDrawer
         isDone={updateDiscussionMutation.isSuccess}
         triggerButton={
-          <Button icon={<Pen className="size-4" />} size="sm">
+          <Button icon={<Pen className='size-4' />} size='sm'>
             Update Discussion
           </Button>
         }
-        title="Update Discussion"
+        title='Update Discussion'
         submitButton={
-          <Button
-            form="update-discussion"
-            type="submit"
-            size="sm"
-            isLoading={updateDiscussionMutation.isPending}
-          >
+          <Button form='update-discussion' type='submit' size='sm' isLoading={updateDiscussionMutation.isPending}>
             Submit
           </Button>
         }
       >
         <Form
-          id="update-discussion"
+          id='update-discussion'
           onSubmit={(values) => {
             updateDiscussionMutation.mutate({
               data: values,
@@ -67,16 +62,8 @@ export const UpdateDiscussion = ({ discussionId }: UpdateDiscussionProps) => {
         >
           {({ register, formState }) => (
             <>
-              <Input
-                label="Title"
-                error={formState.errors['title']}
-                registration={register('title')}
-              />
-              <Textarea
-                label="Body"
-                error={formState.errors['body']}
-                registration={register('body')}
-              />
+              <Input label='Title' error={formState.errors['title']} registration={register('title')} />
+              <Textarea label='Body' error={formState.errors['body']} registration={register('body')} />
             </>
           )}
         </Form>

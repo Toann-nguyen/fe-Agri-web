@@ -6,10 +6,7 @@ import { ContentLayout } from '@/components/layouts';
 import { Spinner } from '@/components/ui/spinner';
 import { getInfiniteCommentsQueryOptions } from '@/features/comments/api/get-comments';
 import { Comments } from '@/features/comments/components/comments';
-import {
-  useDiscussion,
-  getDiscussionQueryOptions,
-} from '@/features/discussions/api/get-discussion';
+import { useDiscussion, getDiscussionQueryOptions } from '@/features/discussions/api/get-discussion';
 import { DiscussionView } from '@/features/discussions/components/discussion-view';
 
 export const clientLoader =
@@ -21,10 +18,8 @@ export const clientLoader =
     const commentsQuery = getInfiniteCommentsQueryOptions(discussionId);
 
     const promises = [
-      queryClient.getQueryData(discussionQuery.queryKey) ??
-        (await queryClient.fetchQuery(discussionQuery)),
-      queryClient.getQueryData(commentsQuery.queryKey) ??
-        (await queryClient.fetchInfiniteQuery(commentsQuery)),
+      queryClient.getQueryData(discussionQuery.queryKey) ?? (await queryClient.fetchQuery(discussionQuery)),
+      queryClient.getQueryData(commentsQuery.queryKey) ?? (await queryClient.fetchInfiniteQuery(commentsQuery)),
     ] as const;
 
     const [discussion, comments] = await Promise.all(promises);
@@ -44,8 +39,8 @@ const DiscussionRoute = () => {
 
   if (discussionQuery.isLoading) {
     return (
-      <div className="flex h-48 w-full items-center justify-center">
-        <Spinner size="lg" />
+      <div className='flex h-48 w-full items-center justify-center'>
+        <Spinner size='lg' />
       </div>
     );
   }
@@ -58,7 +53,7 @@ const DiscussionRoute = () => {
     <>
       <ContentLayout title={discussion.title}>
         <DiscussionView discussionId={discussionId} />
-        <div className="mt-8">
+        <div className='mt-8'>
           <ErrorBoundary fallback={<div>Failed to load comments. Try to refresh the page.</div>}>
             <Comments discussionId={discussionId} />
           </ErrorBoundary>

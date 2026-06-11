@@ -119,16 +119,7 @@ function CodeLine({ tokens }: { tokens: { type: string; text: string }[] }) {
       {tokens.map((token, i) => (
         <CodeToken
           key={i}
-          type={
-            token.type as
-              | 'keyword'
-              | 'string'
-              | 'function'
-              | 'comment'
-              | 'variable'
-              | 'type'
-              | 'operator'
-          }
+          type={token.type as 'keyword' | 'string' | 'function' | 'comment' | 'variable' | 'type' | 'operator'}
         >
           {token.text}
         </CodeToken>
@@ -139,36 +130,34 @@ function CodeLine({ tokens }: { tokens: { type: string; text: string }[] }) {
 
 export function CodeShowcaseSection() {
   return (
-    <section className="relative bg-white py-24 md:py-32">
-      <div className="dot-grid-light absolute inset-0 opacity-30"></div>
-      <div className="relative mx-auto max-w-7xl px-6">
-        <div className="reveal active mb-16 text-center">
-          <div className="glass-light mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-xs text-cyan-600 shadow-sm">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
-              <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
+    <section className='relative bg-white py-24 md:py-32'>
+      <div className='dot-grid-light absolute inset-0 opacity-30'></div>
+      <div className='relative mx-auto max-w-7xl px-6'>
+        <div className='reveal active mb-16 text-center'>
+          <div className='glass-light mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-xs text-cyan-600 shadow-sm'>
+            <svg viewBox='0 0 24 24' fill='currentColor' width='14' height='14'>
+              <path d='M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z' />
             </svg>
             Code Showcase
           </div>
-          <h2 className="text-3xl font-bold tracking-tight text-ink-800 md:text-4xl">
-            Real <span className="text-gradient-cyan">Code</span>, Real Impact
+          <h2 className='text-3xl font-bold tracking-tight text-ink-800 md:text-4xl'>
+            Real <span className='text-gradient-cyan'>Code</span>, Real Impact
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-sm text-ink-400">
+          <p className='mx-auto mt-4 max-w-lg text-sm text-ink-400'>
             Snippets that demonstrate my approach to solving real engineering problems.
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className='grid gap-6 md:grid-cols-2'>
           {codeSnippets.map((snippet, index) => (
             <Reveal key={index} direction={index === 0 ? 'left' : 'right'} staggerIndex={index}>
-              <div className="glass-light overflow-hidden rounded-2xl shadow-lg shadow-black/5 transition-shadow duration-500 hover:shadow-xl">
-                <div className="flex items-center justify-between bg-ink-900 px-5 py-3">
-                  <div className="flex items-center gap-2">
-                    <span className="size-2.5 rounded-full bg-red-500/70"></span>
-                    <span className="size-2.5 rounded-full bg-yellow-500/70"></span>
-                    <span className="size-2.5 rounded-full bg-green-500/70"></span>
-                    <span className="ml-2 font-mono text-[10px] text-gray-500">
-                      {snippet.filename}
-                    </span>
+              <div className='glass-light overflow-hidden rounded-2xl shadow-lg shadow-black/5 transition-shadow duration-500 hover:shadow-xl'>
+                <div className='flex items-center justify-between bg-ink-900 px-5 py-3'>
+                  <div className='flex items-center gap-2'>
+                    <span className='size-2.5 rounded-full bg-red-500/70'></span>
+                    <span className='size-2.5 rounded-full bg-yellow-500/70'></span>
+                    <span className='size-2.5 rounded-full bg-green-500/70'></span>
+                    <span className='ml-2 font-mono text-[10px] text-gray-500'>{snippet.filename}</span>
                   </div>
                   <span
                     className={`rounded px-2 py-0.5 font-mono text-[9px] ${
@@ -180,10 +169,10 @@ export function CodeShowcaseSection() {
                     {snippet.tag}
                   </span>
                 </div>
-                <div className="bg-ink-900 p-5 font-mono text-[12px] leading-[1.8]">
+                <div className='bg-ink-900 p-5 font-mono text-[12px] leading-[1.8]'>
                   <CodeLine tokens={snippet.lines} />
                   {snippet.afterLines && (
-                    <div className="mt-3">
+                    <div className='mt-3'>
                       <CodeLine tokens={snippet.afterLines} />
                     </div>
                   )}

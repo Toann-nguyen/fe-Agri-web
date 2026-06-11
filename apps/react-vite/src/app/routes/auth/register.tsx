@@ -19,7 +19,7 @@ const RegisterRoute = () => {
   });
 
   return (
-    <AuthLayout title="Register your account">
+    <AuthLayout title='Register your account'>
       <RegisterForm
         onSuccess={() => {
           navigate(`${redirectTo ? `${redirectTo}` : paths.app.dashboard.getHref()}`, {

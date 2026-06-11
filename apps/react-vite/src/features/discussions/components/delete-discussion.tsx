@@ -27,19 +27,19 @@ export const DeleteDiscussion = ({ id }: DeleteDiscussionProps) => {
   return (
     <Authorization allowedRoles={[ROLES.ADMIN]}>
       <ConfirmationDialog
-        icon="danger"
-        title="Delete Discussion"
-        body="Are you sure you want to delete this discussion?"
+        icon='danger'
+        title='Delete Discussion'
+        body='Are you sure you want to delete this discussion?'
         triggerButton={
-          <Button variant="destructive" icon={<Trash className="size-4" />}>
+          <Button variant='destructive' icon={<Trash className='size-4' />}>
             Delete Discussion
           </Button>
         }
         confirmButton={
           <Button
             isLoading={deleteDiscussionMutation.isPending}
-            type="button"
-            variant="destructive"
+            type='button'
+            variant='destructive'
             onClick={() => deleteDiscussionMutation.mutate({ discussionId: id })}
           >
             Delete Discussion

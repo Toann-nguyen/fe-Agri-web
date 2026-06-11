@@ -5,10 +5,7 @@ import { RouterProvider, createMemoryRouter } from 'react-router';
 
 import { AppProvider } from '@/app/provider';
 
-import {
-  createDiscussion as generateDiscussion,
-  createUser as generateUser,
-} from './data-generators';
+import { createDiscussion as generateDiscussion, createUser as generateUser } from './data-generators';
 import { db } from './mocks/db';
 import { AUTH_COOKIE, authenticate, hash } from './mocks/utils';
 
@@ -31,10 +28,9 @@ export const loginAsUser = async (user: any) => {
 };
 
 export const waitForLoadingToFinish = () =>
-  waitForElementToBeRemoved(
-    () => [...screen.queryAllByTestId(/loading/i), ...screen.queryAllByText(/loading/i)],
-    { timeout: 4000 },
-  );
+  waitForElementToBeRemoved(() => [...screen.queryAllByTestId(/loading/i), ...screen.queryAllByText(/loading/i)], {
+    timeout: 4000,
+  });
 
 const initializeUser = async (user: any) => {
   if (typeof user === 'undefined') {

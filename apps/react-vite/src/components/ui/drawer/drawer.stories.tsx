@@ -37,21 +37,19 @@ const DemoDrawer = () => {
       }}
     >
       <DrawerTrigger asChild>
-        <Button variant="outline">Open</Button>
+        <Button variant='outline'>Open</Button>
       </DrawerTrigger>
-      <DrawerContent className="flex max-w-[800px] flex-col justify-between sm:max-w-[540px]">
-        <div className="flex flex-col">
+      <DrawerContent className='flex max-w-[800px] flex-col justify-between sm:max-w-[540px]'>
+        <div className='flex flex-col'>
           <DrawerHeader>
             <DrawerTitle>Drawer Header</DrawerTitle>
-            <DrawerDescription>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </DrawerDescription>
+            <DrawerDescription>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</DrawerDescription>
           </DrawerHeader>
           <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
         </div>
         <DrawerFooter>
           <DrawerClose asChild>
-            <Button type="submit">Save changes</Button>
+            <Button type='submit'>Save changes</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

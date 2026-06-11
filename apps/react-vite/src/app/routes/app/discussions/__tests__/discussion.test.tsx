@@ -1,12 +1,4 @@
-import {
-  renderApp,
-  screen,
-  userEvent,
-  waitFor,
-  createDiscussion,
-  createUser,
-  within,
-} from '@/testing/test-utils';
+import { renderApp, screen, userEvent, waitFor, createDiscussion, createUser, within } from '@/testing/test-utils';
 
 import { default as DiscussionRoute } from '../discussion';
 

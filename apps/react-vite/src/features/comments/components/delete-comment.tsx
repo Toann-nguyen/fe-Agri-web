@@ -28,19 +28,19 @@ export const DeleteComment = ({ id, discussionId }: DeleteCommentProps) => {
   return (
     <ConfirmationDialog
       isDone={deleteCommentMutation.isSuccess}
-      icon="danger"
-      title="Delete Comment"
-      body="Are you sure you want to delete this comment?"
+      icon='danger'
+      title='Delete Comment'
+      body='Are you sure you want to delete this comment?'
       triggerButton={
-        <Button variant="destructive" size="sm" icon={<Trash className="size-4" />}>
+        <Button variant='destructive' size='sm' icon={<Trash className='size-4' />}>
           Delete Comment
         </Button>
       }
       confirmButton={
         <Button
           isLoading={deleteCommentMutation.isPending}
-          type="button"
-          variant="destructive"
+          type='button'
+          variant='destructive'
           onClick={() => deleteCommentMutation.mutate({ commentId: id })}
         >
           Delete Comment

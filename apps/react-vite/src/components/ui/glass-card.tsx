@@ -19,9 +19,5 @@ export function GlassCard({
   const glowClass = glow ? 'glow-border' : '';
   const emberClass = emberGlow ? 'ember-glow' : '';
 
-  return (
-    <div className={`${glassClass} rounded-2xl ${glowClass} ${emberClass} ${className}`}>
-      {children}
-    </div>
-  );
+  return <div className={`${glassClass} rounded-2xl ${glowClass} ${emberClass} ${className}`}>{children}</div>;
 }

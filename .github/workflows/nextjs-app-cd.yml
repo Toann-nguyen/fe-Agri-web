@@ -35,7 +35,7 @@ jobs:
           NEXT_PUBLIC_URL: https://toanrobert.online
 
       - name: Deploy lên Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3 
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: f960756ef992f2078150351f8b7141ca

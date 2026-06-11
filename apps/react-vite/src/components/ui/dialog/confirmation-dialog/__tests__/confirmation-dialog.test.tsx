@@ -11,7 +11,7 @@ test('should handle confirmation flow', async () => {
 
   await rtlRender(
     <ConfirmationDialog
-      icon="danger"
+      icon='danger'
       title={titleText}
       body={bodyText}
       confirmButton={<Button>{confirmationButtonText}</Button>}

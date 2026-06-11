@@ -41,7 +41,7 @@ export function Card3D({ children, className = '', emberGlow = false }: Card3DPr
 
   return (
     <div ref={cardRef} className={`card-3d ${emberGlow ? 'ember-glow' : ''} ${className}`}>
-      <div ref={innerRef} className="card-3d-inner">
+      <div ref={innerRef} className='card-3d-inner'>
         {children}
       </div>
     </div>
@@ -55,12 +55,7 @@ interface RevealProps {
   staggerIndex?: number;
 }
 
-export function Reveal({
-  children,
-  className = '',
-  direction = 'up',
-  staggerIndex = 0,
-}: RevealProps) {
+export function Reveal({ children, className = '', direction = 'up', staggerIndex = 0 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [isActive, setIsActive] = useState(false);
 

@@ -25,8 +25,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   return (
     <React.Suspense
       fallback={
-        <div className="flex h-screen w-screen items-center justify-center">
-          <Spinner size="xl" />
+        <div className='flex h-screen w-screen items-center justify-center'>
+          <Spinner size='xl' />
         </div>
       }
     >
@@ -37,8 +37,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
             <Notifications />
             <AuthLoader
               renderLoading={() => (
-                <div className="flex h-screen w-screen items-center justify-center">
-                  <Spinner size="xl" />
+                <div className='flex h-screen w-screen items-center justify-center'>
+                  <Spinner size='xl' />
                 </div>
               )}
             >

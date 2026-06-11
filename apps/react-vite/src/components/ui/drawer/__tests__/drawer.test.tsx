@@ -1,15 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { rtlRender, screen, userEvent, waitFor } from '@/testing/test-utils';
 
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '../drawer';
+import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '../drawer';
 
 const openButtonText = 'Open Drawer';
 const titleText = 'Drawer Title';
@@ -20,10 +12,10 @@ const TestDrawer = () => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline">{openButtonText}</Button>
+        <Button variant='outline'>{openButtonText}</Button>
       </DrawerTrigger>
-      <DrawerContent className="flex max-w-[800px] flex-col justify-between sm:max-w-[540px]">
-        <div className="flex flex-col">
+      <DrawerContent className='flex max-w-[800px] flex-col justify-between sm:max-w-[540px]'>
+        <div className='flex flex-col'>
           <DrawerHeader>
             <DrawerTitle>{titleText}</DrawerTitle>
           </DrawerHeader>
@@ -31,7 +23,7 @@ const TestDrawer = () => {
         </div>
         <DrawerFooter>
           <DrawerClose asChild>
-            <Button value="outline" type="submit">
+            <Button value='outline' type='submit'>
               {cancelButtonText}
             </Button>
           </DrawerClose>

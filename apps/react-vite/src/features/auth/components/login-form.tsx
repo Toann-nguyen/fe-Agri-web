@@ -27,31 +27,28 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
         {({ register, formState }) => (
           <>
             <Input
-              type="email"
-              label="Email Address"
+              type='email'
+              label='Email Address'
               error={formState.errors['email']}
               registration={register('email')}
             />
             <Input
-              type="password"
-              label="Password"
+              type='password'
+              label='Password'
               error={formState.errors['password']}
               registration={register('password')}
             />
             <div>
-              <Button isLoading={login.isPending} type="submit" className="w-full">
+              <Button isLoading={login.isPending} type='submit' className='w-full'>
                 Log in
               </Button>
             </div>
           </>
         )}
       </Form>
-      <div className="mt-2 flex items-center justify-end">
-        <div className="text-sm">
-          <Link
-            to={paths.auth.register.getHref(redirectTo)}
-            className="font-medium text-blue-600 hover:text-blue-500"
-          >
+      <div className='mt-2 flex items-center justify-end'>
+        <div className='text-sm'>
+          <Link to={paths.auth.register.getHref(redirectTo)} className='font-medium text-blue-600 hover:text-blue-500'>
             Register
           </Link>
         </div>

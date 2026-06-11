@@ -25,24 +25,19 @@ export const CreateDiscussion = () => {
       <FormDrawer
         isDone={createDiscussionMutation.isSuccess}
         triggerButton={
-          <Button size="sm" icon={<Plus className="size-4" />}>
+          <Button size='sm' icon={<Plus className='size-4' />}>
             Create Discussion
           </Button>
         }
-        title="Create Discussion"
+        title='Create Discussion'
         submitButton={
-          <Button
-            form="create-discussion"
-            type="submit"
-            size="sm"
-            isLoading={createDiscussionMutation.isPending}
-          >
+          <Button form='create-discussion' type='submit' size='sm' isLoading={createDiscussionMutation.isPending}>
             Submit
           </Button>
         }
       >
         <Form
-          id="create-discussion"
+          id='create-discussion'
           onSubmit={(values) => {
             createDiscussionMutation.mutate({ data: values });
           }}
@@ -50,17 +45,9 @@ export const CreateDiscussion = () => {
         >
           {({ register, formState }) => (
             <>
-              <Input
-                label="Title"
-                error={formState.errors['title']}
-                registration={register('title')}
-              />
+              <Input label='Title' error={formState.errors['title']} registration={register('title')} />
 
-              <Textarea
-                label="Body"
-                error={formState.errors['body']}
-                registration={register('body')}
-              />
+              <Textarea label='Body' error={formState.errors['body']} registration={register('body')} />
             </>
           )}
         </Form>

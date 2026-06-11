@@ -22,8 +22,8 @@ export const CommentsList = ({ discussionId }: CommentsListProps) => {
 
   if (commentsQuery.isLoading) {
     return (
-      <div className="flex h-48 w-full items-center justify-center">
-        <Spinner size="lg" />
+      <div className='flex h-48 w-full items-center justify-center'>
+        <Spinner size='lg' />
       </div>
     );
   }
@@ -33,30 +33,30 @@ export const CommentsList = ({ discussionId }: CommentsListProps) => {
   if (!comments?.length)
     return (
       <div
-        role="list"
-        aria-label="comments"
-        className="flex h-40 flex-col items-center justify-center bg-white text-gray-500"
+        role='list'
+        aria-label='comments'
+        className='flex h-40 flex-col items-center justify-center bg-white text-gray-500'
       >
-        <ArchiveX className="size-10" />
+        <ArchiveX className='size-10' />
         <h4>No Comments Found</h4>
       </div>
     );
 
   return (
     <>
-      <ul aria-label="comments" className="flex flex-col space-y-3">
+      <ul aria-label='comments' className='flex flex-col space-y-3'>
         {comments.map((comment, index) => (
           <li
             aria-label={`comment-${comment.body}-${index}`}
             key={comment.id || index}
-            className="w-full bg-white p-4 shadow-sm"
+            className='w-full bg-white p-4 shadow-sm'
           >
             <Authorization policyCheck={POLICIES['comment:delete'](user.data as User, comment)}>
-              <div className="flex justify-between">
+              <div className='flex justify-between'>
                 <div>
-                  <span className="text-xs font-semibold">{formatDate(comment.createdAt)}</span>
+                  <span className='text-xs font-semibold'>{formatDate(comment.createdAt)}</span>
                   {comment.author && (
-                    <span className="text-xs font-bold">
+                    <span className='text-xs font-bold'>
                       {' '}
                       by {comment.author.firstName} {comment.author.lastName}
                     </span>
@@ -71,7 +71,7 @@ export const CommentsList = ({ discussionId }: CommentsListProps) => {
         ))}
       </ul>
       {commentsQuery.hasNextPage && (
-        <div className="flex items-center justify-center py-4">
+        <div className='flex items-center justify-center py-4'>
           <Button onClick={() => commentsQuery.fetchNextPage()}>
             {commentsQuery.isFetchingNextPage ? <Spinner /> : 'Load More Comments'}
           </Button>

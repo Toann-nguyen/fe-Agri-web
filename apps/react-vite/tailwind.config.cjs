@@ -106,7 +106,7 @@ module.exports = {
           '0%, 100%': { borderRadius: '60% 40% 30% 70%/60% 30% 70% 40%' },
           '50%': { borderRadius: '30% 60% 70% 40%/50% 60% 30% 60%' },
         },
-        'orbit': {
+        orbit: {
           from: { transform: 'rotate(0deg) translateX(60px) rotate(0deg)' },
           to: { transform: 'rotate(360deg) translateX(60px) rotate(-360deg)' },
         },

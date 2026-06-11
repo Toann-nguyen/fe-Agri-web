@@ -19,12 +19,12 @@ test('should render and submit a basic Form component', async () => {
   const handleSubmit = vi.fn() as SubmitHandler<z.infer<typeof schema>>;
 
   rtlRender(
-    <Form onSubmit={handleSubmit} schema={schema} id="my-form">
+    <Form onSubmit={handleSubmit} schema={schema} id='my-form'>
       {({ register, formState }) => (
         <>
-          <Input label="Title" error={formState.errors['title']} registration={register('title')} />
+          <Input label='Title' error={formState.errors['title']} registration={register('title')} />
 
-          <Button name="submit" type="submit" className="w-full">
+          <Button name='submit' type='submit' className='w-full'>
             Submit
           </Button>
         </>
@@ -43,12 +43,12 @@ test('should fail submission if validation fails', async () => {
   const handleSubmit = vi.fn() as SubmitHandler<z.infer<typeof schema>>;
 
   rtlRender(
-    <Form onSubmit={handleSubmit} schema={schema} id="my-form">
+    <Form onSubmit={handleSubmit} schema={schema} id='my-form'>
       {({ register, formState }) => (
         <>
-          <Input label="Title" error={formState.errors['title']} registration={register('title')} />
+          <Input label='Title' error={formState.errors['title']} registration={register('title')} />
 
-          <Button name="submit" type="submit" className="w-full">
+          <Button name='submit' type='submit' className='w-full'>
             Submit
           </Button>
         </>
