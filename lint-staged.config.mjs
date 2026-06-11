@@ -24,4 +24,3 @@ export default {
     'pnpm --filter fe-agri-nextjs-pages check-types',
   ],
 };
-
