@@ -3,6 +3,7 @@ import { setupDevPlatform } from '@cloudflare/next-on-pages/next-dev';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  output: 'standalone',
   images: {
     // Edge runtime (Cloudflare) không hỗ trợ Next/Image optimization server-side
     unoptimized: true,
