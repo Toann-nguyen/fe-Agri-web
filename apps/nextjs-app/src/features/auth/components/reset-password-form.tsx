@@ -46,7 +46,6 @@ export const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
               error={formState.errors['password']}
               registration={register('password')}
               autoComplete="new-password"
-              autoFocus
             />
             <Input
               type="password"

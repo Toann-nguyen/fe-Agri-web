@@ -46,7 +46,6 @@ export const RegisterForm = ({
               error={formState.errors['firstName']}
               registration={register('firstName')}
               autoComplete="given-name"
-              autoFocus
             />
             <Input
               type="text"

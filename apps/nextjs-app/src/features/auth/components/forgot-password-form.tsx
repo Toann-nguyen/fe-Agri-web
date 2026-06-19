@@ -40,7 +40,6 @@ export const ForgotPasswordForm = () => {
               error={formState.errors['email']}
               registration={register('email')}
               autoComplete="email"
-              autoFocus
             />
             <Button
               isLoading={forgotPassword.isPending}

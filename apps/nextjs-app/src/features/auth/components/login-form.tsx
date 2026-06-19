@@ -31,7 +31,6 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
               error={formState.errors['email']}
               registration={register('email')}
               autoComplete="email"
-              autoFocus
             />
             <Input
               type="password"

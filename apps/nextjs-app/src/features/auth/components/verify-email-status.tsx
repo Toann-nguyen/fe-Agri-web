@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Form, Input } from '@/components/ui/form';
@@ -83,7 +83,6 @@ export const VerifyEmailStatus = ({ token }: VerifyEmailStatusProps) => {
                 error={formState.errors['email']}
                 registration={register('email')}
                 autoComplete="email"
-                autoFocus
               />
               <Button
                 isLoading={resendVerification.isPending}
@@ -122,7 +121,6 @@ export const VerifyEmailStatus = ({ token }: VerifyEmailStatusProps) => {
               error={formState.errors['email']}
               registration={register('email')}
               autoComplete="email"
-              autoFocus
             />
             <Button
               isLoading={resendVerification.isPending}
