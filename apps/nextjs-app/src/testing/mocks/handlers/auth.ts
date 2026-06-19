@@ -10,6 +10,8 @@ import {
   requireAuth,
   AUTH_COOKIE,
   networkDelay,
+  encode,
+  decode,
 } from '../utils';
 
 type RegisterBody = {
@@ -24,6 +26,44 @@ type RegisterBody = {
 type LoginBody = {
   email: string;
   password: string;
+};
+
+type ForgotPasswordBody = {
+  email: string;
+};
+
+type ResetPasswordBody = {
+  token: string;
+  password: string;
+};
+
+type VerifyEmailBody = {
+  token: string;
+};
+
+type ResendVerificationBody = {
+  email: string;
+};
+
+const createToken = (payload: Record<string, unknown>) => encode(payload);
+
+const isValidToken = (
+  token: string,
+  type: 'reset' | 'verify',
+): { email: string } | null => {
+  try {
+    const data = decode(token) as {
+      email: string;
+      type: string;
+      exp: number;
+    };
+    if (data.type !== type || data.exp < Date.now()) {
+      return null;
+    }
+    return { email: data.email };
+  } catch {
+    return null;
+  }
 };
 
 export const authHandlers = [
@@ -155,6 +195,125 @@ export const authHandlers = [
     try {
       const { user } = requireAuth(cookies);
       return HttpResponse.json({ data: user });
+    } catch (error: any) {
+      return HttpResponse.json(
+        { message: error?.message || 'Server Error' },
+        { status: 500 },
+      );
+    }
+  }),
+
+  http.post(`${env.API_URL}/auth/forgot-password`, async ({ request }) => {
+    await networkDelay();
+
+    try {
+      const { email } = (await request.json()) as ForgotPasswordBody;
+      const user = db.user.findFirst({
+        where: { email: { equals: email } },
+      });
+
+      if (user) {
+        createToken({
+          email,
+          type: 'reset',
+          exp: Date.now() + 3600000,
+        });
+      }
+
+      return HttpResponse.json({
+        message: 'If an account exists, a reset link has been sent.',
+      });
+    } catch (error: any) {
+      return HttpResponse.json(
+        { message: error?.message || 'Server Error' },
+        { status: 500 },
+      );
+    }
+  }),
+
+  http.post(`${env.API_URL}/auth/reset-password`, async ({ request }) => {
+    await networkDelay();
+
+    try {
+      const { token, password } = (await request.json()) as ResetPasswordBody;
+      const tokenData = isValidToken(token, 'reset');
+
+      if (!tokenData) {
+        return HttpResponse.json(
+          { message: 'Invalid or expired reset token' },
+          { status: 400 },
+        );
+      }
+
+      const user = db.user.findFirst({
+        where: { email: { equals: tokenData.email } },
+      });
+
+      if (!user) {
+        return HttpResponse.json(
+          { message: 'Invalid or expired reset token' },
+          { status: 400 },
+        );
+      }
+
+      db.user.update({
+        where: { id: { equals: user.id } },
+        data: { password: hash(password) },
+      });
+      await persistDb('user');
+
+      return HttpResponse.json({ message: 'Password reset successfully' });
+    } catch (error: any) {
+      return HttpResponse.json(
+        { message: error?.message || 'Server Error' },
+        { status: 500 },
+      );
+    }
+  }),
+
+  http.post(`${env.API_URL}/auth/verify-email`, async ({ request }) => {
+    await networkDelay();
+
+    try {
+      const { token } = (await request.json()) as VerifyEmailBody;
+      const tokenData = isValidToken(token, 'verify');
+
+      if (!tokenData) {
+        return HttpResponse.json(
+          { message: 'Invalid or expired verification token' },
+          { status: 400 },
+        );
+      }
+
+      return HttpResponse.json({ message: 'Email verified successfully' });
+    } catch (error: any) {
+      return HttpResponse.json(
+        { message: error?.message || 'Server Error' },
+        { status: 500 },
+      );
+    }
+  }),
+
+  http.post(`${env.API_URL}/auth/resend-verification`, async ({ request }) => {
+    await networkDelay();
+
+    try {
+      const { email } = (await request.json()) as ResendVerificationBody;
+      const user = db.user.findFirst({
+        where: { email: { equals: email } },
+      });
+
+      if (user) {
+        createToken({
+          email,
+          type: 'verify',
+          exp: Date.now() + 86400000,
+        });
+      }
+
+      return HttpResponse.json({
+        message: 'If an account exists, a verification email has been sent.',
+      });
     } catch (error: any) {
       return HttpResponse.json(
         { message: error?.message || 'Server Error' },

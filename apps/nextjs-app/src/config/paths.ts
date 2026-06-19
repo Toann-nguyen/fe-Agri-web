@@ -8,9 +8,24 @@ export const paths = {
       getHref: (redirectTo?: string | null | undefined) =>
         `/auth/register${redirectTo ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ''}`,
     },
+    signUp: {
+      getHref: (redirectTo?: string | null | undefined) =>
+        `/auth/sign-up${redirectTo ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ''}`,
+    },
     login: {
       getHref: (redirectTo?: string | null | undefined) =>
         `/auth/login${redirectTo ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ''}`,
+    },
+    forgotPassword: {
+      getHref: () => '/auth/forgot-password',
+    },
+    resetPassword: {
+      getHref: (token?: string) =>
+        `/auth/reset-password${token ? `?token=${encodeURIComponent(token)}` : ''}`,
+    },
+    verifyEmail: {
+      getHref: (token?: string) =>
+        `/auth/verify-email${token ? `?token=${encodeURIComponent(token)}` : ''}`,
     },
   },
 

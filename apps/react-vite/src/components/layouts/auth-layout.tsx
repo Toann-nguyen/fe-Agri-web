@@ -1,23 +1,21 @@
-import * as React from 'react';
-import { useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router';
+import { ReactNode, useEffect } from 'react';
+import { useLocation, useNavigate, useSearchParams } from 'react-router';
 
-import logo from '@/assets/logo.svg';
 import { Head } from '@/components/seo';
-import { Link } from '@/components/ui/link';
 import { paths } from '@/config/paths';
+import { AuthShell } from '@/features/auth/components/auth-shell';
 import { useUser } from '@/lib/auth';
 
 type LayoutProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   title: string;
+  description?: string;
 };
 
-export const AuthLayout = ({ children, title }: LayoutProps) => {
+export const AuthLayout = ({ children, title, description }: LayoutProps) => {
   const user = useUser();
   const [searchParams] = useSearchParams();
   const redirectTo = searchParams.get('redirectTo');
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,22 +28,38 @@ export const AuthLayout = ({ children, title }: LayoutProps) => {
 
   return (
     <>
-      <Head title={title} />
-      <div className='flex min-h-screen flex-col justify-center bg-gray-50 py-12 sm:px-6 lg:px-8'>
-        <div className='sm:mx-auto sm:w-full sm:max-w-md'>
-          <div className='flex justify-center'>
-            <Link className='flex items-center text-white' to={paths.home.getHref()}>
-              <img className='h-24 w-auto' src={logo} alt='Workflow' />
-            </Link>
-          </div>
-
-          <h2 className='mt-3 text-center text-3xl font-extrabold text-gray-900'>{title}</h2>
-        </div>
-
-        <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md'>
-          <div className='bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10'>{children}</div>
-        </div>
-      </div>
+      <Head title={title} description={description} noIndex />
+      <AuthShell title={title} description={description}>
+        {children}
+      </AuthShell>
     </>
   );
+};
+
+export const AUTH_PAGE_META: Record<string, { title: string; description?: string }> = {
+  [paths.auth.login.path]: {
+    title: 'Sign in to your account',
+    description: 'Access your dashboard and manage your account.',
+  },
+  [paths.auth.register.path]: {
+    title: 'Create your account',
+    description: 'Sign up to get started with your team workspace.',
+  },
+  [paths.auth.forgotPassword.path]: {
+    title: 'Forgot your password?',
+    description: 'Enter your email and we will send you a reset link.',
+  },
+  [paths.auth.resetPassword.path]: {
+    title: 'Reset your password',
+    description: 'Choose a new password for your account.',
+  },
+  [paths.auth.verifyEmail.path]: {
+    title: 'Verify your email',
+    description: 'Confirm your email address to activate your account.',
+  },
+};
+
+export const useAuthPageMeta = () => {
+  const location = useLocation();
+  return AUTH_PAGE_META[location.pathname] ?? { title: 'Authentication' };
 };

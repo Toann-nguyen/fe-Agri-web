@@ -1,38 +1,13 @@
-'use client';
+import { Metadata } from 'next';
 
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { RegisterPageClient } from './register-page-client';
 
-import { paths } from '@/config/paths';
-import { RegisterForm } from '@/features/auth/components/register-form';
-import { useTeams } from '@/features/teams/api/get-teams';
-
-const RegisterPage = () => {
-  const router = useRouter();
-
-  const searchParams = useSearchParams();
-  const redirectTo = searchParams?.get('redirectTo');
-
-  const [chooseTeam, setChooseTeam] = useState(false);
-
-  const teamsQuery = useTeams({
-    queryConfig: {
-      enabled: chooseTeam,
-    },
-  });
-
-  return (
-    <RegisterForm
-      onSuccess={() =>
-        router.replace(
-          `${redirectTo ? `${decodeURIComponent(redirectTo)}` : paths.app.dashboard.getHref()}`,
-        )
-      }
-      chooseTeam={chooseTeam}
-      setChooseTeam={() => setChooseTeam(!chooseTeam)}
-      teams={teamsQuery.data?.data}
-    />
-  );
+export const metadata: Metadata = {
+  title: 'Sign up',
+  description: 'Create a new account.',
+  robots: { index: false, follow: false },
 };
 
-export default RegisterPage;
+export default function RegisterPage() {
+  return <RegisterPageClient />;
+}

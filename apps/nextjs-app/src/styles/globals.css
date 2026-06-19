@@ -346,18 +346,17 @@
       transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
       box-shadow 0.4s ease;
   }
-
-  /* Animation gradient-shift */
-  @keyframes gradient-shift {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+}
+/* Animation gradient-shift - outside layer */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 

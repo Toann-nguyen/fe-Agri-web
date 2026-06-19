@@ -1,24 +1,13 @@
-'use client';
+import { Metadata } from 'next';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { LoginPageClient } from './login-page-client';
 
-import { paths } from '@/config/paths';
-import { LoginForm } from '@/features/auth/components/login-form';
-
-const LoginPage = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const redirectTo = searchParams?.get('redirectTo');
-
-  return (
-    <LoginForm
-      onSuccess={() =>
-        router.replace(
-          `${redirectTo ? `${decodeURIComponent(redirectTo)}` : paths.app.dashboard.getHref()}`,
-        )
-      }
-    />
-  );
+export const metadata: Metadata = {
+  title: 'Sign in',
+  description: 'Sign in to your account.',
+  robots: { index: false, follow: false },
 };
 
-export default LoginPage;
+export default function LoginPage() {
+  return <LoginPageClient />;
+}

@@ -126,6 +126,37 @@ code {
   border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
+.glass-hero {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.dot-grid-dark {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.text-gradient-hero {
+  background: linear-gradient(135deg, #22d3ee 20%, #67e8f9 40%, #fb923c 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% auto;
+  animation: gradient-shift 4s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 .glow-border {
   position: relative;
   transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);

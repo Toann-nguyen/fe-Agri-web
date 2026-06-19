@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { ReactNode, Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -5,9 +6,10 @@ import { Spinner } from '@/components/ui/spinner';
 
 import { AuthLayout as AuthLayoutComponent } from './_components/auth-layout';
 
-export const metadata = {
-  title: 'Bulletproof React',
-  description: 'Welcome to Bulletproof React',
+export const metadata: Metadata = {
+  title: 'Authentication',
+  description: 'Sign in or create an account.',
+  robots: { index: false, follow: false },
 };
 
 const AuthLayout = ({ children }: { children: ReactNode }) => {

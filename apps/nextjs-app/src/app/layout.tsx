@@ -7,8 +7,11 @@ import { Inter, Fira_Code } from 'next/font/google';
 import { ReactNode } from 'react';
 
 import { AppProvider } from '@/app/provider';
+import { env } from '@/config/env';
 
 import '@/styles/globals.css';
+
+const siteUrl = env.APP_URL ?? 'https://toanrobert.online';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -23,9 +26,28 @@ const firaCode = Fira_Code({
 });
 
 export const metadata = {
-  title: 'Nguyen Minh Toan — Full-Stack Developer',
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: 'Nguyen Minh Toan — Full-Stack Developer',
+    template: '%s | Nguyen Minh Toan',
+  },
   description:
     'Building high-performance, secure, and scalable web applications with precision-engineered architecture.',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: siteUrl,
+    siteName: 'Nguyen Minh Toan',
+    title: 'Nguyen Minh Toan — Full-Stack Developer',
+    description:
+      'Building high-performance, secure, and scalable web applications with precision-engineered architecture.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Nguyen Minh Toan — Full-Stack Developer',
+    description:
+      'Building high-performance, secure, and scalable web applications with precision-engineered architecture.',
+  },
 };
 
 const RootLayout = async ({ children }: { children: ReactNode }) => {

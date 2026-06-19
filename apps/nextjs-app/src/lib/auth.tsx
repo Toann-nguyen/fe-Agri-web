@@ -104,3 +104,83 @@ const registerWithEmailAndPassword = (
 ): Promise<AuthResponse> => {
   return api.post('/auth/register', data);
 };
+
+export const forgotPasswordInputSchema = z.object({
+  email: z.string().min(1, 'Required').email('Invalid email'),
+});
+
+export type ForgotPasswordInput = z.infer<typeof forgotPasswordInputSchema>;
+
+export const resetPasswordInputSchema = z
+  .object({
+    password: z.string().min(5, 'Required'),
+    confirmPassword: z.string().min(5, 'Required'),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  });
+
+export type ResetPasswordInput = z.infer<typeof resetPasswordInputSchema>;
+
+export const resendVerificationInputSchema = z.object({
+  email: z.string().min(1, 'Required').email('Invalid email'),
+});
+
+export type ResendVerificationInput = z.infer<
+  typeof resendVerificationInputSchema
+>;
+
+type MessageResponse = { message: string };
+
+const forgotPassword = (data: ForgotPasswordInput): Promise<MessageResponse> =>
+  api.post('/auth/forgot-password', data);
+
+const resetPassword = (
+  token: string,
+  data: Pick<ResetPasswordInput, 'password'>,
+): Promise<MessageResponse> =>
+  api.post('/auth/reset-password', { token, password: data.password });
+
+const verifyEmail = (token: string): Promise<MessageResponse> =>
+  api.post('/auth/verify-email', { token });
+
+const resendVerification = (
+  data: ResendVerificationInput,
+): Promise<MessageResponse> => api.post('/auth/resend-verification', data);
+
+export const useForgotPassword = ({
+  onSuccess,
+}: { onSuccess?: () => void } = {}) =>
+  useMutation({
+    mutationFn: forgotPassword,
+    onSuccess: () => onSuccess?.(),
+  });
+
+export const useResetPassword = ({
+  onSuccess,
+}: { onSuccess?: () => void } = {}) =>
+  useMutation({
+    mutationFn: ({
+      token,
+      ...data
+    }: Pick<ResetPasswordInput, 'password'> & { token: string }) =>
+      resetPassword(token, data),
+    onSuccess: () => onSuccess?.(),
+  });
+
+export const useVerifyEmail = ({
+  onSuccess,
+}: { onSuccess?: () => void } = {}) =>
+  useMutation({
+    mutationFn: ({ token }: { token: string }) => verifyEmail(token),
+    onSuccess: () => onSuccess?.(),
+  });
+
+export const useResendVerification = ({
+  onSuccess,
+}: { onSuccess?: () => void } = {}) =>
+  useMutation({
+    mutationFn: resendVerification,
+    onSuccess: () => onSuccess?.(),
+  });
