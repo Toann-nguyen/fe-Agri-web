@@ -5,3 +5,8 @@
 
 # misc
 .DS_Store
+
+# build artifacts
+.vercel/
+.next/
+dist/
