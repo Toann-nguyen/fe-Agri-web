@@ -166,6 +166,7 @@ code {
   content: '';
   position: absolute;
   inset: -1px;
+  pointer-events: none;
   border-radius: inherit;
   padding: 1px;
   background: linear-gradient(135deg, transparent 30%, #06b6d4 50%, transparent 70%);
