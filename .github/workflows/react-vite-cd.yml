@@ -30,7 +30,7 @@ jobs:
       - name: Build
         run: pnpm build
         env:
-          VITE_APP_API_URL: https://api.toanrobert.online/api/v1
+          VITE_APP_API_URL: https://api.toanrobert.online/api
           VITE_APP_ENABLE_API_MOCKING: false
 
       - name: Deploy lên Cloudflare Pages
