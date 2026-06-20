@@ -1,21 +1,17 @@
 import { Plus } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormDrawer, Input, Textarea } from '@/components/ui/form';
-import { useNotifications } from '@/components/ui/notifications';
 import { Authorization, ROLES } from '@/lib/authorization';
 
 import { createDiscussionInputSchema, useCreateDiscussion } from '../api/create-discussion';
 
 export const CreateDiscussion = () => {
-  const { addNotification } = useNotifications();
   const createDiscussionMutation = useCreateDiscussion({
     mutationConfig: {
       onSuccess: () => {
-        addNotification({
-          type: 'success',
-          title: 'Discussion Created',
-        });
+        toast.success('Discussion Created');
       },
     },
   });

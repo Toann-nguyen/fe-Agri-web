@@ -29,7 +29,10 @@ export const getUserQueryOptions = () => {
 
 export const useUser = () => useQuery(getUserQueryOptions());
 
-export const useLogin = ({ onSuccess }: { onSuccess?: () => void }) => {
+export const useLogin = ({
+  onSuccess,
+  ...rest
+}: { onSuccess?: () => void } & Record<string, any>) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: loginWithEmailAndPassword,
@@ -37,6 +40,7 @@ export const useLogin = ({ onSuccess }: { onSuccess?: () => void }) => {
       queryClient.setQueryData(userQueryKey, data.user);
       onSuccess?.();
     },
+    ...rest,
   });
 };
 
@@ -69,6 +73,7 @@ const logout = (): Promise<void> => {
 export const loginInputSchema = z.object({
   email: z.string().min(1, 'Required').email('Invalid email'),
   password: z.string().min(5, 'Required'),
+  captcha_token: z.string().optional(),
 });
 
 export type LoginInput = z.infer<typeof loginInputSchema>;
@@ -78,24 +83,15 @@ const loginWithEmailAndPassword = (data: LoginInput): Promise<AuthResponse> => {
 
 export const registerInputSchema = z
   .object({
-    email: z.string().min(1, 'Required'),
-    firstName: z.string().min(1, 'Required'),
-    lastName: z.string().min(1, 'Required'),
-    password: z.string().min(5, 'Required'),
+    email: z.string().min(1, 'Required').email('Invalid email'),
+    name: z.string().min(2, 'Required'),
+    password: z.string().min(8, 'At least 8 characters'),
+    password_confirmation: z.string().min(1, 'Required'),
   })
-  .and(
-    z
-      .object({
-        teamId: z.string().min(1, 'Required'),
-        teamName: z.null().default(null),
-      })
-      .or(
-        z.object({
-          teamName: z.string().min(1, 'Required'),
-          teamId: z.null().default(null),
-        }),
-      ),
-  );
+  .refine((data) => data.password === data.password_confirmation, {
+    message: "Passwords don't match",
+    path: ['password_confirmation'],
+  });
 
 export type RegisterInput = z.infer<typeof registerInputSchema>;
 

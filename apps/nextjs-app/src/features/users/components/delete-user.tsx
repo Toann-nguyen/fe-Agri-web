@@ -1,8 +1,9 @@
 'use client';
 
+import toast from 'react-hot-toast';
+
 import { Button } from '@/components/ui/button';
 import { ConfirmationDialog } from '@/components/ui/dialog';
-import { useNotifications } from '@/components/ui/notifications';
 import { useUser } from '@/lib/auth';
 
 import { useDeleteUser } from '../api/delete-user';
@@ -13,14 +14,10 @@ type DeleteUserProps = {
 
 export const DeleteUser = ({ id }: DeleteUserProps) => {
   const user = useUser();
-  const { addNotification } = useNotifications();
   const deleteUserMutation = useDeleteUser({
     mutationConfig: {
       onSuccess: () => {
-        addNotification({
-          type: 'success',
-          title: 'User Deleted',
-        });
+        toast.success('User Deleted');
       },
     },
   });
@@ -29,10 +26,15 @@ export const DeleteUser = ({ id }: DeleteUserProps) => {
 
   return (
     <ConfirmationDialog
+      isDone={deleteUserMutation.isSuccess}
       icon="danger"
       title="Delete User"
       body="Are you sure you want to delete this user?"
-      triggerButton={<Button variant="destructive">Delete</Button>}
+      triggerButton={
+        <Button variant="destructive" size="sm">
+          Delete User
+        </Button>
+      }
       confirmButton={
         <Button
           isLoading={deleteUserMutation.isPending}

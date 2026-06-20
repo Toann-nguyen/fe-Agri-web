@@ -1,4 +1,5 @@
-import { useNotifications } from '@/components/ui/notifications';
+import toast from 'react-hot-toast';
+
 import { env } from '@/config/env';
 
 type RequestOptions = {
@@ -86,11 +87,7 @@ async function fetchApi<T>(
   if (!response.ok) {
     const message = (await response.json()).message || response.statusText;
     if (typeof window !== 'undefined') {
-      useNotifications.getState().addNotification({
-        type: 'error',
-        title: 'Error',
-        message,
-      });
+      toast.error(message);
     }
     throw new Error(message);
   }

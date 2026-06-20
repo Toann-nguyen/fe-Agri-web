@@ -1,10 +1,10 @@
 'use client';
 
 import { Plus } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormDrawer, Textarea } from '@/components/ui/form';
-import { useNotifications } from '@/components/ui/notifications';
 
 import {
   useCreateComment,
@@ -16,15 +16,11 @@ type CreateCommentProps = {
 };
 
 export const CreateComment = ({ discussionId }: CreateCommentProps) => {
-  const { addNotification } = useNotifications();
   const createCommentMutation = useCreateComment({
     discussionId,
     mutationConfig: {
       onSuccess: () => {
-        addNotification({
-          type: 'success',
-          title: 'Comment Created',
-        });
+        toast.success('Comment Created');
       },
     },
   });

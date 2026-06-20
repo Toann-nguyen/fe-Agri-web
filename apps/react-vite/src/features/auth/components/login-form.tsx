@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSearchParams } from 'react-router';
 
 import { Button } from '@/components/ui/button';
@@ -11,13 +12,30 @@ type LoginFormProps = {
 };
 
 export const LoginForm = ({ onSuccess }: LoginFormProps) => {
+  const [requiresCaptcha, setRequiresCaptcha] = useState(false);
+  const [attemptsLeft, setAttemptsLeft] = useState<number | null>(null);
   const login = useLogin({ onSuccess });
   const [searchParams] = useSearchParams();
   const redirectTo = searchParams.get('redirectTo');
 
   return (
     <div>
-      <Form onSubmit={(values) => login.mutate(values)} schema={loginInputSchema}>
+      <Form
+        onSubmit={(values) => {
+          login.mutate(values, {
+            onError: (error: any) => {
+              try {
+                const body = JSON.parse(error.message);
+                if (body.requires_captcha) setRequiresCaptcha(true);
+                if (body.attempts_left != null) setAttemptsLeft(body.attempts_left);
+              } catch {
+                setRequiresCaptcha(false);
+              }
+            },
+          });
+        }}
+        schema={loginInputSchema}
+      >
         {({ register, formState }) => (
           <>
             <Input
@@ -34,6 +52,19 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
               registration={register('password')}
               autoComplete='current-password'
             />
+            {requiresCaptcha && (
+              <Input
+                type='text'
+                label='Captcha Token'
+                error={formState.errors['captcha_token']}
+                registration={register('captcha_token')}
+              />
+            )}
+            {attemptsLeft != null && (
+              <p className='text-sm text-amber-600'>
+                Invalid credentials. {attemptsLeft} attempt{attemptsLeft !== 1 ? 's' : ''} remaining.
+              </p>
+            )}
             <Button
               isLoading={login.isPending}
               type='submit'

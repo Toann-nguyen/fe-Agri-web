@@ -10,12 +10,10 @@ import {
 
 const generateUser = () => ({
   id: randUuid() + Math.random(),
-  firstName: randUserName({ withAccents: false }),
-  lastName: randUserName({ withAccents: false }),
+  name: randUserName({ withAccents: false }),
   email: randEmail(),
   password: randPassword(),
-  teamId: randUuid(),
-  teamName: randCompanyName(),
+  password_confirmation: randPassword(),
   role: 'ADMIN',
   bio: randParagraph(),
   createdAt: Date.now(),

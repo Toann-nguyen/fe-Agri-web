@@ -1,8 +1,8 @@
 import { Trash } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 import { Button } from '@/components/ui/button';
 import { ConfirmationDialog } from '@/components/ui/dialog';
-import { useNotifications } from '@/components/ui/notifications';
 import { Authorization, ROLES } from '@/lib/authorization';
 
 import { useDeleteDiscussion } from '../api/delete-discussion';
@@ -12,14 +12,10 @@ type DeleteDiscussionProps = {
 };
 
 export const DeleteDiscussion = ({ id }: DeleteDiscussionProps) => {
-  const { addNotification } = useNotifications();
   const deleteDiscussionMutation = useDeleteDiscussion({
     mutationConfig: {
       onSuccess: () => {
-        addNotification({
-          type: 'success',
-          title: 'Discussion Deleted',
-        });
+        toast.success('Discussion Deleted');
       },
     },
   });

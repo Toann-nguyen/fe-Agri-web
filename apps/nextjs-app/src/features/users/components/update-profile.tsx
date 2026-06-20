@@ -1,10 +1,10 @@
 'use client';
 
 import { Pen } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormDrawer, Input, Textarea } from '@/components/ui/form';
-import { useNotifications } from '@/components/ui/notifications';
 import { useUser } from '@/lib/auth';
 
 import {
@@ -14,14 +14,10 @@ import {
 
 export const UpdateProfile = () => {
   const user = useUser();
-  const { addNotification } = useNotifications();
   const updateProfileMutation = useUpdateProfile({
     mutationConfig: {
       onSuccess: () => {
-        addNotification({
-          type: 'success',
-          title: 'Profile Updated',
-        });
+        toast.success('Profile Updated');
       },
     },
   });
@@ -79,7 +75,6 @@ export const UpdateProfile = () => {
               error={formState.errors['email']}
               registration={register('email')}
             />
-
             <Textarea
               label="Bio"
               error={formState.errors['bio']}

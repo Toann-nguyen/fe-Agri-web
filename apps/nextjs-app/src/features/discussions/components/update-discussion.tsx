@@ -1,6 +1,7 @@
 'use client';
 
 import { Pen } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -11,7 +12,6 @@ import {
   Switch,
   Textarea,
 } from '@/components/ui/form';
-import { useNotifications } from '@/components/ui/notifications';
 import { useUser } from '@/lib/auth';
 import { canUpdateDiscussion } from '@/lib/authorization';
 
@@ -26,15 +26,11 @@ type UpdateDiscussionProps = {
 };
 
 export const UpdateDiscussion = ({ discussionId }: UpdateDiscussionProps) => {
-  const { addNotification } = useNotifications();
   const discussionQuery = useDiscussion({ discussionId });
   const updateDiscussionMutation = useUpdateDiscussion({
     mutationConfig: {
       onSuccess: () => {
-        addNotification({
-          type: 'success',
-          title: 'Discussion Updated',
-        });
+        toast.success('Discussion Updated');
       },
     },
   });
@@ -79,14 +75,15 @@ export const UpdateDiscussion = ({ discussionId }: UpdateDiscussionProps) => {
           defaultValues: {
             title: discussion?.title ?? '',
             body: discussion?.body ?? '',
-            public: discussion?.public ?? false,
+            public: discussion?.public ?? true,
           },
         }}
         schema={updateDiscussionInputSchema}
       >
-        {({ register, formState, setValue, watch }) => (
+        {({ register, formState }) => (
           <>
             <Input
+              type="text"
               label="Title"
               error={formState.errors['title']}
               registration={register('title')}
@@ -96,16 +93,16 @@ export const UpdateDiscussion = ({ discussionId }: UpdateDiscussionProps) => {
               error={formState.errors['body']}
               registration={register('body')}
             />
-
             <div className="flex items-center space-x-2">
               <Switch
-                name="public"
-                onCheckedChange={(value) => setValue('public', value)}
-                checked={watch('public')}
-                className={` relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2`}
-                id="public"
+                defaultChecked={discussion?.public}
+                className={`${
+                  discussion?.public ? 'bg-cyan-600' : 'bg-slate-600'
+                } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-slate-900`}
+                id="discussion-public"
+                {...register('public')}
               />
-              <Label htmlFor="airplane-mode">Public</Label>
+              <Label htmlFor="discussion-public">Public</Label>
             </div>
           </>
         )}

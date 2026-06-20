@@ -1,10 +1,10 @@
 'use client';
 
 import { Trash } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 import { Button } from '@/components/ui/button';
 import { ConfirmationDialog } from '@/components/ui/dialog';
-import { useNotifications } from '@/components/ui/notifications';
 import { useUser } from '@/lib/auth';
 import { canDeleteDiscussion } from '@/lib/authorization';
 
@@ -16,14 +16,10 @@ type DeleteDiscussionProps = {
 
 export const DeleteDiscussion = ({ id }: DeleteDiscussionProps) => {
   const user = useUser();
-  const { addNotification } = useNotifications();
   const deleteDiscussionMutation = useDeleteDiscussion({
     mutationConfig: {
       onSuccess: () => {
-        addNotification({
-          type: 'success',
-          title: 'Discussion Deleted',
-        });
+        toast.success('Discussion Deleted');
       },
     },
   });
@@ -34,6 +30,7 @@ export const DeleteDiscussion = ({ id }: DeleteDiscussionProps) => {
 
   return (
     <ConfirmationDialog
+      isDone={deleteDiscussionMutation.isSuccess}
       icon="danger"
       title="Delete Discussion"
       body="Are you sure you want to delete this discussion?"

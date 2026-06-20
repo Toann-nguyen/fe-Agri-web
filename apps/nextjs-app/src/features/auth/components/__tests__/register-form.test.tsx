@@ -8,23 +8,17 @@ test('should register new user and call onSuccess cb which should navigate the u
 
   const onSuccess = vi.fn();
 
-  await renderApp(
-    <RegisterForm
-      onSuccess={onSuccess}
-      chooseTeam={false}
-      setChooseTeam={() => {}}
-      teams={[]}
-    />,
-    { user: null },
+  await renderApp(<RegisterForm onSuccess={onSuccess} />, { user: null });
+
+  await userEvent.type(screen.getByLabelText(/full name/i), newUser.name);
+  await userEvent.type(screen.getByLabelText(/email address/i), newUser.email);
+  await userEvent.type(screen.getByLabelText(/^password/i), newUser.password);
+  await userEvent.type(
+    screen.getByLabelText(/confirm password/i),
+    newUser.password,
   );
 
-  await userEvent.type(screen.getByLabelText(/first name/i), newUser.firstName);
-  await userEvent.type(screen.getByLabelText(/last name/i), newUser.lastName);
-  await userEvent.type(screen.getByLabelText(/email address/i), newUser.email);
-  await userEvent.type(screen.getByLabelText(/password/i), newUser.password);
-  await userEvent.type(screen.getByLabelText(/team name/i), newUser.teamName);
-
-  await userEvent.click(screen.getByRole('button', { name: /register/i }));
+  await userEvent.click(screen.getByRole('button', { name: /sign up/i }));
 
   await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1));
 });
