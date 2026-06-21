@@ -10,7 +10,7 @@ export enum ROLES {
   USER = 'USER',
 }
 
-type RoleTypes = keyof typeof ROLES;
+type RoleTypes = string;
 
 export const POLICIES = {
   'comment:delete': (user: User, comment: Comment) => {

@@ -8,15 +8,9 @@ import { RegisterForm } from '@/features/auth/components/register-form';
 export const RegisterPage = () => {
   const router = useRouter();
 
-  const { redirectTo } = router.query;
-
   return (
     <RegisterForm
-      onSuccess={() =>
-        router.replace(
-          `${redirectTo ? `${redirectTo}` : paths.app.dashboard.getHref()}`,
-        )
-      }
+      onSuccess={() => router.replace(paths.auth.login.getHref())}
     />
   );
 };

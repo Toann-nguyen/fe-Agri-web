@@ -45,29 +45,29 @@ export const authHandlers = [
         );
       }
 
-      db.user.create({
-        ...userObject,
+      const user = db.user.create({
+        name: userObject.name,
+        email: userObject.email,
         password: hash(userObject.password),
-        role: 'ADMIN',
+        role: 'student',
         teamId: '',
+        bio: '',
       });
 
       await persistDb('user');
 
-      const result = authenticate({
-        email: userObject.email,
-        password: userObject.password,
-      });
-
-      // todo: remove once tests in Github Actions are fixed
-      Cookies.set(AUTH_COOKIE, result.jwt, { path: '/' });
-
-      return HttpResponse.json(result, {
-        headers: {
-          // with a real API servier, the token cookie should also be Secure and HttpOnly
-          'Set-Cookie': `${AUTH_COOKIE}=${result.jwt}; Path=/;`,
+      return HttpResponse.json(
+        {
+          message:
+            'Registration successful. Please check your email for verification.',
+          data: {
+            id: user.id,
+            email: user.email,
+            status: 'UNVERIFIED',
+          },
         },
-      });
+        { status: 201 },
+      );
     } catch (error: any) {
       return HttpResponse.json(
         { message: error?.message || 'Server Error' },
@@ -83,19 +83,17 @@ export const authHandlers = [
       const credentials = (await request.json()) as LoginBody;
       const result = authenticate(credentials);
 
-      // todo: remove once tests in Github Actions are fixed
-      Cookies.set(AUTH_COOKIE, result.jwt, { path: '/' });
+      Cookies.set(AUTH_COOKIE, result.access_token, { path: '/' });
 
       return HttpResponse.json(result, {
         headers: {
-          // with a real API servier, the token cookie should also be Secure and HttpOnly
-          'Set-Cookie': `${AUTH_COOKIE}=${result.jwt}; Path=/;`,
+          'Set-Cookie': `${AUTH_COOKIE}=${result.access_token}; Path=/;`,
         },
       });
     } catch (error: any) {
       return HttpResponse.json(
         { message: error?.message || 'Server Error' },
-        { status: 500 },
+        { status: 401 },
       );
     }
   }),
@@ -103,7 +101,6 @@ export const authHandlers = [
   http.post(`${env.API_URL}/auth/logout`, async () => {
     await networkDelay();
 
-    // todo: remove once tests in Github Actions are fixed
     Cookies.remove(AUTH_COOKIE);
 
     return HttpResponse.json(
@@ -116,12 +113,31 @@ export const authHandlers = [
     );
   }),
 
-  http.get(`${env.API_URL}/auth/me`, async ({ cookies }) => {
+  http.get(`${env.API_URL}/auth/me`, async ({ request, cookies }) => {
     await networkDelay();
 
     try {
-      const { user } = requireAuth(cookies);
-      return HttpResponse.json({ data: user });
+      const { user, error } = requireAuth(cookies, request);
+      if (error || !user) {
+        return HttpResponse.json(
+          { message: 'Token not provided' },
+          { status: 401 },
+        );
+      }
+
+      return HttpResponse.json({
+        data: {
+          id: user.id,
+          email: user.email,
+          profile: {
+            full_name: user.name,
+            bio: user.bio || '',
+            avatar: null,
+          },
+          roles: [user.role],
+          permissions: [],
+        },
+      });
     } catch (error: any) {
       return HttpResponse.json(
         { message: error?.message || 'Server Error' },

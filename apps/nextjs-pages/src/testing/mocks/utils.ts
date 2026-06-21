@@ -67,8 +67,18 @@ export function authenticate({
 
   if (user?.password === hash(password)) {
     const sanitizedUser = sanitizeUser(user);
-    const encodedToken = encode(sanitizedUser);
-    return { user: sanitizedUser, jwt: encodedToken };
+    const accessToken = encode(sanitizedUser);
+    return {
+      access_token: accessToken,
+      expires_in: 900,
+      token_type: 'Bearer',
+      data: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        roles: [user.role],
+      },
+    };
   }
 
   const error = new Error('Invalid username or password');
@@ -77,9 +87,20 @@ export function authenticate({
 
 export const AUTH_COOKIE = `bulletproof_react_app_token`;
 
-export function requireAuth(cookies: Record<string, string>) {
+export function requireAuth(
+  cookies: Record<string, string>,
+  request?: Request,
+) {
   try {
-    const encodedToken = cookies[AUTH_COOKIE] || Cookies.get(AUTH_COOKIE);
+    let encodedToken = cookies[AUTH_COOKIE] || Cookies.get(AUTH_COOKIE);
+
+    if (!encodedToken && request) {
+      const authHeader = request.headers.get('Authorization');
+      if (authHeader?.startsWith('Bearer ')) {
+        encodedToken = authHeader.slice(7);
+      }
+    }
+
     if (!encodedToken) {
       return { error: 'Unauthorized', user: null };
     }

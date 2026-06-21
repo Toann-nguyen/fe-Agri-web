@@ -1,28 +1,35 @@
-/* eslint-disable import/order */
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { configureAuth } from 'react-query-auth';
 import { z } from 'zod';
-// eslint-disable-next-line import/no-unresolved
-import { paths } from '@/config/paths';
-// eslint-disable-next-line import/no-unresolved
-import { AuthResponse, User } from '@/types/api';
-// eslint-disable-next-line import/no-unresolved
-import { api } from './api-client';
-/* eslint-enable import/order */
 
-// api call definitions for auth (types, schemas, requests):
-// these are not part of features as this is a module shared across features
+import { useNotifications } from '@/components/ui/notifications';
+import { paths } from '@/config/paths';
+import { User } from '@/types/api';
+
+import { api } from './api-client';
+import { setToken } from './token-store';
 
 const getUser = async (): Promise<User> => {
-  // TODO: Re-enable when backend API is ready
-  // const response = await api.get('/auth/me');
-  // return response.data;
-  return null as unknown as User;
+  const response: any = await api.get('/auth/me');
+  const { id, email, profile, roles } = response.data;
+  return {
+    id: String(id),
+    email,
+    name: profile?.full_name || email,
+    role: roles?.[0] || 'student',
+    bio: profile?.bio || '',
+    avatar: profile?.avatar,
+    createdAt: Date.now(),
+  };
 };
 
-const logout = (): Promise<void> => {
-  return api.post('/auth/logout');
+const logout = async (): Promise<void> => {
+  try {
+    await api.post('/auth/logout');
+  } finally {
+    setToken(null);
+  }
 };
 
 export const loginInputSchema = z.object({
@@ -31,8 +38,18 @@ export const loginInputSchema = z.object({
 });
 
 export type LoginInput = z.infer<typeof loginInputSchema>;
-const loginWithEmailAndPassword = (data: LoginInput): Promise<AuthResponse> => {
-  return api.post('/auth/login', data);
+
+const loginWithEmailAndPassword = async (data: LoginInput): Promise<User> => {
+  const response: any = await api.post('/auth/login', data);
+  setToken(response.access_token);
+  return {
+    id: String(response.data.id),
+    email: response.data.email,
+    name: response.data.profile?.full_name || response.data.email,
+    role: response.data.roles?.[0] || 'student',
+    bio: '',
+    createdAt: Date.now(),
+  };
 };
 
 export const registerInputSchema = z
@@ -49,22 +66,24 @@ export const registerInputSchema = z
 
 export type RegisterInput = z.infer<typeof registerInputSchema>;
 
-const registerWithEmailAndPassword = (
+const registerWithEmailAndPassword = async (
   data: RegisterInput,
-): Promise<AuthResponse> => {
-  return api.post('/auth/register', data);
+): Promise<User> => {
+  const response: any = await api.post('/auth/register', data);
+  useNotifications.getState().addNotification({
+    type: 'success',
+    title: 'Registration Successful',
+    message:
+      response.message ||
+      'Please check your email to verify your account before logging in.',
+  });
+  return null as unknown as User;
 };
 
 const authConfig = {
   userFn: getUser,
-  loginFn: async (data: LoginInput) => {
-    const response = await loginWithEmailAndPassword(data);
-    return response.user;
-  },
-  registerFn: async (data: RegisterInput) => {
-    const response = await registerWithEmailAndPassword(data);
-    return response.user;
-  },
+  loginFn: loginWithEmailAndPassword,
+  registerFn: registerWithEmailAndPassword,
   logoutFn: logout,
 };
 
