@@ -62,7 +62,7 @@ export const CommentsList = ({ discussionId }: CommentsListProps) => {
                 {comment.author && (
                   <span className="text-xs font-bold">
                     {' '}
-                    by {comment.author.firstName} {comment.author.lastName}
+                    by {comment.author.name}
                   </span>
                 )}
               </div>

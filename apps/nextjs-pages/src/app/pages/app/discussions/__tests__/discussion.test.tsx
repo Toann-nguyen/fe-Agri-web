@@ -15,7 +15,7 @@ import { DiscussionPage } from '../discussion';
 
 const renderDiscussion = async () => {
   const fakeUser = await createUser();
-  const fakeDiscussion = await createDiscussion({ teamId: fakeUser.teamId });
+  const fakeDiscussion = await createDiscussion({ teamId: fakeUser.id });
 
   mockRouter.query = { discussionId: fakeDiscussion.id };
 
