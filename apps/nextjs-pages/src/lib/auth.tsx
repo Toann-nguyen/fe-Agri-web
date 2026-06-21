@@ -8,20 +8,27 @@ import { paths } from '@/config/paths';
 import { User } from '@/types/api';
 
 import { api } from './api-client';
-import { setToken } from './token-store';
+import { setToken, getToken } from './token-store';
 
 const getUser = async (): Promise<User> => {
-  const response: any = await api.get('/auth/me');
-  const { id, email, profile, roles } = response.data;
-  return {
-    id: String(id),
-    email,
-    name: profile?.full_name || email,
-    role: roles?.[0] || 'student',
-    bio: profile?.bio || '',
-    avatar: profile?.avatar,
-    createdAt: Date.now(),
-  };
+  if (!getToken()) {
+    return null as unknown as User;
+  }
+  try {
+    const response: any = await api.get('/auth/me');
+    const { id, email, profile, roles } = response.data;
+    return {
+      id: String(id),
+      email,
+      name: profile?.full_name || email,
+      role: roles?.[0] || 'student',
+      bio: profile?.bio || '',
+      avatar: profile?.avatar,
+      createdAt: Date.now(),
+    };
+  } catch {
+    return null as unknown as User;
+  }
 };
 
 const logout = async (): Promise<void> => {
