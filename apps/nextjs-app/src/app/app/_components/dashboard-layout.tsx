@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/dropdown';
 import { Link } from '@/components/ui/link';
 import { paths } from '@/config/paths';
-import { useLogout, useUser } from '@/lib/auth';
+import { useLogout, useUser, ProtectedRoute } from '@/lib/auth';
 import { cn } from '@/utils/cn';
 
 type SideNavigationItem = {
@@ -178,7 +178,7 @@ export const DashboardLayout = ({
   return (
     <Layout>
       <ErrorBoundary key={pathname} FallbackComponent={Fallback}>
-        {children}
+        <ProtectedRoute>{children}</ProtectedRoute>
       </ErrorBoundary>
     </Layout>
   );

@@ -1,21 +1,40 @@
+'use client';
+
 import {
   queryOptions,
   useMutation,
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { z } from 'zod';
 
-import { AuthResponse, User } from '@/types/api';
+import { User } from '@/types/api';
 
 import { api } from './api-client';
-
-// api call definitions for auth (types, schemas, requests):
-// these are not part of features as this is a module shared across features
+import { setToken, getToken } from './token-store';
 
 export const getUser = async (): Promise<User> => {
-  const response = await api.get<{ data: User }>('/auth/me');
-  return response.data;
+  if (!getToken()) {
+    return null as unknown as User;
+  }
+  try {
+    const response: any = await api.get('/auth/me');
+    const { id, email, profile, roles } = response.data;
+    return {
+      id: String(id),
+      email,
+      name: profile?.full_name || email,
+      role: roles?.[0] || 'student',
+      bio: profile?.bio || '',
+      avatar: profile?.avatar || undefined,
+      createdAt: Date.now(),
+    };
+  } catch {
+    return null as unknown as User;
+  }
 };
 
 const userQueryKey = ['user'];
@@ -29,6 +48,22 @@ export const getUserQueryOptions = () => {
 
 export const useUser = () => useQuery(getUserQueryOptions());
 
+export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const user = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user.data && !user.isLoading && !user.isFetching) {
+      router.replace('/auth/login');
+    }
+  }, [user.data, user.isLoading, user.isFetching, router]);
+
+  if (user.isLoading || user.isFetching) return null;
+  if (!user.data) return null;
+
+  return <>{children}</>;
+};
+
 export const useLogin = ({
   onSuccess,
   ...rest
@@ -36,8 +71,8 @@ export const useLogin = ({
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: loginWithEmailAndPassword,
-    onSuccess: (data) => {
-      queryClient.setQueryData(userQueryKey, data.user);
+    onSuccess: (user) => {
+      queryClient.setQueryData(userQueryKey, user);
       onSuccess?.();
     },
     ...rest,
@@ -45,11 +80,9 @@ export const useLogin = ({
 };
 
 export const useRegister = ({ onSuccess }: { onSuccess?: () => void }) => {
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: registerWithEmailAndPassword,
-    onSuccess: (data) => {
-      queryClient.setQueryData(userQueryKey, data.user);
+    onSuccess: () => {
       onSuccess?.();
     },
   });
@@ -66,8 +99,12 @@ export const useLogout = ({ onSuccess }: { onSuccess?: () => void }) => {
   });
 };
 
-const logout = (): Promise<void> => {
-  return api.post('/auth/logout');
+const logout = async (): Promise<void> => {
+  try {
+    await api.post('/auth/logout');
+  } finally {
+    setToken(null);
+  }
 };
 
 export const loginInputSchema = z.object({
@@ -77,8 +114,18 @@ export const loginInputSchema = z.object({
 });
 
 export type LoginInput = z.infer<typeof loginInputSchema>;
-const loginWithEmailAndPassword = (data: LoginInput): Promise<AuthResponse> => {
-  return api.post('/auth/login', data);
+
+const loginWithEmailAndPassword = async (data: LoginInput): Promise<User> => {
+  const response: any = await api.post('/auth/login', data);
+  setToken(response.access_token);
+  return {
+    id: String(response.data.id),
+    email: response.data.email,
+    name: response.data.profile?.full_name || response.data.email,
+    role: response.data.roles?.[0] || 'student',
+    bio: '',
+    createdAt: Date.now(),
+  };
 };
 
 export const registerInputSchema = z
@@ -95,10 +142,15 @@ export const registerInputSchema = z
 
 export type RegisterInput = z.infer<typeof registerInputSchema>;
 
-const registerWithEmailAndPassword = (
+const registerWithEmailAndPassword = async (
   data: RegisterInput,
-): Promise<AuthResponse> => {
-  return api.post('/auth/register', data);
+): Promise<User> => {
+  const response: any = await api.post('/auth/register', data);
+  toast.success(
+    response.message ||
+      'Registration successful. Please check your email to verify your account before logging in.',
+  );
+  return null as unknown as User;
 };
 
 export const forgotPasswordInputSchema = z.object({

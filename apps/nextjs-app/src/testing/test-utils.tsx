@@ -38,7 +38,7 @@ export const createDiscussion = async (discussionProperties?: any) => {
 
 export const loginAsUser = async (user: any) => {
   const authUser = await authenticate(user);
-  Cookies.set(AUTH_COOKIE, authUser.jwt);
+  Cookies.set(AUTH_COOKIE, authUser.access_token);
   return authUser;
 };
 

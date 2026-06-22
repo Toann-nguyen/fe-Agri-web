@@ -12,8 +12,7 @@ import {
 
 type ProfileBody = {
   email: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   bio: string;
 };
 
