@@ -60,7 +60,7 @@ var serve = (handler) => async (req, res) => {
   });
 };
 module.exports = serve(nextServer.getRequestHandler());
-if ((conf.experimental?.ppr || conf.experimental?.cacheComponents) && "getRequestHandlerWithMetadata" in nextServer && typeof nextServer.getRequestHandlerWithMetadata === "function") {
+if ((conf.experimental?.ppr || conf.experimental?.cacheComponents || conf.cacheComponents) && "getRequestHandlerWithMetadata" in nextServer && typeof nextServer.getRequestHandlerWithMetadata === "function") {
   module.exports.getRequestHandlerWithMetadata = (metadata) => serve(nextServer.getRequestHandlerWithMetadata(metadata));
 }
 if (process.env.NEXT_PRIVATE_PRELOAD_ENTRIES) {

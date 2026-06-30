@@ -12,9 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-    defaults:
-      run:
-        working-directory: ./apps/react-vite
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -24,11 +21,11 @@ jobs:
       - name: Setup pnpm
         run: corepack enable
 
-      - name: Cài đặt dependencies
-        run: pnpm install
+      - name: Cài đặt dependencies (Root)
+        run: pnpm install --frozen-lockfile
 
       - name: Build
-        run: pnpm build
+        run: pnpm --filter bulletproof-react-vite run build
         env:
           VITE_APP_API_URL: https://api.toanrobert.online/api
           VITE_APP_ENABLE_API_MOCKING: false

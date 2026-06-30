@@ -5,9 +5,9 @@
   "description": "Agri-web-app",
   "scripts": {
     "lint": "eslint .",
-    "typecheck": "pnpm --filter nextjs-app exec tsc --noEmit --pretty && pnpm --filter react-vite exec tsc --noEmit --pretty",
+    "typecheck": "pnpm --filter fe-agri-nextjs-app exec tsc --noEmit --pretty && pnpm --filter bulletproof-react-vite exec tsc --noEmit --pretty && pnpm --filter fe-agri-nextjs-pages exec tsc --noEmit --pretty",
     "format:check": "prettier --check .",
-    "check-before-push": "pnpm run typecheck && pnpm --filter nextjs-app run build:cf && pnpm --filter react-vite run build",
+    "check-before-push": "pnpm run typecheck && pnpm --filter fe-agri-nextjs-app run build:cf && pnpm --filter bulletproof-react-vite run build && pnpm --filter fe-agri-nextjs-pages run build",
     "prepare": "husky",
     "lint-staged": {
       "*.{js,jsx,ts,tsx}": [

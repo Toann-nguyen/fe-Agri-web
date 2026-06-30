@@ -1,3 +1,0 @@
-VITE_APP_API_URL=https://api.toanrobert.online/api/v1
-VITE_APP_ENABLE_API_MOCKING=true
-VITE_APP_APP_URL=http://localhost:3000
