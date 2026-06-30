@@ -27,6 +27,9 @@ const firaCode = Fira_Code({
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: siteUrl,
+  },
   title: {
     default: 'Nguyen Minh Toan — Full-Stack Developer',
     template: '%s | Nguyen Minh Toan',

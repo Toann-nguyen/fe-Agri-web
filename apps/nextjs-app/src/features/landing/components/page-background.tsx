@@ -37,7 +37,7 @@ export const PageBackground = () => {
           activeBg === 1 ? 'opacity-100' : 'opacity-0'
         }`}
         style={{
-          backgroundImage: 'url(/bg-hero-1.jpg)',
+          backgroundImage: 'url(/bg-hero-1.webp)',
         }}
       >
         <div className="absolute inset-0 bg-black/60" />
@@ -49,7 +49,7 @@ export const PageBackground = () => {
           activeBg === 2 ? 'opacity-100' : 'opacity-0'
         }`}
         style={{
-          backgroundImage: 'url(/bg-hero-2.jpg)',
+          backgroundImage: 'url(/bg-hero-2.webp)',
         }}
       >
         <div className="absolute inset-0 bg-slate-950/85" />

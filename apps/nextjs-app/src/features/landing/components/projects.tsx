@@ -32,6 +32,8 @@ export const Projects = () => {
               <img
                 src="https://picsum.photos/seed/agritech-field-green/800/500.jpg"
                 alt="AgriTech"
+                width={800}
+                height={500}
                 className="project-card-img size-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
@@ -123,6 +125,8 @@ export const Projects = () => {
               <img
                 src="https://picsum.photos/seed/streaming-dark-server/800/500.jpg"
                 alt="Streaming"
+                width={800}
+                height={500}
                 className="project-card-img size-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>

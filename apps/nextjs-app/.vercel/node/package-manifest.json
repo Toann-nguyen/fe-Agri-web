@@ -736,6 +736,15 @@
       "resolved": "7.71.2"
     },
     {
+      "name": "react-hot-toast",
+      "type": "direct",
+      "scopes": [
+        "prod"
+      ],
+      "requested": "^2.6.0",
+      "resolved": "2.6.0"
+    },
+    {
       "name": "storybook",
       "type": "direct",
       "scopes": [
@@ -6889,6 +6898,14 @@
         "prod"
       ],
       "resolved": "0.1.2"
+    },
+    {
+      "name": "goober",
+      "type": "transitive",
+      "scopes": [
+        "prod"
+      ],
+      "resolved": "2.1.19"
     },
     {
       "name": "gopd",
