@@ -1,1 +1,0 @@
-var s={},p=(u,_,b)=>(s.__chunk_3736=(g,a,t)=>{t.d(a,{q:()=>o});var e=t(698);let o=(r=!1)=>{let[c,l]=e.useState(r);return{isOpen:c,open:e.useCallback(()=>l(!0),[]),close:e.useCallback(()=>l(!1),[]),toggle:e.useCallback(()=>l(n=>!n),[])}}},s);export{p as __getNamedExports};
