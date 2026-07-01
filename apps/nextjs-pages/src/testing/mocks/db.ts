@@ -61,6 +61,9 @@ export const loadDb = async () => {
     }
   }
   // If we are running in a browser environment
+  if (typeof window.localStorage === 'undefined') {
+    return {};
+  }
   return Object.assign(
     JSON.parse(window.localStorage.getItem('msw-db') || '{}'),
   );
@@ -97,5 +100,7 @@ export const initializeDb = async () => {
 };
 
 export const resetDb = () => {
-  window.localStorage.clear();
+  if (typeof window !== 'undefined' && window.localStorage) {
+    window.localStorage.clear();
+  }
 };

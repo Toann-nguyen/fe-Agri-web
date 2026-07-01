@@ -10,7 +10,7 @@ beforeAll(() => {
   vi.mock('next/router', () => require('next-router-mock'));
 });
 afterAll(() => server.close());
-beforeEach(() => {
+beforeEach(async () => {
   const ResizeObserverMock = vi.fn(() => ({
     observe: vi.fn(),
     unobserve: vi.fn(),
@@ -22,7 +22,18 @@ beforeEach(() => {
   window.btoa = (str: string) => Buffer.from(str, 'binary').toString('base64');
   window.atob = (str: string) => Buffer.from(str, 'base64').toString('binary');
 
-  initializeDb();
+  window.matchMedia = vi.fn().mockImplementation((query: string) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: vi.fn(),
+    removeListener: vi.fn(),
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  }));
+
+  await initializeDb();
 });
 afterEach(() => {
   server.resetHandlers();
