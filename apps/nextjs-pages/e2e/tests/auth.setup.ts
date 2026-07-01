@@ -16,8 +16,8 @@ setup('authenticate', async ({ page }) => {
   await page.getByLabel('Full Name').fill(user.name);
   await page.getByLabel('Email Address').click();
   await page.getByLabel('Email Address').fill(user.email);
-  await page.getByLabel('Password').click();
-  await page.getByLabel('Password').fill(user.password);
+  await page.getByLabel('Password', { exact: true }).click();
+  await page.getByLabel('Password', { exact: true }).fill(user.password);
   await page.getByLabel('Confirm Password').click();
   await page.getByLabel('Confirm Password').fill(user.password);
   await page.getByRole('button', { name: 'Register' }).click();
@@ -31,8 +31,8 @@ setup('authenticate', async ({ page }) => {
   // log in:
   await page.getByLabel('Email Address').click();
   await page.getByLabel('Email Address').fill(user.email);
-  await page.getByLabel('Password').click();
-  await page.getByLabel('Password').fill(user.password);
+  await page.getByLabel('Password', { exact: true }).click();
+  await page.getByLabel('Password', { exact: true }).fill(user.password);
   await page.getByRole('button', { name: 'Log in' }).click();
   await page.waitForURL('/app');
 
