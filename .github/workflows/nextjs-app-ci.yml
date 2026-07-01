@@ -60,5 +60,6 @@ jobs:
           name: playwright-report
           path: |
             apps/nextjs-app/playwright-report/
+            apps/nextjs-app/test-results/
             apps/nextjs-app/mocked-db.json
           retention-days: 30
