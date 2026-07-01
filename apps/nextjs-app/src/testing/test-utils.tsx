@@ -13,6 +13,7 @@ import {
   createUser as generateUser,
 } from './data-generators';
 import { db } from './mocks/db';
+import { setToken } from '@/lib/token-store';
 import { AUTH_COOKIE, authenticate, hash } from './mocks/utils';
 
 export const waitForLoadingToFinish = () =>
@@ -39,6 +40,7 @@ export const createDiscussion = async (discussionProperties?: any) => {
 export const loginAsUser = async (user: any) => {
   const authUser = await authenticate(user);
   Cookies.set(AUTH_COOKIE, authUser.access_token);
+  setToken(authUser.access_token);
   return authUser;
 };
 
