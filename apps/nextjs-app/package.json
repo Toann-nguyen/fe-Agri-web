@@ -14,7 +14,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "run-mock-server": "tsx ./mock-server.ts",
-    "test-e2e": "pnpm playwright test",
+    "test-e2e": "wait-on http://localhost:8080 && pnpm playwright test",
     "build:cf": "pnpm dlx @cloudflare/next-on-pages",
     "build:cf:clean": "rm -rf .next .vercel/output && pnpm build:cf",
     "deploy:cf": "wrangler pages deploy .vercel/output/static --project-name=fe-agri-nextjs-app"
@@ -114,6 +114,7 @@
     "typescript": "^5.4.5",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^2.1.4",
+    "wait-on": "^9.0.10",
     "wrangler": "^3.57.1"
   },
   "msw": {

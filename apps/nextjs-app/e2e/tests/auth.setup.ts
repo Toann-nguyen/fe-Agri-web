@@ -4,6 +4,21 @@ import { createUser } from '../../src/testing/data-generators';
 const authFile = 'e2e/.auth/user.json';
 
 setup('authenticate', async ({ page }) => {
+  // Debug logging for CI
+  page.on('console', (msg) =>
+    console.log('[Browser Log]', msg.type(), msg.text()),
+  );
+  page.on('pageerror', (exception) =>
+    console.log('[Browser Uncaught Error]', exception.message),
+  );
+  page.on('requestfailed', (request) =>
+    console.log(
+      '[Network Failed]',
+      request.url(),
+      request.failure()?.errorText,
+    ),
+  );
+
   const user = createUser();
 
   await page.goto('/');
