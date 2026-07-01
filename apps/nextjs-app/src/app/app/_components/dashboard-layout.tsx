@@ -28,7 +28,7 @@ type SideNavigationItem = {
 const Logo = () => {
   return (
     <Link className="flex items-center text-white" href={paths.home.getHref()}>
-      <img className="h-8 w-auto" src="/logo.svg" alt="Workflow" />
+      <img className="h-8 w-auto" src="/logo.webp" alt="Workflow" />
       <span className="text-sm font-semibold text-white">
         Bulletproof React
       </span>

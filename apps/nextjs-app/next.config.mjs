@@ -5,8 +5,15 @@ const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
   images: {
-    // Edge runtime (Cloudflare) không hỗ trợ Next/Image optimization server-side
+    // Edge runtime (Cloudflare) does not support Next/Image optimization server-side
     unoptimized: true,
+  },
+  experimental: {
+    optimizePackageImports: [
+      'lucide-react',
+      '@iconify/react',
+      '@radix-ui/react-icons',
+    ],
   },
   // Required for `process.env.NEXT_PUBLIC_*` to be inlined at build time on
   // Cloudflare Pages. Cloudflare will substitute them from the Pages dashboard

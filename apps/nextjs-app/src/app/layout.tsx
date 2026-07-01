@@ -36,6 +36,15 @@ export const metadata = {
   },
   description:
     'Building high-performance, secure, and scalable web applications with precision-engineered architecture.',
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon-32x32.png', type: 'image/png' },
+      { url: '/favicon-16x16.png', type: 'image/png' },
+    ],
+    apple: '/favicon-32x32.png',
+  },
+
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -44,12 +53,30 @@ export const metadata = {
     title: 'Nguyen Minh Toan — Full-Stack Developer',
     description:
       'Building high-performance, secure, and scalable web applications with precision-engineered architecture.',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Nguyen Minh Toan — Full-Stack Developer',
+      },
+    ],
   },
+
   twitter: {
     card: 'summary_large_image',
     title: 'Nguyen Minh Toan — Full-Stack Developer',
     description:
       'Building high-performance, secure, and scalable web applications with precision-engineered architecture.',
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
 };
 
@@ -63,6 +90,35 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
       lang="en"
       className={`${inter.variable} ${firaCode.variable} scroll-smooth`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@graph': [
+                {
+                  '@type': 'WebSite',
+                  '@id': `${siteUrl}/#website`,
+                  url: siteUrl,
+                  name: 'Nguyen Minh Toan — Full-Stack Developer',
+                },
+                {
+                  '@type': 'Person',
+                  '@id': `${siteUrl}/#person`,
+                  name: 'Nguyen Minh Toan',
+                  jobTitle: 'Full-Stack Developer & Performance Architect',
+                  url: siteUrl,
+                  sameAs: [
+                    'https://github.com/robert-pham',
+                    'https://linkedin.com/in/nguyenminhtoan',
+                  ],
+                },
+              ],
+            }),
+          }}
+        />
+      </head>
       <body className="overflow-x-hidden bg-slate-950 font-sans text-ink-600 antialiased">
         <AppProvider>
           <HydrationBoundary state={dehydratedState}>

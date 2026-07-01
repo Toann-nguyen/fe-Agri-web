@@ -817,6 +817,15 @@
       "resolved": "2.1.9"
     },
     {
+      "name": "wait-on",
+      "type": "direct",
+      "scopes": [
+        "dev"
+      ],
+      "requested": "^9.0.10",
+      "resolved": "9.0.10"
+    },
+    {
       "name": "wrangler",
       "type": "direct",
       "scopes": [
@@ -2172,6 +2181,54 @@
       "resolved": "0.2.11"
     },
     {
+      "name": "@hapi/address",
+      "type": "transitive",
+      "scopes": [
+        "prod"
+      ],
+      "resolved": "5.1.1"
+    },
+    {
+      "name": "@hapi/formula",
+      "type": "transitive",
+      "scopes": [
+        "prod"
+      ],
+      "resolved": "3.0.2"
+    },
+    {
+      "name": "@hapi/hoek",
+      "type": "transitive",
+      "scopes": [
+        "prod"
+      ],
+      "resolved": "11.0.7"
+    },
+    {
+      "name": "@hapi/pinpoint",
+      "type": "transitive",
+      "scopes": [
+        "prod"
+      ],
+      "resolved": "2.0.1"
+    },
+    {
+      "name": "@hapi/tlds",
+      "type": "transitive",
+      "scopes": [
+        "prod"
+      ],
+      "resolved": "1.1.7"
+    },
+    {
+      "name": "@hapi/topo",
+      "type": "transitive",
+      "scopes": [
+        "prod"
+      ],
+      "resolved": "6.0.2"
+    },
+    {
       "name": "@humanwhocodes/config-array",
       "type": "transitive",
       "scopes": [
@@ -3178,6 +3235,14 @@
         "prod"
       ],
       "resolved": "10.3.0"
+    },
+    {
+      "name": "@standard-schema/spec",
+      "type": "transitive",
+      "scopes": [
+        "prod"
+      ],
+      "resolved": "1.1.0"
     },
     {
       "name": "@storybook/addon-backgrounds",
@@ -7866,6 +7931,14 @@
         "prod"
       ],
       "resolved": "2.7.0"
+    },
+    {
+      "name": "joi",
+      "type": "transitive",
+      "scopes": [
+        "prod"
+      ],
+      "resolved": "18.2.3"
     },
     {
       "name": "joycon",

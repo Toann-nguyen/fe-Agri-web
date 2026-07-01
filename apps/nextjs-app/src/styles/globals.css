@@ -573,6 +573,8 @@
 .morph-blob {
   animation: morph-blob 10s ease-in-out infinite;
   border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  will-change: border-radius;
+  transform: translateZ(0);
 }
 @keyframes morph-blob {
   0%,

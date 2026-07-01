@@ -1,17 +1,97 @@
-import {
-  Navbar,
-  Hero,
-  Expertise,
-  TechStack,
-  Experience,
-  CodeShowcase,
-  StatsDashboard,
-  Projects,
-  Architecture,
-  ContactTerminal,
-  Footer,
-  PageBackground,
-} from '@/features/landing/components';
+import dynamic from 'next/dynamic';
+
+import { Navbar, Hero, PageBackground } from '@/features/landing/components';
+
+const Expertise = dynamic(
+  () =>
+    import('@/features/landing/components').then((m) => ({
+      default: m.Expertise,
+    })),
+  {
+    loading: () => <div className="h-96 animate-pulse bg-slate-900/50" />,
+    ssr: true,
+  },
+);
+const TechStack = dynamic(
+  () =>
+    import('@/features/landing/components').then((m) => ({
+      default: m.TechStack,
+    })),
+  {
+    loading: () => <div className="h-96 animate-pulse bg-slate-900/50" />,
+    ssr: true,
+  },
+);
+const Experience = dynamic(
+  () =>
+    import('@/features/landing/components').then((m) => ({
+      default: m.Experience,
+    })),
+  {
+    loading: () => <div className="h-96 animate-pulse bg-slate-900/50" />,
+    ssr: true,
+  },
+);
+const CodeShowcase = dynamic(
+  () =>
+    import('@/features/landing/components').then((m) => ({
+      default: m.CodeShowcase,
+    })),
+  {
+    loading: () => <div className="h-96 animate-pulse bg-slate-900/50" />,
+    ssr: true,
+  },
+);
+const StatsDashboard = dynamic(
+  () =>
+    import('@/features/landing/components').then((m) => ({
+      default: m.StatsDashboard,
+    })),
+  {
+    loading: () => <div className="h-96 animate-pulse bg-slate-900/50" />,
+    ssr: true,
+  },
+);
+const Projects = dynamic(
+  () =>
+    import('@/features/landing/components').then((m) => ({
+      default: m.Projects,
+    })),
+  {
+    loading: () => <div className="h-96 animate-pulse bg-slate-900/50" />,
+    ssr: false,
+  },
+);
+const Architecture = dynamic(
+  () =>
+    import('@/features/landing/components').then((m) => ({
+      default: m.Architecture,
+    })),
+  {
+    loading: () => <div className="h-96 animate-pulse bg-slate-900/50" />,
+    ssr: true,
+  },
+);
+const ContactTerminal = dynamic(
+  () =>
+    import('@/features/landing/components').then((m) => ({
+      default: m.ContactTerminal,
+    })),
+  {
+    loading: () => <div className="h-96 animate-pulse bg-slate-900/50" />,
+    ssr: false,
+  },
+);
+const Footer = dynamic(
+  () =>
+    import('@/features/landing/components').then((m) => ({
+      default: m.Footer,
+    })),
+  {
+    loading: () => <div className="h-96 animate-pulse bg-slate-900/50" />,
+    ssr: true,
+  },
+);
 
 const HomePage = () => {
   return (

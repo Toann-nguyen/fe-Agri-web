@@ -31,7 +31,7 @@ export const AuthShell = ({ children, title, description }: AuthShellProps) => (
           <Link className="flex items-center" href={paths.home.getHref()}>
             <img
               className="h-16 w-auto"
-              src="/logo.svg"
+              src="/logo.webp"
               alt="Nguyen Minh Toan"
             />
           </Link>
@@ -47,7 +47,7 @@ export const AuthShell = ({ children, title, description }: AuthShellProps) => (
         )}
       </div>
 
-      <div className="mt-8 animate-slide-up sm:mx-auto sm:w-full sm:max-w-md delay-500">
+      <div className="animate-slide-up delay-500 mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="glow-border glass-hero rounded-2xl px-4 py-8 sm:px-10">
           {children}
         </div>
