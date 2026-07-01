@@ -1,7 +1,7 @@
 echo "🚀 [Husky] Chạy tổng kiểm tra toàn bộ Monorepo trước khi PUSH..."
 
-# Clean .vercel/output để tránh lỗi symlink EEXIST
-rm -rf apps/nextjs-app/.vercel/output
+# Clean build artifacts để tránh lỗi symlink EEXIST và build stale
+rm -rf apps/nextjs-app/.next apps/nextjs-app/.vercel/output
 
 # Chạy lệnh check-before-push bạn đã viết sẵn trong package.json gốc
 pnpm run check-before-push || { echo "❌ [Husky] Kiểm tra thất bại! Sửa lỗi build/typecheck trước khi push nhé."; exit 1; }
