@@ -26,9 +26,8 @@
 
 ### 4. `/home/robert/Agri-web-app/fe-agri/.github/workflows/`
 
-- **Nội dung**: Chứa 3 workflow files:
+- **Nội dung**: Chứa 2 workflow files:
   - `nextjs-app-ci.yml`
-  - `nextjs-pages-ci.yml`
   - `react-vite-ci.yml`
 - **Nguồn cung cấp**: Xác định project có CI pipeline nhưng **chưa có CD** (deployment) workflow
 

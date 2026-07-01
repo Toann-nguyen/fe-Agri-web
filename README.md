@@ -2,7 +2,6 @@
 
 [![MIT License](https://img.shields.io/github/license/alan2207/bulletproof-react)](https://github.com/alan2207/bulletproof-react/blob/master/LICENSE)
 [![Next.js App CI](https://github.com/alan2207/bulletproof-react/actions/workflows/nextjs-app-ci.yml/badge.svg)](https://github.com/alan2207/bulletproof-react/actions/workflows/nextjs-app-ci.yml)
-[![Next.js Pages CI](https://github.com/alan2207/bulletproof-react/actions/workflows/nextjs-pages-ci.yml/badge.svg)](https://github.com/alan2207/bulletproof-react/actions/workflows/nextjs-pages-ci.yml)
 [![React Vite CI](https://github.com/alan2207/bulletproof-react/actions/workflows/react-vite-ci.yml/badge.svg)](https://github.com/alan2207/bulletproof-react/actions/workflows/react-vite-ci.yml)
 
 A simple, scalable, and powerful architecture for building production ready React applications.
