@@ -7,13 +7,13 @@ import userEvent from '@testing-library/user-event';
 import Cookies from 'js-cookie';
 
 import { AppProvider } from '@/app/provider';
+import { setToken } from '@/lib/token-store';
 
 import {
   createDiscussion as generateDiscussion,
   createUser as generateUser,
 } from './data-generators';
 import { db } from './mocks/db';
-import { setToken } from '@/lib/token-store';
 import { AUTH_COOKIE, authenticate, hash } from './mocks/utils';
 
 export const waitForLoadingToFinish = () =>
