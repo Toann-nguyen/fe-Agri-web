@@ -48,7 +48,7 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: `pnpm run-mock-server & pnpm dev --port ${PORT}`,
+    command: `pnpm dev --port ${PORT}`,
     timeout: 30 * 1000,
     port: PORT,
     reuseExistingServer: !process.env.CI,
