@@ -250,7 +250,7 @@ export const Hero = () => {
             </div>
           </a>
           <a
-            href="#contact"
+            href="/auth/login"
             className="inline-flex items-center gap-2 rounded-xl border border-white/25 bg-white/10 px-7 py-3.5 text-sm font-medium text-white backdrop-blur-sm shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-400/50 hover:bg-white/15 hover:shadow-md"
           >
             <Icon icon="mdi:terminal" width="16" />

@@ -9,7 +9,7 @@ setup('authenticate', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('link', { name: 'Open Terminal' }).click();
   await page.waitForURL('/auth/login');
-  await page.getByRole('link', { name: 'Register' }).click();
+  await page.getByRole('link', { name: 'Sign up' }).click();
 
   // registration:
   await page.getByLabel('Full Name').click();
@@ -33,7 +33,7 @@ setup('authenticate', async ({ page }) => {
   await page.getByLabel('Email Address').fill(user.email);
   await page.getByLabel('Password').click();
   await page.getByLabel('Password').fill(user.password);
-  await page.getByRole('button', { name: 'Log in' }).click();
+  await page.getByRole('button', { name: 'Sign in' }).click();
   await page.waitForURL('/app');
 
   await page.context().storageState({ path: authFile });
