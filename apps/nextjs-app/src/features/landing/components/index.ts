@@ -5,6 +5,7 @@ export * from './tech-stack';
 export * from './experience';
 export * from './code-showcase';
 export * from './stats-dashboard';
+export * from './youtube-section';
 export * from './projects';
 export * from './architecture';
 export * from './contact-terminal';

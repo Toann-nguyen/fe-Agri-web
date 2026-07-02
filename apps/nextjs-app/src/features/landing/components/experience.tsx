@@ -1,8 +1,27 @@
 'use client';
 
+import type { ReactNode } from 'react';
 import { Icon } from '@iconify/react';
 
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
+
+/**
+ * Parse chuỗi có cú pháp **bold** thành array ReactNode,
+ * highlight các keyword kỹ thuật quan trọng bằng <strong>.
+ */
+function highlightText(text: string): ReactNode[] {
+  const parts = text.split(/(\*\*[^*]+\*\*)/);
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return (
+        <strong key={i} className="font-semibold text-white/95">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    return part;
+  });
+}
 
 export const Experience = () => {
   const sectionRef = useScrollReveal();
@@ -13,13 +32,13 @@ export const Experience = () => {
       title: 'Full-Stack Web Developer',
       company: 'INFINILAB — Cầu Giấy, Hà Nội',
       description: [
-        'Database Optimization: Diagnosed and resolved deep-rooted N+1 query pathologies across the product catalog and order management modules by refactoring with Eloquent Eager Loading and designing strategic Composite Indexes on high-frequency query columns (user_id, status, created_at), achieving ~40% reduction in API response times and ~55% improvement in complex join query latency under production load.',
-        'Data Integrity & Transaction Safety: Architected a robust ACID-compliant transaction layer for critical business workflows including payment processing, booking confirmations, and inventory adjustments — guaranteeing automatic rollback on failure to eliminate data inconsistency, reducing transaction-related incidents by ~90%.',
-        'Application Security Hardening: Strengthened the entire application infrastructure by deploying strict Content-Security-Policy (CSP) headers and X-Frame-Options on Nginx to prevent Clickjacking and XSS vectors. Enforced parameterized queries via ORM prepared statements across all data access layers, achieving full SQLi neutralization.',
-        'Multi-layered Authentication & Rate Limiting: Engineered a stateless JWT-based API authentication layer with dual access/refresh token rotation, paired with an in-memory Redis blacklist for instant session revocation. Implemented Redis-backed sliding window rate limiting that effectively blocks ~85% of DDoS and scraping attempts on public endpoints.',
-        'Client-side State Architecture: Re-architected the frontend data layer using TanStack Query with aggressive caching strategies, optimistic updates, and background refetching — reducing perceived loading times by ~60% and delivering a fluid single-page experience.',
-        'Complex Form Workflows: Designed multi-step form logic and cross-field conditional validation using React Hook Form integrated with Zod schemas, handling nested dynamic fields and real-time error feedback with zero unnecessary re-renders.',
-        'Background Job Processing: Configured Laravel Horizon with Redis queues for async task execution (email notifications, report generation, image processing), cutting request-response cycle time by ~45% by offloading heavy operations to workers.',
+        'Owned **feature development end-to-end** across backend and frontend for enterprise CRM and B2B platforms—from **database design** and **API implementation** to **React UI integration**—delivering production-ready features independently.',
+        'Optimized backend performance and query execution; eliminated **N+1 query bottlenecks** using **Eloquent Eager Loading** and applied **Composite Indexes**, reducing API response times by **40%** in production.',
+        'Enhanced application security; configured strict **Content-Security-Policy (CSP)** and **X-Frame-Options** on Nginx to mitigate Clickjacking, and neutralized **SQLi/XSS** risks globally via **ORM prepared statements** and strict server-side validation.',
+        'Implemented secure stateless API authentication using **JWT** with instant session revocation via a **Redis-backed token blacklist**; applied **Redis-based Rate Limiting** to protect public endpoints against scraping and brute-force traffic.',
+        'Improved client-side data reliability by implementing **TanStack Query** (caching, background refetching, optimistic updates), reducing redundant API calls and keeping UI state consistent.',
+        'Delivered complex **multi-step form workflows** and conditional validation using **React Hook Form** & **Zod**, improving data integrity and system stability.',
+        'Implemented async task processing using **Laravel Horizon** and **Redis queues** for background operations (email notifications, report generation, image processing), reducing request-response cycle time by **~45%**.',
       ],
       tags: [
         'Laravel',
@@ -144,7 +163,7 @@ export const Experience = () => {
                         key={i}
                         className="text-sm leading-relaxed text-white/70"
                       >
-                        {line}
+                        {highlightText(line)}
                       </p>
                     ))}
                   </div>

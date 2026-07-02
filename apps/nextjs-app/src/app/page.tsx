@@ -42,6 +42,16 @@ const CodeShowcase = dynamic(
     ssr: true,
   },
 );
+const YoutubeSection = dynamic(
+  () =>
+    import('@/features/landing/components').then((m) => ({
+      default: m.YoutubeSection,
+    })),
+  {
+    loading: () => <div className="h-96 animate-pulse bg-slate-900/50" />,
+    ssr: false,
+  },
+);
 const StatsDashboard = dynamic(
   () =>
     import('@/features/landing/components').then((m) => ({
@@ -104,6 +114,7 @@ const HomePage = () => {
       <TechStack />
       <Experience />
       <CodeShowcase />
+      <YoutubeSection />
       <StatsDashboard />
       <Projects />
       <Architecture />
