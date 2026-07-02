@@ -265,7 +265,7 @@ export const Hero = () => {
               className="counter font-mono text-3xl font-bold text-white"
               data-target="3"
             >
-              3
+              1
             </div>
             <div className="mt-1 text-[11px] font-medium uppercase tracking-wider text-white/50">
               Years
@@ -277,7 +277,7 @@ export const Hero = () => {
               className="counter font-mono text-3xl font-bold text-white"
               data-target="20"
             >
-              20
+              5
             </div>
             <div className="mt-1 text-[11px] font-medium uppercase tracking-wider text-white/50">
               Projects
