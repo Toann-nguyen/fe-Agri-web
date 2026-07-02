@@ -157,7 +157,7 @@ export const Hero = () => {
             <div className="absolute -inset-[1px] rounded-full bg-gradient-to-br from-cyan-500 to-orange-400" />
             <div className="relative size-24 overflow-hidden rounded-full border-2 border-white/20 sm:size-28">
               <Image
-                src="/avatar.jpg"
+                src="/avatar.webp"
                 alt="Nguyen Minh Toan"
                 fill
                 className="object-cover object-top"
