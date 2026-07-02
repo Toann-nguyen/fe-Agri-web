@@ -1,7 +1,7 @@
 'use client';
 
-import { YouTubeEmbed } from '@next/third-parties/google';
 import { Icon } from '@iconify/react';
+import { YouTubeEmbed } from '@next/third-parties/google';
 
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 

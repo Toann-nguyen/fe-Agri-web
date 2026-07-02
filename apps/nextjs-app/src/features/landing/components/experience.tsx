@@ -1,7 +1,7 @@
 'use client';
 
-import type { ReactNode } from 'react';
 import { Icon } from '@iconify/react';
+import type { ReactNode } from 'react';
 
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 
