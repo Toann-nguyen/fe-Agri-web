@@ -1,0 +1,33 @@
+# Dependencies
+**/node_modules
+**/.pnp
+.pnp.js
+
+# Build outputs
+**/.next
+**/dist
+**/build
+**/.vercel
+**/coverage
+**/playwright-report
+**/test-results
+
+# Version control
+.git
+
+# Local env / editor / logs
+**/.env*.local
+**/.env
+*.log
+npm-debug.log*
+.pnpm-debug.log*
+
+# Docs not needed for the image
+docs
+.github
+.kilo
+*.md
+
+# Docker own files
+Dockerfile
+.dockerignore

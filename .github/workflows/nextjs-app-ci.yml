@@ -36,6 +36,8 @@ jobs:
         run: pnpm --filter fe-agri-nextjs-app run lint
       - name: Check types
         run: pnpm --filter fe-agri-nextjs-app run check-types
+      - name: Check format
+        run: pnpm run format:check
   e2e:
     timeout-minutes: 60
     runs-on: ubuntu-latest

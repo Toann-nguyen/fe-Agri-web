@@ -10,3 +10,4 @@
 .vercel/
 .next/
 dist/
+.kilo/

@@ -1,0 +1,40 @@
+name: Next.js App — Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/nextjs-app/**'
+      - '.github/workflows/nextjs-app-cd.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Setup pnpm
+        run: corepack enable
+
+      - name: Cài đặt dependencies (Root)
+        run: pnpm install --frozen-lockfile
+
+      - name: Build với Cloudflare adapter
+        run: pnpm --filter fe-agri-nextjs-app run build:cf
+        env:
+          NEXT_PUBLIC_API_URL: https://api.toanrobert.online/api
+          NEXT_PUBLIC_ENABLE_API_MOCKING: false
+          NEXT_PUBLIC_URL: https://toanrobert.online
+
+      - name: Deploy lên Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: f960756ef992f2078150351f8b7141ca
+          command: pages deploy .vercel/output/static --project-name=fe-agri-nextjs-app --branch=main
+          workingDirectory: apps/nextjs-app

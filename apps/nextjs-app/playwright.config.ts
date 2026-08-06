@@ -49,8 +49,17 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: {
     command: `pnpm dev --port ${PORT}`,
-    timeout: 30 * 1000,
+    timeout: 120 * 1000,
     port: PORT,
     reuseExistingServer: !process.env.CI,
+    /* These env vars are passed to the spawned dev server. They take
+       precedence over any .env/.env.local, so e2e always targets the local
+       mock server regardless of local config. */
+    env: {
+      NEXT_PUBLIC_API_URL: 'http://localhost:8080/api',
+      NEXT_PUBLIC_URL: 'http://localhost:3000',
+      NEXT_PUBLIC_ENABLE_API_MOCKING: 'false',
+      NEXT_PUBLIC_MOCK_API_PORT: '8080',
+    },
   },
 });

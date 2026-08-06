@@ -3,6 +3,7 @@ export * from './hero';
 export * from './expertise';
 export * from './tech-stack';
 export * from './experience';
+export * from './education';
 export * from './code-showcase';
 export * from './stats-dashboard';
 export * from './youtube-section';

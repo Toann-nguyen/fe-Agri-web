@@ -263,9 +263,9 @@ export const Hero = () => {
           <div className="group text-center">
             <div
               className="counter font-mono text-3xl font-bold text-white"
-              data-target="3"
+              data-target="1.5"
             >
-              1
+              1.5
             </div>
             <div className="mt-1 text-[11px] font-medium uppercase tracking-wider text-white/50">
               Years

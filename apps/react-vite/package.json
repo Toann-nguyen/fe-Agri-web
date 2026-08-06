@@ -8,7 +8,7 @@
     "build": "tsc && vite build --base=/",
     "preview": "vite preview",
     "test": "vitest",
-    "test-e2e": "pm2 start \"pnpm run-mock-server\" --name server && pnpm playwright test",
+    "test-e2e": "trap 'pm2 delete server' EXIT; pm2 start \"pnpm run-mock-server\" --name server && wait-on -t 60000 http://localhost:8080 && pnpm playwright test",
     "lint": "eslint src --ignore-path .gitignore",
     "check-types": "tsc --project tsconfig.json --pretty --noEmit",
     "generate": "plop",

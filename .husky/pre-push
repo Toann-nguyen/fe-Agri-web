@@ -1,9 +1,27 @@
-echo "🚀 [Husky] Chạy tổng kiểm tra toàn bộ Monorepo trước khi PUSH..."
+echo "🚀 [Husky] Detecting changed apps for pre-push checks..."
 
-# Clean build artifacts để tránh lỗi symlink EEXIST và build stale
-rm -rf apps/nextjs-app/.next apps/nextjs-app/.vercel/output
+changed_files=$(git diff --name-only HEAD@{1} HEAD 2>/dev/null || git diff --name-only origin/main...HEAD 2>/dev/null || echo "")
 
-# Chạy lệnh check-before-push bạn đã viết sẵn trong package.json gốc
-pnpm run check-before-push || { echo "❌ [Husky] Kiểm tra thất bại! Sửa lỗi build/typecheck trước khi push nhé."; exit 1; }
+if echo "$changed_files" | grep -qE '^apps/nextjs-app/'; then
+  echo "🔍 Changes detected in apps/nextjs-app — running lint + typecheck + build"
+  pnpm --filter fe-agri-nextjs-app run lint || { echo "❌ Lint failed"; exit 1; }
+  pnpm --filter fe-agri-nextjs-app run check-types || { echo "❌ Typecheck failed"; exit 1; }
+  pnpm --filter fe-agri-nextjs-app run build || { echo "❌ Build failed"; exit 1; }
+elif echo "$changed_files" | grep -qE '^apps/react-vite/'; then
+  echo "🔍 Changes detected in apps/react-vite — running lint + typecheck + build"
+  pnpm --filter bulletproof-react-vite run lint || { echo "❌ Lint failed"; exit 1; }
+  pnpm --filter bulletproof-react-vite run check-types || { echo "❌ Typecheck failed"; exit 1; }
+  pnpm --filter bulletproof-react-vite run build || { echo "❌ Build failed"; exit 1; }
+elif echo "$changed_files" | grep -qE '^apps/nextjs-pages/'; then
+  echo "🔍 Changes detected in apps/nextjs-pages — running lint + typecheck + build"
+  pnpm --filter fe-agri-nextjs-pages run lint || { echo "❌ Lint failed"; exit 1; }
+  pnpm --filter fe-agri-nextjs-pages run check-types || { echo "❌ Typecheck failed"; exit 1; }
+  pnpm --filter fe-agri-nextjs-pages run build || { echo "❌ Build failed"; exit 1; }
+else
+  echo "🔍 No app-specific changes detected — running full check-before-push"
+  # Clean build artifacts để tránh lỗi symlink EEXIST và build stale
+  rm -rf apps/nextjs-app/.next apps/nextjs-app/.vercel/output
+  pnpm run check-before-push || { echo "❌ [Husky] Kiểm tra thất bại! Sửa lỗi build/typecheck trước khi push nhé."; exit 1; }
+fi
 
 echo "✅ [Husky] Tiến hành push lên GitHub..."

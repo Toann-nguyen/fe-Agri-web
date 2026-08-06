@@ -119,7 +119,6 @@ const EXPERTISE_ITEMS = [
       { icon: 'simple-icons:mysql', name: 'MySQL', color: '#4479A1' },
       { icon: 'simple-icons:redis', name: 'Redis', color: '#DC382D' },
       { icon: 'mdi:database-search', name: 'N+1 Fix', color: '#10b981' },
-      { icon: 'simple-icons:mongodb', name: 'MongoDB', color: '#47A248' },
     ],
     stats: [
       { label: 'Cache Hit Rate', value: '98%' },

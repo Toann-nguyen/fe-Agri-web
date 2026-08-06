@@ -12,7 +12,7 @@ export const Footer = () => {
               T
             </div>
             <span className="text-sm text-ink-400">
-              © <span className="font-mono">2024</span> Nguyen Minh Toan.
+              © <span className="font-mono">2026</span> Nguyen Minh Toan.
               Engineered with precision.
             </span>
           </div>

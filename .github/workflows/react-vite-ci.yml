@@ -35,6 +35,8 @@ jobs:
         run: pnpm --filter bulletproof-react-vite run lint
       - name: Check types
         run: pnpm --filter bulletproof-react-vite run check-types
+      - name: Check format
+        run: pnpm run format:check
   e2e:
     timeout-minutes: 60
     runs-on: ubuntu-latest

@@ -218,6 +218,7 @@ export const ContactTerminal = () => {
               {process.env.NEXT_PUBLIC_EMAIL_ADDRESS}
             </a>
           </p>
+          <p className="mt-2 text-sm text-white/60">📞 0964748324</p>
         </div>
 
         <div className="reveal-scale overflow-hidden rounded-2xl shadow-2xl shadow-black/10">
