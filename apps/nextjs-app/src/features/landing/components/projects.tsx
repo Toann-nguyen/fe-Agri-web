@@ -224,6 +224,105 @@ export const Projects = () => {
             </div>
           </div>
         </div>
+
+        {/* Project 3 - Edu-AI-VN */}
+        <div
+          className="glow-border project-card reveal-left bg-slate-900/50 border border-white/10 backdrop-blur-sm group overflow-hidden rounded-2xl"
+          style={{ '--stagger': 2 } as any}
+        >
+          <div className="relative h-56 overflow-hidden">
+            <img
+              src="https://picsum.photos/seed/edu-ai-vn-classroom/800/500.jpg"
+              alt="Edu-AI-VN"
+              width={800}
+              height={500}
+              className="project-card-img size-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
+
+            <div className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full bg-gradient-to-r from-cyan-500 to-ember-500 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-lg">
+              <Icon icon="mdi:star-four-points" width="12" />
+              Flagship
+            </div>
+            <div className="absolute bottom-4 left-4 flex items-center gap-1.5 rounded-full border border-white/10 bg-slate-950/80 px-3 py-1.5 font-mono text-[10px] font-medium text-cyan-400 backdrop-blur-sm">
+              <Icon icon="mdi:web-check" width="12" />
+              Child Platform
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-700 group-hover:opacity-100">
+              <div
+                className="relative size-32 animate-ripple rounded-lg border-2 border-cyan-500/50"
+                style={{ animation: 'ripple 2s ease-out infinite' }}
+              >
+                <div className="absolute -left-0.5 -top-0.5 size-5 border-l-2 border-t-2 border-cyan-500"></div>
+                <div className="absolute -right-0.5 -top-0.5 size-5 border-r-2 border-t-2 border-cyan-500"></div>
+                <div className="absolute -bottom-0.5 -left-0.5 size-5 border-b-2 border-l-2 border-cyan-500"></div>
+                <div className="absolute -bottom-0.5 -right-0.5 size-5 border-b-2 border-r-2 border-cyan-500"></div>
+                <div className="absolute inset-x-0 top-1/2 h-px bg-cyan-400/30"></div>
+                <div className="absolute inset-y-0 left-1/2 w-px bg-cyan-400/30"></div>
+              </div>
+            </div>
+          </div>
+          <div className="p-6">
+            <div className="mb-3 flex items-center gap-2">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-amber-400 opacity-75"></span>
+                <span className="relative inline-flex size-2 rounded-full bg-amber-500"></span>
+              </span>
+              <span className="font-mono text-[10px] font-medium uppercase tracking-wider text-amber-600">
+                In Development
+              </span>
+            </div>
+            <h3 className="mb-2 text-xl font-bold text-white transition-colors duration-300 group-hover:text-cyan-400">
+              Edu-AI-VN
+            </h3>
+            <p className="mb-4 text-sm leading-relaxed text-white/70">
+              AI-powered education platform for Vietnamese learners. Interactive
+              lessons with adaptive learning paths powered by Gemini AI.
+            </p>
+
+            <div className="mb-5 flex flex-wrap gap-2">
+              {[
+                {
+                  name: 'Next.js',
+                  color: 'bg-cyan-500/8 text-cyan-700 border-cyan-500/10',
+                },
+                {
+                  name: 'Gemini AI',
+                  color: 'bg-purple-500/8 text-purple-700 border-purple-500/10',
+                },
+                {
+                  name: 'Tailwind CSS',
+                  color: 'bg-ember-500/8 text-ember-700 border-ember-500/10',
+                },
+                {
+                  name: 'Google OAuth',
+                  color: 'bg-green-500/8 text-green-700 border-green-500/10',
+                },
+              ].map((tag) => (
+                <span
+                  key={tag.name}
+                  className={`rounded-lg border px-2.5 py-1 font-mono text-[10px] font-medium ${tag.color}`}
+                >
+                  {tag.name}
+                </span>
+              ))}
+            </div>
+            <div className="flex items-center gap-4">
+              <a
+                href="/edu/login"
+                className="group/btn inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-cyan-600 to-ember-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:from-cyan-500 hover:to-ember-400 hover:shadow-cyan-500/40"
+              >
+                <Icon icon="mdi:login" width="16" />
+                Access Portal
+                <Icon
+                  icon="mdi:arrow-right"
+                  className="transition-transform duration-300 group-hover/btn:translate-x-1"
+                  width="16"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

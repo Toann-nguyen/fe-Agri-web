@@ -16,6 +16,9 @@ export const paths = {
       getHref: (redirectTo?: string | null | undefined) =>
         `/auth/login${redirectTo ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ''}`,
     },
+    eduAiVn: {
+      getHref: () => '/edu/login',
+    },
     forgotPassword: {
       getHref: () => '/auth/forgot-password',
     },
