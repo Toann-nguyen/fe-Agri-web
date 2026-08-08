@@ -5,8 +5,8 @@ import toast from 'react-hot-toast';
 
 import { Button } from '@/components/ui/button';
 import { ConfirmationDialog } from '@/components/ui/dialog';
-import { useUser } from '@/lib/auth';
-import { canDeleteDiscussion } from '@/lib/authorization';
+import { useUser } from '@/lib/auth/auth-provider';
+import { canDeleteDiscussion } from '@/lib/auth/authorization';
 
 import { useDeleteDiscussion } from '../api/delete-discussion';
 

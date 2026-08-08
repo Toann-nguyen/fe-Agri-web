@@ -6,7 +6,7 @@ import {
   canUpdateDiscussion,
   canViewUsers,
   canDeleteComment,
-} from '../authorization';
+} from '../auth/authorization';
 
 describe('Discussion Authorization', () => {
   const adminUser: User = {

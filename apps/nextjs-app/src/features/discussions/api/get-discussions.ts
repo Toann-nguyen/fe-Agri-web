@@ -1,7 +1,7 @@
 import { queryOptions, useQuery } from '@tanstack/react-query';
 
-import { api } from '@/lib/api-client';
-import { QueryConfig } from '@/lib/react-query';
+import { api } from '@/lib/api/client';
+import { QueryConfig } from '@/lib/api/query-client';
 import { Discussion, Meta } from '@/types/api';
 
 export const getDiscussions = (

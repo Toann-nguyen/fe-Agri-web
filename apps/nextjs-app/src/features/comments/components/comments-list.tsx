@@ -6,8 +6,8 @@ import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { MDPreview } from '@/components/ui/md-preview';
 import { Spinner } from '@/components/ui/spinner';
-import { useUser } from '@/lib/auth';
-import { canDeleteComment } from '@/lib/authorization';
+import { useUser } from '@/lib/auth/auth-provider';
+import { canDeleteComment } from '@/lib/auth/authorization';
 import { formatDate } from '@/utils/format';
 
 import { useInfiniteComments } from '../api/get-comments';

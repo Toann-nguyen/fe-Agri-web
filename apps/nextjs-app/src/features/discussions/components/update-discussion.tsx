@@ -12,8 +12,8 @@ import {
   Switch,
   Textarea,
 } from '@/components/ui/form';
-import { useUser } from '@/lib/auth';
-import { canUpdateDiscussion } from '@/lib/authorization';
+import { useUser } from '@/lib/auth/auth-provider';
+import { canUpdateDiscussion } from '@/lib/auth/authorization';
 
 import { useDiscussion } from '../api/get-discussion';
 import {
