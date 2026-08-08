@@ -4,7 +4,7 @@ import { Spinner } from '@/components/ui/spinner';
 import { Table } from '@/components/ui/table';
 import { formatDate } from '@/utils/format';
 
-import { useUsers } from '../api/get-users';
+import { useUsers } from '../api/users.queries';
 
 import { DeleteUser } from './delete-user';
 

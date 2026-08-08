@@ -5,12 +5,10 @@ import toast from 'react-hot-toast';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormDrawer, Input, Textarea } from '@/components/ui/form';
-import { useUser } from '@/lib/auth';
+import { useUser } from '@/lib/auth/auth-provider';
 
-import {
-  updateProfileInputSchema,
-  useUpdateProfile,
-} from '../api/update-profile';
+import { useUpdateProfile } from '../api/users.queries';
+import { updateProfileInputSchema } from '../schemas/update-profile.schema';
 
 export const UpdateProfile = () => {
   const user = useUser();

@@ -4,9 +4,9 @@ import toast from 'react-hot-toast';
 
 import { Button } from '@/components/ui/button';
 import { ConfirmationDialog } from '@/components/ui/dialog';
-import { useUser } from '@/lib/auth';
+import { useUser } from '@/lib/auth/auth-provider';
 
-import { useDeleteUser } from '../api/delete-user';
+import { useDeleteUser } from '../api/users.queries';
 
 type DeleteUserProps = {
   id: string;
