@@ -1,0 +1,39 @@
+{
+  "edu": {
+    "brand": "Edu-AI-VN",
+    "subtitle": "AI-Powered Smart Learning Platform Login Portal",
+    "backToPortfolio": "Back to Main Portfolio",
+    "domain": "edu.toanrobert.online",
+    "sslBadge": "Subdomain SSL Authentication",
+    "successLogin": "Login successful! Redirecting to homepage...",
+    "authenticating": "Authenticating Edu-AI-VN account credentials...",
+    "loginFailed": "Login failed. Please check your account information again.",
+    "googleConnecting": "Connecting to Google Authentication Service...",
+    "googleSuccess": "Google account authenticated successfully! Redirecting...",
+    "demoFilled": "Demo account auto-filled.",
+    "googleButton": "Sign in with Google",
+    "divider": "or sign in with account",
+    "identifierLabel": "Username or Email",
+    "identifierPlaceholder": "student_ai or user@edu.toanrobert.online",
+    "passwordLabel": "Password",
+    "forgotPassword": "Forgot password?",
+    "forgotPasswordHint": "Please contact the administrator via email {email} to reset your password.",
+    "rememberMe": "Remember me",
+    "fillDemo": "⚡ Fill Demo Account",
+    "submit": "Sign In Edu-AI-VN",
+    "noAccount": "Don't have an Edu-AI-VN account yet?",
+    "signUp": "Sign up now",
+    "signUpHint": "A new account is created automatically when signing in with Google!",
+    "badgeTutor": "AI Tutor 24/7",
+    "badgeRoadmap": "Optimized Roadmap",
+    "badgeGrading": "Auto Grading",
+    "validation": {
+      "identifierRequired": "Please enter your username or email.",
+      "passwordMin": "Password must be at least 5 characters."
+    },
+    "meta": {
+      "title": "Edu-AI-VN | Sign in",
+      "description": "Sign in to Edu-AI-VN - AI-powered education platform."
+    }
+  }
+}

@@ -1,9 +1,11 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
+import createMiddleware from 'next-intl/middleware';
 
-export function middleware(request: NextRequest) {
-  const response = NextResponse.next();
+import { routing } from './i18n/routing';
 
+const intlMiddleware = createMiddleware(routing);
+
+function applySecurityHeaders(response: NextResponse, pathname: string) {
   // Security Headers
   response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('X-Content-Type-Options', 'nosniff');
@@ -18,8 +20,6 @@ export function middleware(request: NextRequest) {
   );
 
   // Cache-Control
-  const pathname = request.nextUrl.pathname;
-
   if (
     pathname.startsWith('/_next/static') ||
     pathname.match(/\.(woff2|css|js)$/)
@@ -36,11 +36,17 @@ export function middleware(request: NextRequest) {
   } else {
     response.headers.set('Cache-Control', 'public, max-age=0, must-revalidate');
   }
+}
 
+export default function middleware(request: NextRequest) {
+  const response = intlMiddleware(request);
+  applySecurityHeaders(response, request.nextUrl.pathname);
   return response;
 }
 
 export const config = {
+  // Match all pathnames except API routes, Next internals and static assets.
+  // This also covers unprefixed default-locale pathnames required by `as-needed`.
   matcher: [
     '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|webp|ico|svg)$).*)',
   ],

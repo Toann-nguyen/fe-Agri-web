@@ -1,0 +1,26 @@
+{
+  "selectLanguage": "Select language",
+  "vietnamese": "Vietnamese",
+  "english": "English",
+  "landing": {
+    "title": "Bulletproof React",
+    "description": "Welcome to Bulletproof React",
+    "heading": "Bulletproof React",
+    "subheading": "Showcasing Best Practices For Building React Applications",
+    "getStarted": "Get started",
+    "githubRepo": "Github Repo"
+  },
+  "auth": {
+    "loginTitle": "Sign in to your account",
+    "loginDescription": "Access your dashboard and manage your account.",
+    "registerTitle": "Create your account",
+    "registerDescription": "Sign up to get started with your team workspace.",
+    "forgotPasswordTitle": "Forgot your password?",
+    "forgotPasswordDescription": "Enter your email and we will send you a reset link.",
+    "resetPasswordTitle": "Reset your password",
+    "resetPasswordDescription": "Choose a new password for your account.",
+    "verifyEmailTitle": "Verify your email",
+    "verifyEmailDescription": "Confirm your email address to activate your account.",
+    "defaultTitle": "Authentication"
+  }
+}

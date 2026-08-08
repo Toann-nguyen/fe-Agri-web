@@ -1,0 +1,11 @@
+{
+  "name": "@repo/i18n",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./locales/*": "./locales/*",
+    "./locales": "./locales",
+    ".": "./index.ts"
+  }
+}

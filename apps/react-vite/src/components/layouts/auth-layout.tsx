@@ -1,8 +1,11 @@
 import { ReactNode, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate, useSearchParams } from 'react-router';
 
+import { LanguageSwitcher } from '@/components/language-switcher';
 import { Head } from '@/components/seo';
 import { paths } from '@/config/paths';
+// eslint-disable-next-line import/no-restricted-paths
 import { AuthShell } from '@/features/auth/components/auth-shell';
 import { useUser } from '@/lib/auth';
 
@@ -29,6 +32,9 @@ export const AuthLayout = ({ children, title, description }: LayoutProps) => {
   return (
     <>
       <Head title={title} description={description} noIndex />
+      <div className='flex justify-end px-4 pt-4'>
+        <LanguageSwitcher />
+      </div>
       <AuthShell title={title} description={description}>
         {children}
       </AuthShell>
@@ -36,30 +42,35 @@ export const AuthLayout = ({ children, title, description }: LayoutProps) => {
   );
 };
 
-export const AUTH_PAGE_META: Record<string, { title: string; description?: string }> = {
+export const AUTH_PAGE_META: Record<string, { titleKey: string; descriptionKey?: string }> = {
   [paths.auth.login.path]: {
-    title: 'Sign in to your account',
-    description: 'Access your dashboard and manage your account.',
+    titleKey: 'auth.loginTitle',
+    descriptionKey: 'auth.loginDescription',
   },
   [paths.auth.register.path]: {
-    title: 'Create your account',
-    description: 'Sign up to get started with your team workspace.',
+    titleKey: 'auth.registerTitle',
+    descriptionKey: 'auth.registerDescription',
   },
   [paths.auth.forgotPassword.path]: {
-    title: 'Forgot your password?',
-    description: 'Enter your email and we will send you a reset link.',
+    titleKey: 'auth.forgotPasswordTitle',
+    descriptionKey: 'auth.forgotPasswordDescription',
   },
   [paths.auth.resetPassword.path]: {
-    title: 'Reset your password',
-    description: 'Choose a new password for your account.',
+    titleKey: 'auth.resetPasswordTitle',
+    descriptionKey: 'auth.resetPasswordDescription',
   },
   [paths.auth.verifyEmail.path]: {
-    title: 'Verify your email',
-    description: 'Confirm your email address to activate your account.',
+    titleKey: 'auth.verifyEmailTitle',
+    descriptionKey: 'auth.verifyEmailDescription',
   },
 };
 
 export const useAuthPageMeta = () => {
+  const { t } = useTranslation('common');
   const location = useLocation();
-  return AUTH_PAGE_META[location.pathname] ?? { title: 'Authentication' };
+  const meta = AUTH_PAGE_META[location.pathname] ?? { titleKey: 'auth.defaultTitle' };
+  return {
+    title: t(meta.titleKey),
+    description: meta.descriptionKey ? t(meta.descriptionKey) : undefined,
+  };
 };

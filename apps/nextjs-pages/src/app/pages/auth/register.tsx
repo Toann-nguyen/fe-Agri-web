@@ -16,5 +16,5 @@ export const RegisterPage = () => {
 };
 
 RegisterPage.getLayout = (page: ReactElement) => {
-  return <AuthLayout title="Register your account">{page}</AuthLayout>;
+  return <AuthLayout titleKey="auth.registerTitle">{page}</AuthLayout>;
 };

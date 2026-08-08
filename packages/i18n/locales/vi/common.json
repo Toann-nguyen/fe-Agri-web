@@ -1,0 +1,26 @@
+{
+  "selectLanguage": "Chọn ngôn ngữ",
+  "vietnamese": "Tiếng Việt",
+  "english": "English",
+  "landing": {
+    "title": "Bulletproof React",
+    "description": "Chào mừng đến với Bulletproof React",
+    "heading": "Bulletproof React",
+    "subheading": "Các phương pháp hay nhất để xây dựng ứng dụng React",
+    "getStarted": "Bắt đầu",
+    "githubRepo": "Kho lưu trữ Github"
+  },
+  "auth": {
+    "loginTitle": "Đăng nhập vào tài khoản",
+    "loginDescription": "Truy cập trang quản lý và quản lý tài khoản của bạn.",
+    "registerTitle": "Tạo tài khoản",
+    "registerDescription": "Đăng ký để bắt đầu với không gian làm việc của nhóm.",
+    "forgotPasswordTitle": "Quên mật khẩu?",
+    "forgotPasswordDescription": "Nhập email của bạn và chúng tôi sẽ gửi liên kết đặt lại.",
+    "resetPasswordTitle": "Đặt lại mật khẩu",
+    "resetPasswordDescription": "Chọn mật khẩu mới cho tài khoản của bạn.",
+    "verifyEmailTitle": "Xác thực email",
+    "verifyEmailDescription": "Xác nhận địa chỉ email để kích hoạt tài khoản.",
+    "defaultTitle": "Xác thực"
+  }
+}

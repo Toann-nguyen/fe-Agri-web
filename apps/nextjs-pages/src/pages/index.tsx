@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useTranslation } from 'react-i18next';
 
 import { Head } from '@/components/seo';
 import { Button } from '@/components/ui/button';
@@ -6,6 +7,7 @@ import { paths } from '@/config/paths';
 import { useUser } from '@/lib/auth';
 
 export const HomePage = () => {
+  const { t } = useTranslation('common');
   const router = useRouter();
   const user = useUser();
 
@@ -19,17 +21,14 @@ export const HomePage = () => {
 
   return (
     <>
-      <Head
-        title={'Bulletproof React'}
-        description="Welcome to bulletproof react"
-      />
+      <Head title={t('landing.title')} description={t('landing.description')} />
       <div className="flex h-screen items-center bg-white">
         <div className="mx-auto max-w-7xl px-4 py-12 text-center sm:px-6 lg:px-8 lg:py-16">
           <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-            <span className="block">Bulletproof React</span>
+            <span className="block">{t('landing.heading')}</span>
           </h2>
           <img src="/logo.svg" alt="react" />
-          <p>Showcasing Best Practices For Building React Applications</p>
+          <p>{t('landing.subheading')}</p>
           <div className="mt-8 flex justify-center">
             <div className="inline-flex rounded-md shadow">
               <Button
@@ -51,7 +50,7 @@ export const HomePage = () => {
                   </svg>
                 }
               >
-                Get started
+                {t('landing.getStarted')}
               </Button>
             </div>
             <div className="ml-3 inline-flex">
@@ -76,7 +75,7 @@ export const HomePage = () => {
                     </svg>
                   }
                 >
-                  Github Repo
+                  {t('landing.githubRepo')}
                 </Button>
               </a>
             </div>
@@ -86,5 +85,3 @@ export const HomePage = () => {
     </>
   );
 };
-
-export default HomePage;

@@ -21,5 +21,5 @@ export const LoginPage = () => {
 };
 
 LoginPage.getLayout = (page: ReactElement) => {
-  return <AuthLayout title="Log in to your account">{page}</AuthLayout>;
+  return <AuthLayout titleKey="auth.loginTitle">{page}</AuthLayout>;
 };

@@ -1,0 +1,39 @@
+{
+  "edu": {
+    "brand": "Edu-AI-VN",
+    "subtitle": "Cổng Đăng Nhập Nền Tảng Học Tập AI Thông Minh",
+    "backToPortfolio": "Về Portfolio Chính",
+    "domain": "edu.toanrobert.online",
+    "sslBadge": "Xác thực SSL Subdomain",
+    "successLogin": "Đăng nhập thành công! Đang chuyển hướng đến trang chủ...",
+    "authenticating": "Đang xác thực thông tin tài khoản Edu-AI-VN...",
+    "loginFailed": "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin tài khoản.",
+    "googleConnecting": "Đang kết nối đến Google Authentication Service...",
+    "googleSuccess": "Xác thực tài khoản Google thành công! Đang chuyển hướng...",
+    "demoFilled": "Đã tự động điền tài khoản thử nghiệm.",
+    "googleButton": "Đăng nhập với Google",
+    "divider": "hoặc đăng nhập tài khoản",
+    "identifierLabel": "Tên đăng nhập hoặc Email",
+    "identifierPlaceholder": "student_ai hoặc user@edu.toanrobert.online",
+    "passwordLabel": "Mật khẩu",
+    "forgotPassword": "Quên mật khẩu?",
+    "forgotPasswordHint": "Vui lòng liên hệ quản trị viên qua email {email} để lấy lại mật khẩu.",
+    "rememberMe": "Ghi nhớ đăng nhập",
+    "fillDemo": "⚡ Điền Acc Demo",
+    "submit": "Đăng Nhập Edu-AI-VN",
+    "noAccount": "Chưa có tài khoản Edu-AI-VN?",
+    "signUp": "Đăng ký ngay",
+    "signUpHint": "Hệ thống tự động đăng ký tài khoản mới khi Đăng nhập bằng Google!",
+    "badgeTutor": "Gia Sư AI 24/7",
+    "badgeRoadmap": "Lộ Trình Tối Ưu",
+    "badgeGrading": "Chấm Điểm Tự Động",
+    "validation": {
+      "identifierRequired": "Vui lòng nhập tên đăng nhập hoặc email.",
+      "passwordMin": "Mật khẩu tối thiểu 5 ký tự."
+    },
+    "meta": {
+      "title": "Edu-AI-VN | Đăng nhập",
+      "description": "Đăng nhập vào Edu-AI-VN - Nền tảng học tập tích hợp AI."
+    }
+  }
+}
