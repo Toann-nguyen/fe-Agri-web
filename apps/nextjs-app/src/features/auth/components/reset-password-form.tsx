@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Form, Input } from '@/components/ui/form';
 import { paths } from '@/config/paths';
-import { resetPasswordInputSchema, useResetPassword } from '@/lib/auth';
+import { useResetPassword } from '@/features/auth/api/reset-password';
+import { resetPasswordInputSchema } from '@/features/auth/schemas/reset-password.schema';
 
 import { AuthFooterLinks } from './auth-footer-links';
 

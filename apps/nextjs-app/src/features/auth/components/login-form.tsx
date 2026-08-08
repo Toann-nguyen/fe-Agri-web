@@ -5,7 +5,8 @@ import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Form, Input } from '@/components/ui/form';
-import { useLogin, loginInputSchema } from '@/lib/auth';
+import { useLogin } from '@/features/auth/api/login';
+import { loginInputSchema } from '@/features/auth/schemas/login.schema';
 
 import { AuthFooterLinks } from './auth-footer-links';
 

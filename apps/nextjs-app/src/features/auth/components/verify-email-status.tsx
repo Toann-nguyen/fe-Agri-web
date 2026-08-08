@@ -7,11 +7,9 @@ import { Button } from '@/components/ui/button';
 import { Form, Input } from '@/components/ui/form';
 import { Spinner } from '@/components/ui/spinner';
 import { paths } from '@/config/paths';
-import {
-  resendVerificationInputSchema,
-  useResendVerification,
-  useVerifyEmail,
-} from '@/lib/auth';
+import { useResendVerification } from '@/features/auth/api/resend-verification';
+import { useVerifyEmail } from '@/features/auth/api/verify-email';
+import { resendVerificationInputSchema } from '@/features/auth/schemas/resend-verification.schema';
 
 import { AuthFooterLinks } from './auth-footer-links';
 

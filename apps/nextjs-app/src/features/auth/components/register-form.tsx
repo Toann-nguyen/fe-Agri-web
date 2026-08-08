@@ -5,7 +5,8 @@ import * as React from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Form, Input } from '@/components/ui/form';
-import { useRegister, registerInputSchema } from '@/lib/auth';
+import { useRegister } from '@/features/auth/api/register';
+import { registerInputSchema } from '@/features/auth/schemas/register.schema';
 
 import { AuthFooterLinks } from './auth-footer-links';
 

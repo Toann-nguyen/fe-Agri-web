@@ -4,7 +4,8 @@ import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Form, Input } from '@/components/ui/form';
-import { forgotPasswordInputSchema, useForgotPassword } from '@/lib/auth';
+import { useForgotPassword } from '@/features/auth/api/forgot-password';
+import { forgotPasswordInputSchema } from '@/features/auth/schemas/forgot-password.schema';
 
 import { AuthFooterLinks } from './auth-footer-links';
 
