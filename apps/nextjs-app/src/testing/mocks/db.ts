@@ -1,6 +1,10 @@
 import { factory, primaryKey } from '@mswjs/data';
 import { nanoid } from 'nanoid';
 
+import { DEMO_EDU_USER } from '../fixtures/user.fixture';
+
+import { hash } from './hash';
+
 const models = {
   user: {
     id: primaryKey(nanoid),
@@ -97,6 +101,17 @@ export const initializeDb = async () => {
       });
     }
   });
+
+  const demoUser = db.user.findFirst({
+    where: { email: { equals: DEMO_EDU_USER.email } },
+  });
+  if (!demoUser) {
+    db.user.create({
+      ...DEMO_EDU_USER,
+      password: hash(DEMO_EDU_USER.password),
+    });
+    await persistDb('user');
+  }
 };
 
 export const resetDb = () => {

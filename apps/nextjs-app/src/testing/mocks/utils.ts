@@ -2,6 +2,7 @@ import Cookies from 'js-cookie';
 import { delay } from 'msw';
 
 import { db } from './db';
+import { hash } from './hash';
 
 export const encode = (obj: any) => {
   const btoa =
@@ -19,15 +20,7 @@ export const decode = (str: string) => {
   return JSON.parse(atob(str));
 };
 
-export const hash = (str: string) => {
-  let hash = 5381,
-    i = str.length;
-
-  while (i) {
-    hash = (hash * 33) ^ str.charCodeAt(--i);
-  }
-  return String(hash >>> 0);
-};
+export { hash };
 
 export const networkDelay = () => {
   const delayTime = process.env.TEST
@@ -76,6 +69,11 @@ export function authenticate({
         id: user.id,
         email: user.email,
         name: user.name,
+        profile: {
+          full_name: user.name,
+          bio: user.bio || '',
+          avatar: null,
+        },
         roles: [user.role],
       },
     };

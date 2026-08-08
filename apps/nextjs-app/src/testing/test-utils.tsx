@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event';
 import Cookies from 'js-cookie';
 
 import { AppProvider } from '@/app/provider';
-import { setToken } from '@/lib/token-store';
+import { setToken } from '@/lib/auth/token-store';
 
 import {
   createDiscussion as generateDiscussion,
