@@ -8,6 +8,7 @@ import { Toaster } from 'react-hot-toast';
 
 import { MainErrorFallback } from '@/components/errors/main';
 import { queryConfig } from '@/lib/api/query-client';
+import { enableMocking } from '@/testing/mocks';
 
 type AppProviderProps = {
   children: React.ReactNode;
@@ -20,6 +21,10 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         defaultOptions: queryConfig,
       }),
   );
+
+  React.useEffect(() => {
+    enableMocking();
+  }, []);
 
   return (
     <ErrorBoundary FallbackComponent={MainErrorFallback}>

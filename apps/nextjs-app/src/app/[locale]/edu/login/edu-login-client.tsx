@@ -1,9 +1,11 @@
 'use client';
 
 import { Icon } from '@iconify/react';
-import { Link } from '@/i18n/navigation';
+import { Link, useRouter } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+
+import { paths } from '@/config/paths';
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
@@ -20,6 +22,7 @@ const ADMIN_EMAIL =
 
 export default function EduAiLoginPage() {
   const t = useTranslations('edu');
+  const router = useRouter();
 
   const eduLoginSchema = z.object({
     identifier: z.string().min(1, t('validation.identifierRequired')),
@@ -38,6 +41,9 @@ export default function EduAiLoginPage() {
 
   const login = useLogin({
     onSuccess: () => {
+      // Edu portal login → Edu dashboard (i18n router adds locale prefix,
+      // e.g. /en/edu/dashboard for en, /edu/dashboard for default vi)
+      router.replace(paths.edu.dashboard.getHref());
       setNotification({
         type: 'success',
         message: t('successLogin'),
@@ -324,11 +330,15 @@ export default function EduAiLoginPage() {
                   {/* Submit Button */}
                   <Button
                     type="submit"
-                    isLoading={login.isPending}
-                    disabled={login.isPending || isGoogleLoading}
+                    isLoading={login.isPending || formState.isSubmitting}
+                    disabled={
+                      login.isPending ||
+                      isGoogleLoading ||
+                      formState.isSubmitting
+                    }
                     className="group relative mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-500 px-4 py-3 font-semibold !text-slate-950 shadow-lg shadow-cyan-500/25 transition-all duration-300 hover:opacity-95 hover:shadow-cyan-500/40 active:scale-[0.99]"
                   >
-                    {!login.isPending && (
+                    {!(login.isPending || formState.isSubmitting) && (
                       <>
                         <span>{t('submit')}</span>
                         <Icon

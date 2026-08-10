@@ -49,7 +49,11 @@ const dbFilePath = 'mocked-db.json';
 export const loadDb = async () => {
   // If we are running in a Node.js environment
   if (typeof window === 'undefined') {
-    const { readFile, writeFile } = await import('fs/promises');
+    // webpackIgnore: this branch only runs in Node (mock server / e2e),
+    // never in the browser bundle — keep webpack from trying to resolve it.
+    const { readFile, writeFile } = await import(
+      /* webpackIgnore: true */ 'fs/promises'
+    );
     try {
       const data = await readFile(dbFilePath, 'utf8');
       return JSON.parse(data);
@@ -76,7 +80,9 @@ export const loadDb = async () => {
 export const storeDb = async (data: string) => {
   // If we are running in a Node.js environment
   if (typeof window === 'undefined') {
-    const { writeFile } = await import('fs/promises');
+    // webpackIgnore: this branch only runs in Node (mock server / e2e),
+    // never in the browser bundle — keep webpack from trying to resolve it.
+    const { writeFile } = await import(/* webpackIgnore: true */ 'fs/promises');
     await writeFile(dbFilePath, data);
   } else {
     // If we are running in a browser environment
@@ -97,6 +103,10 @@ export const initializeDb = async () => {
     const dataEntres = database[key];
     if (dataEntres) {
       dataEntres?.forEach((entry: Record<string, any>) => {
+        const existing = model.findFirst({
+          where: { id: { equals: entry.id } },
+        });
+        if (existing) return;
         model.create(entry);
       });
     }

@@ -50,7 +50,7 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (!user.data && !user.isLoading && !user.isFetching) {
-      router.replace('/auth/login');
+      router.replace('/edu/login');
     }
   }, [user.data, user.isLoading, user.isFetching, router]);
 

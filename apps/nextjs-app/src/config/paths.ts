@@ -32,6 +32,15 @@ export const paths = {
     },
   },
 
+  edu: {
+    login: {
+      getHref: () => '/edu/login',
+    },
+    dashboard: {
+      getHref: () => '/edu/dashboard',
+    },
+  },
+
   app: {
     root: {
       getHref: () => '/app',

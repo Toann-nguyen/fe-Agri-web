@@ -170,7 +170,7 @@ async function handleRefresh<T>(
     processQueue(error, null);
     setToken(null);
     if (typeof window !== 'undefined') {
-      window.location.href = '/auth/login';
+      window.location.href = '/edu/login';
     }
     throw error;
   } finally {

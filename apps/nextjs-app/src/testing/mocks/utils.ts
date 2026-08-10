@@ -5,19 +5,24 @@ import { db } from './db';
 import { hash } from './hash';
 
 export const encode = (obj: any) => {
-  const btoa =
-    typeof window === 'undefined'
-      ? (str: string) => Buffer.from(str, 'binary').toString('base64')
-      : window.btoa;
-  return btoa(JSON.stringify(obj));
+  if (typeof window === 'undefined') {
+    return Buffer.from(JSON.stringify(obj), 'binary').toString('base64');
+  }
+  // browser: btoa only handles Latin1 — encode UTF-8 first
+  const bytes = new TextEncoder().encode(JSON.stringify(obj));
+  let binary = '';
+  bytes.forEach((b) => (binary += String.fromCharCode(b)));
+  return btoa(binary);
 };
 
 export const decode = (str: string) => {
-  const atob =
-    typeof window === 'undefined'
-      ? (str: string) => Buffer.from(str, 'base64').toString('binary')
-      : window.atob;
-  return JSON.parse(atob(str));
+  if (typeof window === 'undefined') {
+    return JSON.parse(Buffer.from(str, 'base64').toString('binary'));
+  }
+  // browser: atob returns Latin1 bytes — decode back to UTF-8
+  const binary = atob(str);
+  const bytes = Uint8Array.from(binary, (c) => c.charCodeAt(0));
+  return JSON.parse(new TextDecoder().decode(bytes));
 };
 
 export { hash };

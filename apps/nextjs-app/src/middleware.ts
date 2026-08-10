@@ -48,6 +48,6 @@ export const config = {
   // Match all pathnames except API routes, Next internals and static assets.
   // This also covers unprefixed default-locale pathnames required by `as-needed`.
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|webp|ico|svg)$).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|webp|ico|svg|js)$).*)',
   ],
 };
