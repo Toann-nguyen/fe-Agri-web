@@ -80,7 +80,7 @@ export function TopBar({
         >
           <Icon icon="mdi:bell-outline" width="20" />
           {unreadCount > 0 && (
-            <span className="absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-rose-500 text-[10px] font-bold text-white shadow-md">
+            <span className="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-rose-500 text-[10px] font-bold text-white shadow-md">
               {unreadCount}
             </span>
           )}

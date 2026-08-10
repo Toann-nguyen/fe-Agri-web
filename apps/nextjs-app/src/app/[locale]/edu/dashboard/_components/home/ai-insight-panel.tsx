@@ -21,7 +21,7 @@ export function AiInsightPanel({ onOpenAiAssistant }: AiInsightPanelProps) {
 
       <div className="relative space-y-4 overflow-hidden rounded-2xl border border-cyan-500/30 bg-slate-900/80 p-5 shadow-xl backdrop-blur-md">
         {/* Background glow */}
-        <div className="pointer-events-none absolute -right-20 -bottom-20 size-48 rounded-full bg-cyan-500/10 blur-3xl"></div>
+        <div className="pointer-events-none absolute -bottom-20 -right-20 size-48 rounded-full bg-cyan-500/10 blur-3xl"></div>
 
         {/* Strength & Weakness Analysis */}
         <div className="grid grid-cols-1 gap-3 text-xs sm:grid-cols-2">

@@ -152,9 +152,9 @@ export const Hero = () => {
         {/* ── Ảnh cá nhân ── */}
         <div className="anim-fade-down mb-6 flex justify-center delay-150">
           <div className="relative">
-            {/* Vòng ring hiệu ứng */}
-            <div className="absolute -inset-[3px] rounded-full bg-gradient-to-br from-cyan-400 via-teal-400 to-orange-400 opacity-80 blur-sm" />
-            <div className="absolute -inset-[1px] rounded-full bg-gradient-to-br from-cyan-500 to-orange-400" />
+            {/* Vòng ring hiệu ứng - Fixed: Arbitrary negative value syntax */}
+            <div className="absolute inset-[-3px] rounded-full bg-gradient-to-br from-cyan-400 via-teal-400 to-orange-400 opacity-80 blur-sm" />
+            <div className="absolute inset-[-1px] rounded-full bg-gradient-to-br from-cyan-500 to-orange-400" />
             <div className="relative size-24 overflow-hidden rounded-full border-2 border-white/20 sm:size-28">
               <Image
                 src="/avatar.webp"
@@ -251,7 +251,7 @@ export const Hero = () => {
           </a>
           <a
             href="/edu/login"
-            className="inline-flex items-center gap-2 rounded-xl border border-white/25 bg-white/10 px-7 py-3.5 text-sm font-medium text-white backdrop-blur-sm shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-400/50 hover:bg-white/15 hover:shadow-md"
+            className="inline-flex items-center gap-2 rounded-xl border border-white/25 bg-white/10 px-7 py-3.5 text-sm font-medium text-white shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-400/50 hover:bg-white/15 hover:shadow-md"
           >
             <Icon icon="mdi:terminal" width="16" />
             Open Terminal

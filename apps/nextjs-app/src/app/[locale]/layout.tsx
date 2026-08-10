@@ -1,15 +1,14 @@
+import type { Locale } from '@repo/i18n';
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
 import { Inter, Fira_Code } from 'next/font/google';
+import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
-import { notFound } from 'next/navigation';
 import { ReactNode } from 'react';
-
-import type { Locale } from '@repo/i18n';
 
 import { AppProvider } from '@/app/provider';
 import { env } from '@/config/env';

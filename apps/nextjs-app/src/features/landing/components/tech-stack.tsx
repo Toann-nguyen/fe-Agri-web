@@ -74,7 +74,7 @@ export const TechStack = () => {
   return (
     <section id="stack" ref={sectionRef} className="relative py-20 md:py-28">
       {/* Dot grid overlay */}
-      <div className="dot-grid-dark absolute inset-0 opacity-20 pointer-events-none" />
+      <div className="dot-grid-dark pointer-events-none absolute inset-0 opacity-20" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         {/* Tiêu đề */}
@@ -96,7 +96,7 @@ export const TechStack = () => {
           {SKILL_GROUPS.map((group) => (
             <div
               key={group.category}
-              className={`skill-card-dark reveal-scale group relative overflow-hidden rounded-2xl border ${group.borderColor} bg-white/5 p-5 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-white/20 hover:bg-white/8 hover:shadow-xl`}
+              className={`skill-card-dark reveal-scale group relative overflow-hidden rounded-2xl border ${group.borderColor} hover:bg-white/[8%] bg-white/5 p-5 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-white/20 hover:shadow-xl`}
             >
               {/* Header category */}
               <div className="mb-4 flex items-center gap-3">
@@ -167,7 +167,7 @@ export const TechStack = () => {
               icon={item.icon}
               width="28"
               style={{ color: item.color }}
-              className="transition-all duration-300 hover:opacity-100 hover:scale-125"
+              className="transition-all duration-300 hover:scale-125 hover:opacity-100"
             />
           ))}
         </div>

@@ -65,7 +65,7 @@ export function UpcomingTasksSection({
                       {task.subject}
                     </span>
                     {task.urgent && (
-                      <span className="rounded bg-rose-500/20 px-1.5 py-0.2 font-mono text-[9px] text-rose-300">
+                      <span className="py-0.2 rounded bg-rose-500/20 px-1.5 font-mono text-[9px] text-rose-300">
                         Gấp
                       </span>
                     )}

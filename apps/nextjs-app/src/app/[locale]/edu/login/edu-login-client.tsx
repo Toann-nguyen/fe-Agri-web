@@ -1,16 +1,15 @@
 'use client';
 
 import { Icon } from '@iconify/react';
-import { Link, useRouter } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-
-import { paths } from '@/config/paths';
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
+import { paths } from '@/config/paths';
 import { useLogin } from '@/features/auth/api/login';
+import { Link, useRouter } from '@/i18n/navigation';
 
 const DEMO_ACCOUNT = {
   identifier: 'student_edu_ai',
@@ -147,7 +146,7 @@ export default function EduAiLoginPage() {
           {/* Form Card Container */}
           <div className="glow-border glass-hero relative overflow-hidden rounded-2xl border border-white/10 p-6 shadow-2xl backdrop-blur-xl sm:p-8">
             {/* Top Subdomain Badge in Card */}
-            <div className="mb-6 flex items-center justify-between rounded-xl border border-white/5 bg-slate-900/80 p-3 text-xs font-mono text-slate-300">
+            <div className="mb-6 flex items-center justify-between rounded-xl border border-white/5 bg-slate-900/80 p-3 font-mono text-xs text-slate-300">
               <div className="flex items-center gap-2">
                 <Icon
                   icon="mdi:shield-check-outline"

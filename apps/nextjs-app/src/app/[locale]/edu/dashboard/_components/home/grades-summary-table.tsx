@@ -44,7 +44,7 @@ export function GradesSummaryTable({ onViewGrades }: GradesSummaryTableProps) {
           <tbody className="divide-y divide-white/5">
             {subjects.slice(0, 5).map((subj) => (
               <tr key={subj.id} className="transition-colors hover:bg-white/5">
-                <td className="px-3 py-3">
+                <td className="p-3">
                   <div className="flex items-center gap-2">
                     <div className="rounded-lg bg-slate-800 p-1.5 text-cyan-400">
                       <Icon icon={subj.icon} width="16" />

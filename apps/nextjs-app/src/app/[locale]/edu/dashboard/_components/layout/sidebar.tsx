@@ -72,7 +72,7 @@ export function Sidebar({
   return (
     <aside className="flex w-16 shrink-0 flex-col justify-between border-r border-white/10 bg-slate-900/40 p-3 backdrop-blur-md md:w-60">
       <div className="space-y-1.5">
-        <div className="hidden px-3 py-2 font-mono text-[10px] font-semibold tracking-wider text-slate-500 uppercase md:block">
+        <div className="hidden px-3 py-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-slate-500 md:block">
           Danh Mục Quản Lý
         </div>
 
@@ -107,7 +107,7 @@ export function Sidebar({
                 </span>
               ) : null}
               {isActive && (
-                <div className="absolute top-1/2 left-0 hidden h-5 w-1 -translate-y-1/2 rounded-r-full bg-cyan-400 md:block"></div>
+                <div className="absolute left-0 top-1/2 hidden h-5 w-1 -translate-y-1/2 rounded-r-full bg-cyan-400 md:block"></div>
               )}
             </button>
           );

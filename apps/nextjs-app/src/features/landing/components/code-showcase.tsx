@@ -28,7 +28,7 @@ export const CodeShowcase = () => {
         <div className="grid gap-6 md:grid-cols-2">
           {/* ── Card 1: Repository + DI + Transaction + Enum ── */}
           <div className="reveal-left" style={{ '--stagger': 0 } as any}>
-            <div className="bg-slate-900/60 border border-white/10 backdrop-blur-sm overflow-hidden rounded-2xl shadow-lg shadow-black/20 transition-all duration-500 hover:shadow-xl hover:shadow-cyan-500/5">
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60 shadow-lg shadow-black/20 backdrop-blur-sm transition-all duration-500 hover:shadow-xl hover:shadow-cyan-500/5">
               <div className="flex items-center justify-between bg-ink-900 px-5 py-3">
                 <div className="flex items-center gap-2">
                   <span className="size-2.5 rounded-full bg-red-500/70"></span>
@@ -300,7 +300,7 @@ export const CodeShowcase = () => {
 
           {/* ── Card 2: Redis Lua Sliding Window ── */}
           <div className="reveal-right" style={{ '--stagger': 1 } as any}>
-            <div className="bg-slate-900/60 border border-white/10 backdrop-blur-sm overflow-hidden rounded-2xl shadow-lg shadow-black/20 transition-all duration-500 hover:shadow-xl hover:shadow-cyan-500/5">
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60 shadow-lg shadow-black/20 backdrop-blur-sm transition-all duration-500 hover:shadow-xl hover:shadow-cyan-500/5">
               <div className="flex items-center justify-between bg-ink-900 px-5 py-3">
                 <div className="flex items-center gap-2">
                   <span className="size-2.5 rounded-full bg-red-500/70"></span>
@@ -583,7 +583,7 @@ export const CodeShowcase = () => {
 
           {/* ── Card 3: JWT Rotation + Theft Detection ── */}
           <div className="reveal-left" style={{ '--stagger': 2 } as any}>
-            <div className="bg-slate-900/60 border border-white/10 backdrop-blur-sm overflow-hidden rounded-2xl shadow-lg shadow-black/20 transition-all duration-500 hover:shadow-xl hover:shadow-cyan-500/5">
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60 shadow-lg shadow-black/20 backdrop-blur-sm transition-all duration-500 hover:shadow-xl hover:shadow-cyan-500/5">
               <div className="flex items-center justify-between bg-ink-900 px-5 py-3">
                 <div className="flex items-center gap-2">
                   <span className="size-2.5 rounded-full bg-red-500/70"></span>
@@ -899,7 +899,7 @@ export const CodeShowcase = () => {
 
           {/* ── Card 4: Match Enum Authorization ── */}
           <div className="reveal-right" style={{ '--stagger': 3 } as any}>
-            <div className="bg-slate-900/60 border border-white/10 backdrop-blur-sm overflow-hidden rounded-2xl shadow-lg shadow-black/20 transition-all duration-500 hover:shadow-xl hover:shadow-cyan-500/5">
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60 shadow-lg shadow-black/20 backdrop-blur-sm transition-all duration-500 hover:shadow-xl hover:shadow-cyan-500/5">
               <div className="flex items-center justify-between bg-ink-900 px-5 py-3">
                 <div className="flex items-center gap-2">
                   <span className="size-2.5 rounded-full bg-red-500/70"></span>

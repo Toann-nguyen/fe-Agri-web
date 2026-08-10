@@ -20,7 +20,7 @@ export const Architecture = () => {
             How I <span className="text-gradient-cyan">Build</span>
           </h2>
         </div>
-        <div className="reveal bg-slate-900/50 border border-white/10 backdrop-blur-sm rounded-2xl p-8 shadow-xl shadow-black/20 md:p-10">
+        <div className="reveal rounded-2xl border border-white/10 bg-slate-900/50 p-8 shadow-xl shadow-black/20 backdrop-blur-sm md:p-10">
           <div className="grid grid-cols-1 items-center gap-4 md:grid-cols-5">
             {/* Client */}
             <div className="flex flex-col items-center text-center">

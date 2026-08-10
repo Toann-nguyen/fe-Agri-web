@@ -27,7 +27,7 @@ export function AiAssistantModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex animate-fadeIn items-center justify-center bg-slate-950/80 p-4 backdrop-blur-md">
+    <div className="animate-fadeIn fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-md">
       <div className="relative flex max-h-[90vh] w-full max-w-2xl flex-col space-y-4 overflow-hidden rounded-2xl border border-cyan-500/40 bg-slate-900 p-6 shadow-2xl">
         {/* Modal Header */}
         <div className="flex items-center justify-between border-b border-white/10 pb-3">

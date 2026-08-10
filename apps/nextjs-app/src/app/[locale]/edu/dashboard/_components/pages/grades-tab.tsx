@@ -33,15 +33,15 @@ export function GradesTab() {
           <table className="w-full text-left text-xs">
             <thead>
               <tr className="border-b border-white/10 font-mono text-xs text-slate-400">
-                <th className="px-3 py-3">Môn Học</th>
-                <th className="px-3 py-3 text-center">15 Phút</th>
-                <th className="px-3 py-3 text-center">1 Tiết</th>
-                <th className="px-3 py-3 text-center">Giữa Kỳ</th>
-                <th className="px-3 py-3 text-center font-bold text-cyan-400">
+                <th className="p-3">Môn Học</th>
+                <th className="p-3 text-center">15 Phút</th>
+                <th className="p-3 text-center">1 Tiết</th>
+                <th className="p-3 text-center">Giữa Kỳ</th>
+                <th className="p-3 text-center font-bold text-cyan-400">
                   ĐTB Môn
                 </th>
-                <th className="px-3 py-3 text-center">Xu Hướng</th>
-                <th className="px-3 py-3">Nhận Xét Của Giáo Viên</th>
+                <th className="p-3 text-center">Xu Hướng</th>
+                <th className="p-3">Nhận Xét Của Giáo Viên</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
@@ -65,7 +65,7 @@ export function GradesTab() {
                         <div className="flex items-center gap-1.5 font-bold text-white">
                           <span>{subj.name}</span>
                           {subj.warning && (
-                            <span className="rounded bg-rose-500/20 px-1.5 py-0.2 font-mono text-[9px] text-rose-300">
+                            <span className="py-0.2 rounded bg-rose-500/20 px-1.5 font-mono text-[9px] text-rose-300">
                               Cần chú ý
                             </span>
                           )}

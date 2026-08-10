@@ -1,8 +1,8 @@
 import dynamic from 'next/dynamic';
 import { getTranslations } from 'next-intl/server';
 
-import { Navbar, Hero, PageBackground } from '@/features/landing/components';
 import { LanguageSwitcher } from '@/components/language-switcher';
+import { Navbar, Hero, PageBackground } from '@/features/landing/components';
 
 export async function generateMetadata() {
   const t = await getTranslations('common');
@@ -116,7 +116,7 @@ const Footer = dynamic(
 const HomePage = () => {
   return (
     <main>
-      <div className="fixed top-4 right-4 z-50">
+      <div className="fixed right-4 top-4 z-50">
         <LanguageSwitcher />
       </div>
       <PageBackground />

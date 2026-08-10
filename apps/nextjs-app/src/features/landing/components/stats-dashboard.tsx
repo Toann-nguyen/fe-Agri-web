@@ -83,7 +83,7 @@ export const StatsDashboard = () => {
 
         <div className="grid gap-5 md:grid-cols-4">
           {/* Stat 1 */}
-          <div className="glow-border reveal bg-slate-900/50 border border-white/10 backdrop-blur-sm rounded-2xl p-6 text-center">
+          <div className="glow-border reveal rounded-2xl border border-white/10 bg-slate-900/50 p-6 text-center backdrop-blur-sm">
             <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-2xl border border-cyan-500/15 bg-cyan-500/10">
               <Icon
                 icon="mdi:rocket-launch"
@@ -111,7 +111,7 @@ export const StatsDashboard = () => {
 
           {/* Stat 2 */}
           <div
-            className="glow-border reveal bg-slate-900/50 border border-white/10 backdrop-blur-sm rounded-2xl p-6 text-center"
+            className="glow-border reveal rounded-2xl border border-white/10 bg-slate-900/50 p-6 text-center backdrop-blur-sm"
             style={{ animationDelay: '120ms' }}
           >
             <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-2xl border border-ember-500/15 bg-ember-500/10">
@@ -160,7 +160,7 @@ export const StatsDashboard = () => {
 
           {/* Stat 3 */}
           <div
-            className="glow-border reveal bg-slate-900/50 border border-white/10 backdrop-blur-sm rounded-2xl p-6 text-center"
+            className="glow-border reveal rounded-2xl border border-white/10 bg-slate-900/50 p-6 text-center backdrop-blur-sm"
             style={{ animationDelay: '240ms' }}
           >
             <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-2xl border border-emerald-500/15 bg-emerald-500/10">
@@ -205,7 +205,7 @@ export const StatsDashboard = () => {
 
           {/* Stat 4 */}
           <div
-            className="glow-border reveal bg-slate-900/50 border border-white/10 backdrop-blur-sm rounded-2xl p-6 text-center"
+            className="glow-border reveal rounded-2xl border border-white/10 bg-slate-900/50 p-6 text-center backdrop-blur-sm"
             style={{ animationDelay: '360ms' }}
           >
             <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-2xl border border-purple-500/15 bg-purple-500/10">

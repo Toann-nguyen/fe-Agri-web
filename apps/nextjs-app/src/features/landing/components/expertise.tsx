@@ -225,7 +225,7 @@ export const Expertise = () => {
           {EXPERTISE_ITEMS.map((item, index) => (
             <div
               key={item.title}
-              className={`expertise-card glow-border card-3d reveal group relative overflow-hidden rounded-2xl border ${item.borderColor} bg-slate-900/50 backdrop-blur-sm p-6 shadow-md transition-all duration-500`}
+              className={`expertise-card glow-border card-3d reveal group relative overflow-hidden rounded-2xl border ${item.borderColor} bg-slate-900/50 p-6 shadow-md backdrop-blur-sm transition-all duration-500`}
               style={{ '--stagger': index } as any}
             >
               {/* Gradient background khi hover */}
@@ -235,7 +235,7 @@ export const Expertise = () => {
 
               {/* Glow blob */}
               <div
-                className="pointer-events-none absolute -right-8 -top-8 size-32 rounded-full blur-3xl transition-opacity duration-500 group-hover:opacity-100 opacity-0"
+                className="pointer-events-none absolute -right-8 -top-8 size-32 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
                 style={{ background: item.glowColor }}
               />
 

@@ -103,7 +103,7 @@ export const YoutubeSection = () => {
                   Xem trên YouTube
                   <Icon
                     icon="mdi:open-in-new"
-                    className="transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
+                    className="transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
                     width="13"
                   />
                 </a>

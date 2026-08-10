@@ -62,7 +62,7 @@ export const Education = () => {
                 className="timeline-node active-node"
                 style={{ top: '8px' }}
               ></div>
-              <div className="bg-slate-900/50 border border-white/10 backdrop-blur-sm group ml-14 rounded-2xl p-6 transition-all duration-500 hover:shadow-lg hover:shadow-cyan-500/5 md:ml-14">
+              <div className="group ml-14 rounded-2xl border border-white/10 bg-slate-900/50 p-6 backdrop-blur-sm transition-all duration-500 hover:shadow-lg hover:shadow-cyan-500/5 md:ml-14">
                 <div className="mb-3 flex flex-wrap items-center gap-3">
                   <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-wider text-white/70">
                     03/2021 — 04/2025

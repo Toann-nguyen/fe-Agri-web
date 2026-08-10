@@ -1,13 +1,12 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { useLocale } from 'next-intl';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
-import { routing } from '@/i18n/routing';
+import { routing } from '@/i18n/navigation';
 
 export const LanguageSwitcher = () => {
-  const t = useTranslations('common');
+  const t = useTranslations('common.language');
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
@@ -31,7 +30,7 @@ export const LanguageSwitcher = () => {
               : 'border-white/10 text-slate-400 hover:text-slate-200'
           }`}
         >
-          {loc === 'vi' ? 'Tiếng Việt' : 'English'}
+          {t(loc as 'vi' | 'en')}
         </button>
       ))}
     </div>

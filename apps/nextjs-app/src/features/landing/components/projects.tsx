@@ -25,7 +25,7 @@ export const Projects = () => {
         <div className="grid gap-6 md:grid-cols-2">
           {/* Project 1 */}
           <div
-            className="glow-border project-card reveal-left bg-slate-900/50 border border-white/10 backdrop-blur-sm group overflow-hidden rounded-2xl"
+            className="glow-border project-card reveal-left group overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-sm"
             style={{ '--stagger': 0 } as any}
           >
             <div className="relative h-56 overflow-hidden">
@@ -118,7 +118,7 @@ export const Projects = () => {
 
           {/* Project 2 */}
           <div
-            className="glow-border project-card reveal-right bg-slate-900/50 border border-white/10 backdrop-blur-sm group overflow-hidden rounded-2xl"
+            className="glow-border project-card reveal-right group overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-sm"
             style={{ '--stagger': 1 } as any}
           >
             <div className="relative h-56 overflow-hidden">
@@ -137,7 +137,7 @@ export const Projects = () => {
                 </span>
                 Live
               </div>
-              <div className="bg-slate-950/80 border border-white/10 backdrop-blur-sm absolute bottom-4 right-4 translate-y-2 rounded-lg px-3 py-2 opacity-0 shadow-lg transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+              <div className="absolute bottom-4 right-4 translate-y-2 rounded-lg border border-white/10 bg-slate-950/80 px-3 py-2 opacity-0 shadow-lg backdrop-blur-sm transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                 <div className="mb-1.5 font-mono text-[9px] text-white/50">
                   Server Load
                 </div>
@@ -227,7 +227,7 @@ export const Projects = () => {
 
         {/* Project 3 - Edu-AI-VN */}
         <div
-          className="glow-border project-card reveal-left bg-slate-900/50 border border-white/10 backdrop-blur-sm group overflow-hidden rounded-2xl"
+          className="glow-border project-card reveal-left group overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-sm"
           style={{ '--stagger': 2 } as any}
         >
           <div className="relative h-56 overflow-hidden">

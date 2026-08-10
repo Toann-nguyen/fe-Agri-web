@@ -114,7 +114,7 @@ function highlightText(text: string): ReactNode[] {
       return (
         <span
           key={i}
-          className={`inline-flex items-center rounded-md border px-2 py-0.5 text-[12.5px] font-semibold tracking-wide leading-none translate-y-[-0.5px] ${cls}`}
+          className={`inline-flex translate-y-[-0.5px] items-center rounded-md border px-2 py-0.5 text-[12.5px] font-semibold leading-none tracking-wide ${cls}`}
         >
           {keyword}
         </span>
@@ -250,7 +250,7 @@ export const Experience = () => {
                   className={`timeline-node ${exp.isCurrent ? 'active-node' : ''}`}
                   style={{ top: '8px' }}
                 ></div>
-                <div className="bg-slate-900/50 border border-white/10 backdrop-blur-sm group ml-14 rounded-2xl p-6 transition-all duration-500 hover:shadow-lg hover:shadow-cyan-500/5 md:ml-14">
+                <div className="group ml-14 rounded-2xl border border-white/10 bg-slate-900/50 p-6 backdrop-blur-sm transition-all duration-500 hover:shadow-lg hover:shadow-cyan-500/5 md:ml-14">
                   <div className="mb-3 flex flex-wrap items-center gap-3">
                     <span
                       className={`rounded-full border px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-wider ${exp.colorClass}`}
@@ -284,7 +284,7 @@ export const Experience = () => {
                       {exp.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded bg-white/5 border border-white/5 px-2 py-0.5 font-mono text-[9px] text-white/60"
+                          className="rounded border border-white/5 bg-white/5 px-2 py-0.5 font-mono text-[9px] text-white/60"
                         >
                           {tag}
                         </span>

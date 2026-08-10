@@ -47,7 +47,7 @@ export const AuthShell = ({ children, title, description }: AuthShellProps) => (
         )}
       </div>
 
-      <div className="animate-slide-up delay-500 mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div className="mt-8 animate-slide-up delay-500 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="glow-border glass-hero rounded-2xl px-4 py-8 sm:px-10">
           {children}
         </div>
