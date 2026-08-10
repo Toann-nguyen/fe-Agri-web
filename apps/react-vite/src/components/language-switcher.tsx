@@ -12,7 +12,6 @@ export const LanguageSwitcher = () => {
     },
     [i18n],
   );
-
   return (
     <div className='flex items-center gap-2 text-xs'>
       {locales.map((locale) => (
