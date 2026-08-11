@@ -3,6 +3,8 @@
 import { Icon } from '@iconify/react';
 import { useEffect, useState } from 'react';
 
+import { ThemeToggle } from '@/components/theme/theme-toggle';
+
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -76,6 +78,7 @@ export const Navbar = () => {
             >
               <Icon icon="mdi:menu" width="24" />
             </button>
+            <ThemeToggle className="hidden md:inline-flex" />
           </div>
         </div>
       </nav>

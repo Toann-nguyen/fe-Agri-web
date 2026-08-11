@@ -3,6 +3,8 @@
 import { Icon } from '@iconify/react';
 import Link from 'next/link';
 
+import { ThemeToggle } from '@/components/theme/theme-toggle';
+
 interface TopBarProps {
   searchQuery: string;
   onSearchChange: (value: string) => void;
@@ -56,6 +58,7 @@ export function TopBar({
 
       {/* Right Controls */}
       <div className="flex items-center gap-3">
+        <ThemeToggle />
         <button
           onClick={onOpenAiAssistant}
           className="group relative flex items-center gap-2 rounded-xl border border-cyan-500/40 bg-gradient-to-r from-cyan-500/20 via-teal-500/10 to-emerald-500/20 px-3 py-1.5 text-xs font-semibold text-cyan-300 transition-all hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-500/20 active:scale-95"

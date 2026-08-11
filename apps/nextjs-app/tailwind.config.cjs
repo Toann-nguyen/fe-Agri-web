@@ -2,7 +2,20 @@
 
 const defaultTheme = require('tailwindcss/defaultTheme');
 
+const varScale = (name, shades) =>
+  Object.fromEntries(
+    shades.map((s) => [s, `rgb(var(--${name}-${s}) / <alpha-value>)`]),
+  );
+const aliasScale = (targetName, shades) =>
+  Object.fromEntries(
+    shades.map((s) => [s, `rgb(var(--${targetName}-${s}) / <alpha-value>)`]),
+  );
+
+const slateShades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
+const oceanShades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+
 module.exports = {
+  darkMode: 'class',
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     container: {
@@ -51,33 +64,28 @@ module.exports = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
-        surface: {
-          50: '#f8f9fc',
-          100: '#f1f3f8',
-          200: '#e8ebf2',
-          300: '#d1d5e0',
-          400: '#b0b5c5',
-        },
-        ink: {
-          900: '#0f1117',
-          800: '#1a1c2b',
-          700: '#2d3044',
-          600: '#454860',
-          500: '#6b6f8a',
-          400: '#9296ae',
-          300: '#b8bbc9',
-        },
-        cyan: {
-          400: '#22d3ee',
-          500: '#06b6d4',
-          600: '#0891b2',
-          700: '#0e7490',
-        },
-        ember: {
-          400: '#fb923c',
-          500: '#f97316',
-          600: '#ea580c',
-        },
+        slate: varScale('slate', slateShades),
+        ocean: varScale('ocean', oceanShades),
+        coral: varScale('coral', [300, 400, 500, 600, 700]),
+        cyan: varScale('cyan', [300, 400, 500, 600, 700]),
+        emerald: varScale('emerald', [300, 400, 500, 600]),
+        amber: varScale('amber', [200, 300, 400, 500, 600]),
+        red: varScale('red', [300, 400, 500, 600]),
+        rose: varScale('rose', [100, 200, 300, 400, 500]),
+        purple: varScale('purple', [400, 500, 600, 700]),
+        orange: varScale('orange', [300, 400, 500, 600]),
+        green: varScale('green', [400, 500, 700]),
+        teal: varScale('teal', [400, 500]),
+        yellow: varScale('yellow', [400, 500]),
+        indigo: varScale('indigo', [300, 400, 500]),
+        blue: varScale('blue', [300, 500, 600]),
+        violet: varScale('violet', [300, 500]),
+        gray: aliasScale('slate', [200, 300, 400, 500, 600, 700, 800, 900]),
+        ink: aliasScale('slate', [300, 400, 500, 600, 700, 800, 900]),
+        ember: aliasScale('coral', [400, 500, 600, 700]),
+        surface: aliasScale('slate', [50, 100, 200, 300, 400]),
+        white: 'rgb(var(--white) / <alpha-value>)',
+        black: 'rgb(var(--black) / <alpha-value>)',
         laravel: '#ff2d20',
       },
       borderRadius: {

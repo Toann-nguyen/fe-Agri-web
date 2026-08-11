@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { z } from 'zod';
 
+import { ThemeToggle } from '@/components/theme/theme-toggle';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { paths } from '@/config/paths';
@@ -118,13 +119,16 @@ export default function EduAiLoginPage() {
           {t('backToPortfolio')}
         </Link>
 
-        <div className="flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 font-mono text-xs text-cyan-300">
-          <span className="relative flex size-2">
-            <span className="absolute inline-flex size-full animate-ping rounded-full bg-cyan-400 opacity-75"></span>
-            <span className="relative inline-flex size-2 rounded-full bg-cyan-400"></span>
-          </span>
-          <Icon icon="mdi:web" width="14" />
-          <span>{t('domain')}</span>
+        <div className="flex items-center gap-3">
+          <div className="hidden items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 font-mono text-xs text-cyan-300 sm:flex">
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-cyan-400 opacity-75"></span>
+              <span className="relative inline-flex size-2 rounded-full bg-cyan-400"></span>
+            </span>
+            <Icon icon="mdi:web" width="14" />
+            <span>{t('domain')}</span>
+          </div>
+          <ThemeToggle />
         </div>
       </header>
 

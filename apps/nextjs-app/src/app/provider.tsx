@@ -7,6 +7,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { Toaster } from 'react-hot-toast';
 
 import { MainErrorFallback } from '@/components/errors/main';
+import { ThemeProvider } from '@/components/theme/theme-provider';
 import { queryConfig } from '@/lib/api/query-client';
 import { enableMocking } from '@/testing/mocks';
 
@@ -28,11 +29,13 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 
   return (
     <ErrorBoundary FallbackComponent={MainErrorFallback}>
-      <QueryClientProvider client={queryClient}>
-        {process.env.DEV && <ReactQueryDevtools />}
-        <Toaster position="top-right" />
-        {children}
-      </QueryClientProvider>
+      <ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          {process.env.DEV && <ReactQueryDevtools />}
+          <Toaster position="top-right" />
+          {children}
+        </QueryClientProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   );
 };

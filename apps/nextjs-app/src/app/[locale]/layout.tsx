@@ -116,6 +116,11 @@ const RootLayout = async ({
     >
       <head>
         <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches)?'light':'dark';}if(t==='dark'){document.documentElement.classList.add('dark');}else{document.documentElement.classList.remove('dark');}}catch(e){}})();`,
+          }}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
@@ -143,7 +148,7 @@ const RootLayout = async ({
           }}
         />
       </head>
-      <body className="overflow-x-hidden bg-slate-950 font-sans text-ink-600 antialiased">
+      <body className="overflow-x-hidden bg-background font-sans text-foreground antialiased">
         <NextIntlClientProvider messages={messages}>
           <AppProvider>
             <HydrationBoundary state={dehydratedState}>
