@@ -8,6 +8,9 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
+  // Local workspace packages export raw TS source (e.g. @repo/i18n, @repo/api),
+  // so Next must transpile them. @repo/api is type-only but keep this for safety.
+  transpilePackages: ['@repo/api'],
   // In a pnpm monorepo the standalone output is emitted relative to the
   // workspace root. Pin it explicitly so the Dockerfile can reliably copy
   // `.next/standalone` regardless of where `next build` is invoked from.

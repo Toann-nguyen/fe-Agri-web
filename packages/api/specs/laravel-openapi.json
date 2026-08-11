@@ -1,0 +1,6142 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "EduConnect Laravel API",
+    "version": "1.0.0",
+    "description": "Core API for EduConnect"
+  },
+  "servers": [
+    {
+      "url": "http://api.toanrobert.online/api"
+    }
+  ],
+  "paths": {
+    "/admin/academic-years": {
+      "get": {
+        "operationId": "academic-years.index",
+        "summary": "Display a listing of the resource",
+        "tags": [
+          "AcademicYear"
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "operationId": "academic-years.store",
+        "summary": "Store a newly created resource in storage",
+        "tags": [
+          "AcademicYear"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreAcademicYearRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      }
+    },
+    "/admin/academic-years/{academicYear}": {
+      "get": {
+        "operationId": "academic-years.show",
+        "summary": "Display the specified resource",
+        "tags": [
+          "AcademicYear"
+        ],
+        "parameters": [
+          {
+            "name": "academicYear",
+            "in": "path",
+            "required": true,
+            "description": "The academic year ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      },
+      "put": {
+        "operationId": "academic-years.update",
+        "summary": "Update the specified resource in storage",
+        "tags": [
+          "AcademicYear"
+        ],
+        "parameters": [
+          {
+            "name": "academicYear",
+            "in": "path",
+            "required": true,
+            "description": "The academic year ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "403": {
+            "$ref": "#/components/responses/AuthorizationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "academic-years.destroy",
+        "summary": "Remove the specified resource from storage",
+        "tags": [
+          "AcademicYear"
+        ],
+        "parameters": [
+          {
+            "name": "academicYear",
+            "in": "path",
+            "required": true,
+            "description": "The academic year ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "operationId": "auth.register",
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Registration successful. Please check your email for verification."
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string",
+                          "const": "UNVERIFIED"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "email",
+                        "status"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "operationId": "auth.login",
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "Refresh token được trả qua HttpOnly cookie (chống XSS), KHÔNG nằm trong body.\nAccess token (15 phút) frontend lưu in-memory và gửi qua Authorization: Bearer.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "const": "Login successful!"
+                        },
+                        "access_token": {
+                          "type": "string"
+                        },
+                        "expires_in": {
+                          "type": "string"
+                        },
+                        "token_type": {
+                          "type": "string",
+                          "const": "Bearer"
+                        },
+                        "data": {
+                          "$ref": "#/components/schemas/LoginResource"
+                        }
+                      },
+                      "required": [
+                        "message",
+                        "access_token",
+                        "expires_in",
+                        "token_type",
+                        "data"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "requires_2fa": {
+                          "type": "boolean"
+                        },
+                        "pre_auth_token": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "requires_2fa",
+                        "pre_auth_token"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "attempts_left": {
+                      "type": "string"
+                    },
+                    "requires_captcha": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "attempts_left",
+                    "requires_captcha"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "An unexpected error occurred during login."
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/forgot-password": {
+      "post": {
+        "operationId": "auth.forgotPassword",
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "An unexpected error occurred."
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/reset-password": {
+      "post": {
+        "operationId": "auth.resetPassword",
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "token không hợp lệ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "An unexpected error occurred."
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/email/verify": {
+      "post": {
+        "operationId": "auth.verifyEmail",
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "token"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "const": "Email verified successfully."
+                        }
+                      },
+                      "required": [
+                        "message"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "An unexpected error occurred."
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/refresh": {
+      "post": {
+        "operationId": "auth.refresh",
+        "summary": "Cấp lại access token bằng refresh token (đọc từ HttpOnly cookie).\nEndpoint này KHÔNG yêu cầu Bearer token vì access token có thể đã hết hạn",
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Token refreshed"
+                    },
+                    "access_token": {
+                      "type": "string"
+                    },
+                    "expires_in": {
+                      "type": "string"
+                    },
+                    "token_type": {
+                      "type": "string",
+                      "const": "Bearer"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/LoginResource"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "access_token",
+                    "expires_in",
+                    "token_type",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "message"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "const": "Refresh token not provided"
+                        }
+                      },
+                      "required": [
+                        "message"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "An unexpected error occurred."
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "operationId": "auth.user",
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "profile": {
+                          "$ref": "#/components/schemas/ProfileResource"
+                        },
+                        "roles": {
+                          "type": "string"
+                        },
+                        "permissions": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "email",
+                        "profile",
+                        "roles",
+                        "permissions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Could not retrieve user information."
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "operationId": "auth.logout",
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Successfully logged out"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "An error occurred during logout."
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout/all": {
+      "post": {
+        "operationId": "auth.logoutAll",
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Logged out from all devices"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "An error occurred during logout."
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conduct-scores/my": {
+      "get": {
+        "operationId": "conductScore.my",
+        "summary": "GET /api/conduct-scores/my - Điểm hạnh kiểm của tôi (Student/Parent)",
+        "tags": [
+          "ConductScore"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "My conduct scores retrieved successfully"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ConductScoreResource"
+                      }
+                    },
+                    "count": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data",
+                    "count"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Error fetching conduct scores"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conduct-scores/class/{classId}": {
+      "get": {
+        "operationId": "conductScore.byClass",
+        "summary": "GET /api/conduct-scores/class/{classId} - Điểm của cả lớp",
+        "tags": [
+          "ConductScore"
+        ],
+        "parameters": [
+          {
+            "name": "classId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "semester",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "academic_year_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Class conduct scores retrieved successfully"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ConductScoreResource"
+                      }
+                    },
+                    "count": {
+                      "type": "string"
+                    },
+                    "filters": {
+                      "type": "object",
+                      "properties": {
+                        "class_id": {
+                          "type": "integer"
+                        },
+                        "semester": {},
+                        "academic_year_id": {}
+                      },
+                      "required": [
+                        "class_id",
+                        "semester",
+                        "academic_year_id"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data",
+                    "count",
+                    "filters"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Error fetching class conduct scores"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conduct-scores/student/{studentId}": {
+      "get": {
+        "operationId": "conductScore.byStudent",
+        "description": "Query Parameters (Optional):\n- semester: int (1 hoặc 2) - Nếu không có, trả về tất cả\n- academic_year_id: int - Nếu không có, trả về tất cả",
+        "summary": "GET /api/conduct-scores/student/{studentId} - Điểm của một học sinh",
+        "tags": [
+          "ConductScore"
+        ],
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "semester",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "academic_year_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "const": "Student conduct scores retrieved successfully"
+                        },
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/ConductScoreResource"
+                          }
+                        },
+                        "count": {
+                          "type": "string"
+                        },
+                        "filters": {
+                          "type": "object",
+                          "properties": {
+                            "student_id": {
+                              "type": "integer"
+                            },
+                            "semester": {},
+                            "academic_year_id": {}
+                          },
+                          "required": [
+                            "student_id",
+                            "semester",
+                            "academic_year_id"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "message",
+                        "data",
+                        "count",
+                        "filters"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "const": "Student conduct score retrieved successfully"
+                        },
+                        "data": {
+                          "$ref": "#/components/schemas/ConductScoreResource"
+                        }
+                      },
+                      "required": [
+                        "message",
+                        "data"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Không tìm thấy điểm hạnh kiểm"
+                    },
+                    "filters": {
+                      "type": "object",
+                      "properties": {
+                        "student_id": {
+                          "type": "integer"
+                        },
+                        "semester": {},
+                        "academic_year_id": {}
+                      },
+                      "required": [
+                        "student_id",
+                        "semester",
+                        "academic_year_id"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "filters"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Error fetching student conduct scores"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conduct-scores": {
+      "post": {
+        "operationId": "conductScore.store",
+        "summary": "POST /api/conduct-scores - Tạo conduct score mới\nPermissions: admin, principal, teacher (homeroom)",
+        "tags": [
+          "ConductScore"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "student_id": {
+                    "type": "integer"
+                  },
+                  "semester": {
+                    "type": "integer"
+                  },
+                  "academic_year_id": {
+                    "type": "integer"
+                  },
+                  "total_penalty_points": {
+                    "type": "integer"
+                  },
+                  "teacher_comment": {
+                    "type": "string",
+                    "maxLength": 1000
+                  }
+                },
+                "required": [
+                  "student_id",
+                  "semester",
+                  "academic_year_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Conduct score created successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/ConductScoreResource"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Error creating conduct score"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conduct-scores/{conductScoreId}": {
+      "put": {
+        "operationId": "conductScore.update",
+        "summary": "PUT /api/conduct-scores/{conductScore} - Cập nhật điểm hạnh kiểm\nPermissions: teacher (homeroom)",
+        "tags": [
+          "ConductScore"
+        ],
+        "parameters": [
+          {
+            "name": "conductScoreId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "teacher_comment": {
+                    "type": "string",
+                    "maxLength": 1000
+                  },
+                  "total_penalty_points": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Conduct score updated successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/ConductScoreResource"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Error updating conduct score"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conduct-scores/{conductScoreId}/approve": {
+      "post": {
+        "operationId": "conductScore.approve",
+        "summary": "POST /api/conduct-scores/{conductScore}/approve - Phê duyệt điểm hạnh kiểm\nPermissions: admin, principal",
+        "tags": [
+          "ConductScore"
+        ],
+        "parameters": [
+          {
+            "name": "conductScoreId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "dd($conductScore);",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Conduct score approved successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/ConductScoreResource"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Error approving conduct score"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conduct-scores/recalculate": {
+      "post": {
+        "operationId": "conductScore.recalculate",
+        "summary": "POST /api/conduct-scores/recalculate - Tính lại điểm hạnh kiểm và thống kê báo cáo kỷ luật\nPermissions: admin, principal",
+        "tags": [
+          "ConductScore"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "semester": {
+                    "type": "integer",
+                    "enum": [
+                      "1",
+                      "2"
+                    ]
+                  },
+                  "academic_year_id": {
+                    "type": "integer"
+                  },
+                  "class_id": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  },
+                  "student_id": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "semester",
+                  "academic_year_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Conduct scores recalculated and discipline report generated successfully"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Error recalculating conduct scores"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard": {
+      "get": {
+        "operationId": "dashBoard.index",
+        "tags": [
+          "DashBoard"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Dashboard data service successfully"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/disciplines": {
+      "get": {
+        "operationId": "discipline.index",
+        "summary": "GET /api/disciplines - Danh sách kỷ luật",
+        "tags": [
+          "Discipline"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "discipline.store",
+        "summary": "POST /api/disciplines - Tạo bản ghi mới",
+        "tags": [
+          "Discipline"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreDisciplineRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Bản ghi kỷ luật đã được tạo thành công"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/DisciplineResource"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      }
+    },
+    "/disciplines/my": {
+      "get": {
+        "operationId": "discipline.my",
+        "summary": "GET /api/disciplines/my - Kỷ luật của tôi/con tôi",
+        "tags": [
+          "Discipline"
+        ],
+        "parameters": [
+          {
+            "name": "student_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/disciplines/class/{classId}": {
+      "get": {
+        "operationId": "discipline.byClass",
+        "summary": "GET /api/disciplines/class/{classId} - Kỷ luật theo lớp",
+        "tags": [
+          "Discipline"
+        ],
+        "parameters": [
+          {
+            "name": "classId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/disciplines/statistics": {
+      "get": {
+        "operationId": "discipline.statistics",
+        "summary": "GET /api/disciplines/statistics - Thống kê",
+        "tags": [
+          "Discipline"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/disciplines/student/{studentId}": {
+      "get": {
+        "operationId": "discipline.byStudent",
+        "summary": "GET /api/disciplines/student/{studentId} - Kỷ luật của một học sinh",
+        "tags": [
+          "Discipline"
+        ],
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/disciplines/export": {
+      "get": {
+        "operationId": "discipline.export",
+        "summary": "GET /api/disciplines/export - Export Excel/PDF",
+        "tags": [
+          "Discipline"
+        ],
+        "responses": {
+          "501": {
+            "description": "TODO: Implement export functionality",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Export feature coming soon"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/disciplines/{discipline}": {
+      "get": {
+        "operationId": "discipline.show",
+        "summary": "GET /api/disciplines/{id} - Chi tiết bản ghi",
+        "tags": [
+          "Discipline"
+        ],
+        "parameters": [
+          {
+            "name": "discipline",
+            "in": "path",
+            "required": true,
+            "description": "The discipline ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "`DisciplineResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/DisciplineResource"
+                    },
+                    {
+                      "type": "object",
+                      "required": [
+                        "actions",
+                        "appeals"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Bạn không có quyền xem bản ghi này"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      },
+      "put": {
+        "operationId": "discipline.update",
+        "summary": "PUT /api/disciplines/{id} - Cập nhật",
+        "tags": [
+          "Discipline"
+        ],
+        "parameters": [
+          {
+            "name": "discipline",
+            "in": "path",
+            "required": true,
+            "description": "The discipline ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDisciplineRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Bản ghi đã được cập nhật"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/DisciplineResource"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "discipline.destroy",
+        "summary": "DELETE /api/disciplines/{id} - Xóa (soft)",
+        "tags": [
+          "Discipline"
+        ],
+        "parameters": [
+          {
+            "name": "discipline",
+            "in": "path",
+            "required": true,
+            "description": "The discipline ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Bản ghi đã được xóa"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Bạn không có quyền xóa bản ghi này"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      }
+    },
+    "/disciplines/{discipline}/approve": {
+      "post": {
+        "operationId": "discipline.approve",
+        "summary": "POST /api/disciplines/{id}/approve - Duyệt (discipline HOẶC appeal)",
+        "tags": [
+          "Discipline"
+        ],
+        "parameters": [
+          {
+            "name": "discipline",
+            "in": "path",
+            "required": true,
+            "description": "The discipline ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewDisciplineRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Bản ghi kỷ luật đã được duyệt thành công."
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/DisciplineResource"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Các trạng thái khác (confirmed, cancelled...) không thể duyệt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Bản ghi này không ở trạng thái có thể duyệt."
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/AuthorizationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/disciplines/{discipline}/reject": {
+      "post": {
+        "operationId": "discipline.reject",
+        "summary": "POST /api/disciplines/{id}/reject - Từ chối (discipline HOẶC appeal)",
+        "tags": [
+          "Discipline"
+        ],
+        "parameters": [
+          {
+            "name": "discipline",
+            "in": "path",
+            "required": true,
+            "description": "The discipline ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewDisciplineRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Bản ghi kỷ luật đã bị từ chối."
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/DisciplineResource"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Các trạng thái khác không thể từ chối",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Bản ghi này không ở trạng thái có thể từ chối."
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/AuthorizationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/disciplines/{discipline}/appeal": {
+      "post": {
+        "operationId": "discipline.appeal",
+        "summary": "POST /api/disciplines/{id}/appeal - Khiếu nại",
+        "tags": [
+          "Discipline"
+        ],
+        "parameters": [
+          {
+            "name": "discipline",
+            "in": "path",
+            "required": true,
+            "description": "The discipline ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppealDisciplineRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Khiếu nại đã được gửi thành công"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Không thể tạo khiếu nại"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/discipline-types": {
+      "get": {
+        "operationId": "disciplineType.index",
+        "summary": "GET /api/discipline-types - Danh sách loại vi phạm",
+        "tags": [
+          "DisciplineType"
+        ],
+        "parameters": [
+          {
+            "name": "is_active",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "severity_level",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "disciplineType.store",
+        "summary": "POST /api/discipline-types - Tạo loại mới (Admin only)",
+        "tags": [
+          "DisciplineType"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "maxLength": 50
+                  },
+                  "name": {
+                    "type": "string",
+                    "maxLength": 255
+                  },
+                  "severity_level": {
+                    "type": "string",
+                    "enum": [
+                      "light",
+                      "medium",
+                      "serious",
+                      "very_serious"
+                    ]
+                  },
+                  "default_penalty_points": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 50
+                  },
+                  "description": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "is_active": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "code",
+                  "name",
+                  "severity_level",
+                  "default_penalty_points"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Loại vi phạm đã được tạo thành công"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/DisciplineTypeResource"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Unauthorized"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      }
+    },
+    "/discipline-types/{disciplineType}": {
+      "get": {
+        "operationId": "disciplineType.show",
+        "summary": "GET /api/discipline-types/{id} - Chi tiết loại vi phạm",
+        "tags": [
+          "DisciplineType"
+        ],
+        "parameters": [
+          {
+            "name": "disciplineType",
+            "in": "path",
+            "required": true,
+            "description": "The discipline type ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "`DisciplineTypeResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DisciplineTypeResource"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      },
+      "put": {
+        "operationId": "disciplineType.update",
+        "summary": "PUT /api/discipline-types/{id} - Cập nhật (Admin only)",
+        "tags": [
+          "DisciplineType"
+        ],
+        "parameters": [
+          {
+            "name": "disciplineType",
+            "in": "path",
+            "required": true,
+            "description": "The discipline type ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "maxLength": 50
+                  },
+                  "name": {
+                    "type": "string",
+                    "maxLength": 255
+                  },
+                  "severity_level": {
+                    "type": "string",
+                    "enum": [
+                      "light",
+                      "medium",
+                      "serious",
+                      "very_serious"
+                    ]
+                  },
+                  "default_penalty_points": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 50
+                  },
+                  "description": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "is_active": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Loại vi phạm đã được cập nhật"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/DisciplineTypeResource"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Unauthorized"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "disciplineType.destroy",
+        "summary": "DELETE /api/discipline-types/{id} - Xóa (Admin only)",
+        "tags": [
+          "DisciplineType"
+        ],
+        "parameters": [
+          {
+            "name": "disciplineType",
+            "in": "path",
+            "required": true,
+            "description": "The discipline type ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Loại vi phạm đã được xóa"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Không thể xóa loại vi phạm đang được sử dụng. Hãy vô hiệu hóa thay vì xóa."
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Unauthorized"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      }
+    },
+    "/my-grades": {
+      "get": {
+        "operationId": "grade.myGrades",
+        "tags": [
+          "Grade"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 0,
+                      "maxItems": 0,
+                      "additionalItems": false
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "student_id": {
+                            "type": "string"
+                          },
+                          "student_name": {
+                            "type": "string"
+                          },
+                          "data": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/components/schemas/GradeResource"
+                            }
+                          }
+                        },
+                        "required": [
+                          "student_id",
+                          "student_name",
+                          "data"
+                        ]
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "student_id": {
+                          "type": "string"
+                        },
+                        "student_name": {
+                          "type": "string"
+                        },
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/GradeResource"
+                          }
+                        }
+                      },
+                      "required": [
+                        "student_id",
+                        "student_name",
+                        "data"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "minItems": 0,
+                          "maxItems": 0,
+                          "additionalItems": false
+                        }
+                      },
+                      "required": [
+                        "data"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/grades": {
+      "get": {
+        "operationId": "grades.index",
+        "summary": "Display a listing of the resource",
+        "tags": [
+          "Grade"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "grades.store",
+        "summary": "Store a newly created resource in storage",
+        "tags": [
+          "Grade"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreGradeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "`GradeResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/GradeResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      }
+    },
+    "/grades/{grade}": {
+      "get": {
+        "operationId": "grades.show",
+        "summary": "Display the specified resource",
+        "tags": [
+          "Grade"
+        ],
+        "parameters": [
+          {
+            "name": "grade",
+            "in": "path",
+            "required": true,
+            "description": "The grade ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "`GradeResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/GradeResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      },
+      "put": {
+        "operationId": "grades.update",
+        "summary": "Update the specified resource in storage",
+        "tags": [
+          "Grade"
+        ],
+        "parameters": [
+          {
+            "name": "grade",
+            "in": "path",
+            "required": true,
+            "description": "The grade ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "`GradeResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/GradeResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "grades.destroy",
+        "summary": "Remove the specified resource from storage",
+        "tags": [
+          "Grade"
+        ],
+        "parameters": [
+          {
+            "name": "grade",
+            "in": "path",
+            "required": true,
+            "description": "The grade ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Grade deleted successfully"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      }
+    },
+    "/permissions": {
+      "get": {
+        "operationId": "permission.index",
+        "summary": "GET /api/admin/permissions\nLấy danh sách permissions với phân trang",
+        "tags": [
+          "Permission"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of `PermissionResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PermissionResource"
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Failed to retrieve permissions"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/permissions/{id}": {
+      "get": {
+        "operationId": "permission.show",
+        "summary": "GET /api/admin/permissions/{id}\nLấy chi tiết một permission",
+        "tags": [
+          "Permission"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "const": "Permission retrieved successfully"
+                        },
+                        "data": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "message",
+                        "data"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/permissions": {
+      "post": {
+        "operationId": "permission.store",
+        "summary": "POST /api/admin/permissions\nTạo permission mới",
+        "tags": [
+          "Permission"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StorePermissionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Permission created successfully"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      }
+    },
+    "/admin/permissions/{id}": {
+      "put": {
+        "operationId": "permission.update",
+        "summary": "PUT /api/admin/permissions/{id}\nCập nhật permission",
+        "tags": [
+          "Permission"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePermissionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "const": "Permission updated successfully"
+                        },
+                        "data": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "message",
+                        "data"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "permission.destroy",
+        "summary": "DELETE /api/admin/permissions/{id}\nXóa permission",
+        "tags": [
+          "Permission"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "const": "Permission deleted successfully"
+                        }
+                      },
+                      "required": [
+                        "message"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/roles": {
+      "get": {
+        "operationId": "role.index",
+        "summary": "GET /api/admin/roles\nLấy danh sách roles",
+        "tags": [
+          "Role"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of `RoleResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/RoleResource"
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Failed to retrieve roles"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "role.store",
+        "summary": "POST /api/admin/roles\nTạo role mới",
+        "tags": [
+          "Role"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreRoleRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Role created successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/RoleResource"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/roles/{role}": {
+      "get": {
+        "operationId": "role.show",
+        "summary": "GET /api/admin/roles/{id}\nLấy chi tiết 1 role",
+        "tags": [
+          "Role"
+        ],
+        "parameters": [
+          {
+            "name": "role",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SỬ DỤNG RESOURCE ĐỂ ĐỊNH DẠNG RESPONSE",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Role retrieved successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/RoleResource"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Role not found"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/roles/{id}": {
+      "put": {
+        "operationId": "role.update",
+        "summary": "PUT /api/admin/roles/{id}\nCập nhật role",
+        "tags": [
+          "Role"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRoleRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Trả về 200 OK với message thông báo, vì đây không phải là lỗi",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "data": {
+                          "type": "string",
+                          "description": "Có thể trả về dữ liệu hiện tại của role"
+                        }
+                      },
+                      "required": [
+                        "message",
+                        "data"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "const": "Role updated successfully"
+                        },
+                        "data": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "message",
+                        "data"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Invalid role ID"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "role.destroy",
+        "summary": "DELETE /api/admin/roles/{id}\nXóa role",
+        "tags": [
+          "Role"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "const": "Role deleted successfully"
+                        }
+                      },
+                      "required": [
+                        "message"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Invalid role ID"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/roles/{id}/permissions": {
+      "get": {
+        "operationId": "role.getRolePermissions",
+        "summary": "GET /api/admin/roles/{id}/permissions\nLấy danh sách permissions của role",
+        "tags": [
+          "Role"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "const": "Role permissions retrieved successfully"
+                        },
+                        "data": {
+                          "type": "string"
+                        },
+                        "total": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "message",
+                        "data",
+                        "total"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Invalid role ID"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/roles/{roleId}/permissions": {
+      "post": {
+        "operationId": "role.assignPermissions",
+        "summary": "Gán thêm các quyền cho một vai trò.\nPOST /api/admin/roles/{roleId}/permissions",
+        "tags": [
+          "Role"
+        ],
+        "parameters": [
+          {
+            "name": "roleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignPermissionsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "4. Trả về JsonResponse hoàn chỉnh",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "const": "Một số quyền đã được gán, một số khác bị bỏ qua vì đã tồn tại."
+                        },
+                        "data": {
+                          "$ref": "#/components/schemas/RoleResource"
+                        },
+                        "details": {
+                          "type": "string",
+                          "description": "Dùng đối tượng Role để tạo Resource"
+                        }
+                      },
+                      "required": [
+                        "message",
+                        "data",
+                        "details"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      }
+    },
+    "/admin/roles/{roleId}/permissions/{permissionId}": {
+      "delete": {
+        "operationId": "role.removePermission",
+        "summary": "DELETE /api/admin/roles/{id}/permissions/{permissionId}\nXóa permission khỏi role",
+        "tags": [
+          "Role"
+        ],
+        "parameters": [
+          {
+            "name": "roleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "permissionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "const": "Permission removed successfully"
+                        }
+                      },
+                      "required": [
+                        "message"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Invalid role ID"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schedules/class/{class}": {
+      "get": {
+        "operationId": "schedule.getByClass",
+        "summary": "Get schedule by class\nGET /api/schedules/class/{class}",
+        "tags": [
+          "Schedule"
+        ],
+        "parameters": [
+          {
+            "name": "class",
+            "in": "path",
+            "required": true,
+            "description": "The class ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Class schedule retrieved successfully"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      }
+    },
+    "/schedules/class/{class}/week": {
+      "get": {
+        "operationId": "schedule.getWeeklySchedule",
+        "summary": "Get weekly schedule for a class\nGET /api/schedules/class/{class}/week",
+        "tags": [
+          "Schedule"
+        ],
+        "parameters": [
+          {
+            "name": "class",
+            "in": "path",
+            "required": true,
+            "description": "The class ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Class schedule retrieved successfully"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      }
+    },
+    "/schedules/my": {
+      "get": {
+        "operationId": "schedule.mySchedule",
+        "summary": "Get personal schedule (teacher/student) - MY SCHEDULE\nGET /api/schedules/my",
+        "tags": [
+          "Schedule"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Personal schedule retrieved successfully"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ScheduleResource"
+                      }
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schedules/my-classes": {
+      "get": {
+        "operationId": "schedule.getTeacherClasses",
+        "summary": "Get classes for teacher\nGET /api/schedules/my-classes",
+        "tags": [
+          "Schedule"
+        ],
+        "responses": {
+          "200": {
+            "description": "dd(2);",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Teacher classes retrieved successfully"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schedules": {
+      "get": {
+        "operationId": "schedule.index",
+        "summary": "Display a listing of ALL schedules (with filters)\nGET /api/schedules\nAdmin/Principal can see all, Teachers see their classes",
+        "tags": [
+          "Schedule"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "All class schedules with students retrieved successfully"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "academic_year": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "homeroom_teacher": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "students": {
+                            "type": "string"
+                          },
+                          "schedules": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "academic_year",
+                          "homeroom_teacher",
+                          "students",
+                          "schedules"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/AuthorizationException"
+          }
+        }
+      },
+      "post": {
+        "operationId": "schedule.store",
+        "summary": "Store a newly created resource in storage",
+        "tags": [
+          "Schedule"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreScheduleRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Schedule created successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/ScheduleResource"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      }
+    },
+    "/schedules/{schedule}": {
+      "get": {
+        "operationId": "schedule.show",
+        "summary": "Display the specified resource",
+        "tags": [
+          "Schedule"
+        ],
+        "parameters": [
+          {
+            "name": "schedule",
+            "in": "path",
+            "required": true,
+            "description": "The schedule ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Schedule retrieved successfully"
+                    },
+                    "data": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/ScheduleResource"
+                        },
+                        {
+                          "type": "object",
+                          "required": [
+                            "class",
+                            "subject",
+                            "teacher"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      },
+      "put": {
+        "operationId": "schedule.update",
+        "summary": "Update the specified resource in storage",
+        "tags": [
+          "Schedule"
+        ],
+        "parameters": [
+          {
+            "name": "schedule",
+            "in": "path",
+            "required": true,
+            "description": "The schedule ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateScheduleRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Schedule updated successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/ScheduleResource"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/AuthorizationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "schedule.destroy",
+        "summary": "Remove the specified resource from storage",
+        "tags": [
+          "Schedule"
+        ],
+        "parameters": [
+          {
+            "name": "schedule",
+            "in": "path",
+            "required": true,
+            "description": "The schedule ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Schedule deleted successfully"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          },
+          "409": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Schedule already deleted (in trash)."
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Delete failed: Schedule not found."
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schedules/{id}/restore": {
+      "post": {
+        "operationId": "schedule.restore",
+        "summary": "Restore schedule with id in schedules",
+        "tags": [
+          "Schedule"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Schedule restored successfully."
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/ScheduleResource"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/AuthorizationException"
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Schedule not found in trash."
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/classes": {
+      "get": {
+        "operationId": "classes.index",
+        "summary": "Display a listing of the resource",
+        "tags": [
+          "SchoolClass"
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "operationId": "classes.store",
+        "summary": "Store a newly created resource in storage",
+        "tags": [
+          "SchoolClass"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreSchoolClassRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      }
+    },
+    "/admin/classes/{class}": {
+      "get": {
+        "operationId": "classes.show",
+        "summary": "Display the specified resource",
+        "tags": [
+          "SchoolClass"
+        ],
+        "parameters": [
+          {
+            "name": "class",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "operationId": "classes.update",
+        "summary": "Update the specified resource in storage",
+        "tags": [
+          "SchoolClass"
+        ],
+        "parameters": [
+          {
+            "name": "class",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "403": {
+            "$ref": "#/components/responses/AuthorizationException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "classes.destroy",
+        "summary": "Remove the specified resource from storage",
+        "tags": [
+          "SchoolClass"
+        ],
+        "parameters": [
+          {
+            "name": "class",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/auth/sessions": {
+      "get": {
+        "operationId": "sessions.index",
+        "tags": [
+          "Session"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/UserSession"
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/sessions/{id}": {
+      "delete": {
+        "operationId": "sessions.destroy",
+        "tags": [
+          "Session"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "Session revoked successfully."
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/my-children": {
+      "get": {
+        "operationId": "student.myChildren",
+        "tags": [
+          "Student"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of `StudentResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/StudentResource"
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/subjects": {
+      "get": {
+        "operationId": "subjects.index",
+        "summary": "Display a listing of the resource",
+        "tags": [
+          "Subject"
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "operationId": "subjects.store",
+        "summary": "Store a newly created resource in storage",
+        "tags": [
+          "Subject"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreSubjectRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      }
+    },
+    "/admin/subjects/{subject}": {
+      "get": {
+        "operationId": "subjects.show",
+        "summary": "Display the specified resource",
+        "tags": [
+          "Subject"
+        ],
+        "parameters": [
+          {
+            "name": "subject",
+            "in": "path",
+            "required": true,
+            "description": "The subject ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      },
+      "put": {
+        "operationId": "subjects.update",
+        "summary": "Update the specified resource in storage",
+        "tags": [
+          "Subject"
+        ],
+        "parameters": [
+          {
+            "name": "subject",
+            "in": "path",
+            "required": true,
+            "description": "The subject ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "403": {
+            "$ref": "#/components/responses/AuthorizationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "subjects.destroy",
+        "summary": "Remove the specified resource from storage",
+        "tags": [
+          "Subject"
+        ],
+        "parameters": [
+          {
+            "name": "subject",
+            "in": "path",
+            "required": true,
+            "description": "The subject ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      }
+    },
+    "/documentation": {
+      "get": {
+        "operationId": "l5-swagger.default.api",
+        "summary": "Display Swagger API page",
+        "tags": [
+          "Swagger"
+        ],
+        "responses": {
+          "200": {
+            "description": "Need the / at the end to avoid CORS errors on Homestead systems.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/oauth2-callback": {
+      "get": {
+        "operationId": "l5-swagger.default.oauth2_callback",
+        "summary": "Display Oauth2 callback pages",
+        "tags": [
+          "Swagger"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/users/{userId}/roles": {
+      "get": {
+        "operationId": "userRole.getUserRoles",
+        "summary": "GET /api/admin/users/{userId}/roles\nLấy roles của user",
+        "tags": [
+          "UserRole"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "User roles retrieved successfully"
+                    },
+                    "data": {
+                      "type": "string"
+                    },
+                    "total": {
+                      "type": "string",
+                      "description": "SỬA LỖI Ở ĐÂY: Sử dụng phương thức ->count() của Collection"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data",
+                    "total"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/users/{userId}/permissions": {
+      "get": {
+        "operationId": "userRole.getUserPermissions",
+        "summary": "GET /api/admin/users/{userId}/permissions\nLấy permissions của user (role + direct)",
+        "tags": [
+          "UserRole"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "const": "User permissions retrieved successfully"
+                    },
+                    "data": {
+                      "type": "string"
+                    },
+                    "total": {
+                      "type": "string",
+                      "description": "Sử dụng phương thức ->count() của Collection"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data",
+                    "total"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AppealDisciplineRequest": {
+        "type": "object",
+        "properties": {
+          "appeal_reason": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 2000
+          },
+          "evidence": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "required": [
+          "appeal_reason"
+        ],
+        "title": "AppealDisciplineRequest"
+      },
+      "AssignPermissionsRequest": {
+        "type": "object",
+        "properties": {
+          "permissions": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "minItems": 1
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "sync",
+              "attach"
+            ]
+          }
+        },
+        "required": [
+          "permissions"
+        ],
+        "title": "AssignPermissionsRequest"
+      },
+      "ConductScoreResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "student": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "student_code": {
+                "type": "string"
+              },
+              "full_name": {
+                "type": "string"
+              },
+              "class_name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "student_code",
+              "full_name",
+              "class_name"
+            ]
+          },
+          "semester": {
+            "type": "string"
+          },
+          "academic_year": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          },
+          "total_penalty_points": {
+            "type": "string"
+          },
+          "conduct_grade": {
+            "type": "string"
+          },
+          "conduct_grade_text": {
+            "type": "string",
+            "enum": [
+              "Xuất sắc",
+              "Tốt",
+              "Trung bình",
+              "Yếu",
+              "Chưa xếp loại"
+            ]
+          },
+          "teacher_comment": {
+            "type": "string"
+          },
+          "approved_by": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "full_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "full_name"
+            ]
+          },
+          "approved_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "is_approved": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "semester",
+          "academic_year",
+          "total_penalty_points",
+          "conduct_grade",
+          "conduct_grade_text",
+          "teacher_comment",
+          "approved_at",
+          "is_approved",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ConductScoreResource"
+      },
+      "DisciplineActionResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "action_type": {
+            "type": "string"
+          },
+          "action_description": {
+            "type": "string"
+          },
+          "executed_by": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "full_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "full_name"
+            ]
+          },
+          "executed_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "completion_status": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "action_type",
+          "action_description",
+          "executed_at",
+          "completion_status",
+          "created_at"
+        ],
+        "title": "DisciplineActionResource"
+      },
+      "DisciplineAppealResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "appellant": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "full_name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "full_name",
+              "type"
+            ]
+          },
+          "appeal_reason": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "reviewed_by": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "full_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "full_name"
+            ]
+          },
+          "reviewed_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "review_response": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "appellant",
+          "appeal_reason",
+          "evidence",
+          "status",
+          "reviewed_at",
+          "review_response",
+          "created_at"
+        ],
+        "title": "DisciplineAppealResource"
+      },
+      "DisciplineResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "student": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "student_code": {
+                "type": "string"
+              },
+              "full_name": {
+                "type": "string"
+              },
+              "class_name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "student_code",
+              "full_name",
+              "class_name"
+            ]
+          },
+          "discipline_type": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "severity_level": {
+                "type": "string"
+              },
+              "default_penalty_points": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "code",
+              "name",
+              "severity_level",
+              "default_penalty_points"
+            ]
+          },
+          "reporter": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "full_name": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "full_name",
+              "role"
+            ]
+          },
+          "incident_date": {
+            "type": "string"
+          },
+          "incident_location": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "penalty_points": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "reviewed_by": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "full_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "full_name"
+            ]
+          },
+          "reviewed_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "review_note": {
+            "type": "string"
+          },
+          "parent_notified": {
+            "type": "string"
+          },
+          "parent_notified_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "attachments": {
+            "type": "string"
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DisciplineActionResource"
+            }
+          },
+          "appeals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DisciplineAppealResource"
+            }
+          },
+          "has_appeals": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "student",
+          "discipline_type",
+          "reporter",
+          "incident_date",
+          "incident_location",
+          "description",
+          "penalty_points",
+          "status",
+          "reviewed_at",
+          "review_note",
+          "parent_notified",
+          "parent_notified_at",
+          "attachments",
+          "has_appeals",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "DisciplineResource"
+      },
+      "DisciplineTypeResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "Muc do nghiem trong ": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "code",
+          "name",
+          "Muc do nghiem trong "
+        ],
+        "title": "DisciplineTypeResource"
+      },
+      "GradeResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "score": {
+            "type": "number"
+          },
+          "type": {
+            "type": "string"
+          },
+          "semester": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "updated_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "student": {
+            "type": "object",
+            "description": "Student information",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "student_code": {
+                "type": "string"
+              },
+              "full_name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "class_name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "student_code",
+              "full_name",
+              "class_name"
+            ]
+          },
+          "subject": {
+            "type": "object",
+            "description": "Subject information",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          },
+          "teacher": {
+            "type": "object",
+            "description": "Teacher information",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "full_name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "email": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "full_name",
+              "email"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "score",
+          "type",
+          "semester",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "GradeResource"
+      },
+      "LoginResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "roles": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "name",
+          "roles"
+        ],
+        "title": "LoginResource"
+      },
+      "PermissionResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "PermissionResource"
+      },
+      "ProfileResource": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "full_name": {
+                "type": "string"
+              },
+              "phone_number": {
+                "type": "string"
+              },
+              "birthday": {
+                "type": "string"
+              },
+              "gender": {
+                "type": "string"
+              },
+              "address": {
+                "type": "string"
+              },
+              "avatar": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "full_name",
+              "phone_number",
+              "birthday",
+              "gender",
+              "address",
+              "avatar"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "full_name": {
+                "type": "null"
+              },
+              "phone_number": {
+                "type": "null"
+              },
+              "birthday": {
+                "type": "null"
+              },
+              "gender": {
+                "type": "null"
+              },
+              "address": {
+                "type": "null"
+              },
+              "avatar": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "full_name",
+              "phone_number",
+              "birthday",
+              "gender",
+              "address",
+              "avatar"
+            ]
+          }
+        ],
+        "title": "ProfileResource"
+      },
+      "ReviewDisciplineRequest": {
+        "type": "object",
+        "properties": {
+          "review_note": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 1000
+          }
+        },
+        "title": "ReviewDisciplineRequest"
+      },
+      "RoleResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "is_active": {
+            "type": "string"
+          },
+          "permissions": {
+            "type": "array",
+            "description": "Dữ liệu permissions sẽ được lấy từ mối quan hệ đã được load",
+            "items": {
+              "$ref": "#/components/schemas/PermissionResource"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "is_active"
+        ],
+        "title": "RoleResource"
+      },
+      "ScheduleResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "day_of_week": {
+            "type": "string"
+          },
+          "period": {
+            "type": "string"
+          },
+          "room": {
+            "type": "string"
+          },
+          "class": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          },
+          "subject": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          },
+          "teacher": {
+            "type": "object",
+            "description": "SỬA LẠI ĐỂ AN TOÀN HƠN",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Dùng optional() hoặc null safe operator (?) để tránh lỗi nếu profile không được load"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "day_of_week",
+          "period",
+          "room"
+        ],
+        "title": "ScheduleResource"
+      },
+      "StoreAcademicYearRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "is_active": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "start_date",
+          "end_date"
+        ],
+        "title": "StoreAcademicYearRequest"
+      },
+      "StoreDisciplineRequest": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "pending",
+              "approved",
+              "rejected",
+              null
+            ]
+          },
+          "student_id": {
+            "type": "integer"
+          },
+          "discipline_type_id": {
+            "type": "integer"
+          },
+          "incident_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "incident_location": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "penalty_points": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 50
+          },
+          "attachments": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "required": [
+          "student_id",
+          "discipline_type_id",
+          "incident_date",
+          "description"
+        ],
+        "title": "StoreDisciplineRequest"
+      },
+      "StoreGradeRequest": {
+        "type": "object",
+        "properties": {
+          "student_id": {
+            "type": "integer"
+          },
+          "subject_id": {
+            "type": "integer"
+          },
+          "teacher_id": {
+            "type": "integer"
+          },
+          "score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "quiz",
+              "15min",
+              "midterm",
+              "final"
+            ]
+          },
+          "semester": {
+            "type": "integer",
+            "enum": [
+              "1",
+              "2"
+            ]
+          }
+        },
+        "required": [
+          "student_id",
+          "subject_id",
+          "teacher_id",
+          "score",
+          "type",
+          "semester"
+        ],
+        "title": "StoreGradeRequest"
+      },
+      "StorePermissionRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z_]+$",
+            "maxLength": 100
+          },
+          "guard_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "web",
+              "api",
+              null
+            ],
+            "maxLength": 50
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "StorePermissionRequest"
+      },
+      "StoreRoleRequest": {
+        "type": "object",
+        "properties": {
+          "guard_name": {
+            "type": "string",
+            "enum": [
+              "web",
+              "api",
+              "sanctum"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "permissions": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "integer"
+            }
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "StoreRoleRequest"
+      },
+      "StoreScheduleRequest": {
+        "type": "object",
+        "properties": {
+          "class_id": {
+            "type": "integer"
+          },
+          "subject_id": {
+            "type": "integer"
+          },
+          "teacher_id": {
+            "type": "integer"
+          },
+          "day_of_week": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 7
+          },
+          "period": {
+            "type": "integer",
+            "description": "1: Monday, 7: Sunday",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "room": {
+            "type": "string",
+            "description": "Tiết học từ 1-10",
+            "maxLength": 10
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "academic_year_id": {
+            "type": "integer"
+          },
+          "semester": {
+            "type": "integer",
+            "enum": [
+              "1",
+              "2"
+            ]
+          }
+        },
+        "required": [
+          "class_id",
+          "subject_id",
+          "teacher_id",
+          "day_of_week",
+          "period",
+          "room",
+          "date",
+          "academic_year_id",
+          "semester"
+        ],
+        "title": "StoreScheduleRequest"
+      },
+      "StoreSchoolClassRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "academic_year_id": {
+            "type": "integer"
+          },
+          "homeroom_teacher_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "academic_year_id"
+        ],
+        "title": "StoreSchoolClassRequest"
+      },
+      "StoreSubjectRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "subject_code": {
+            "type": "string",
+            "maxLength": 50
+          }
+        },
+        "required": [
+          "name",
+          "subject_code"
+        ],
+        "title": "StoreSubjectRequest"
+      },
+      "StudentResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "student_code": {
+            "type": "string"
+          },
+          "full_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Lấy thông tin từ các mối quan hệ đã được eager load"
+          },
+          "class_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "student_code"
+        ],
+        "title": "StudentResource"
+      },
+      "UpdateDisciplineRequest": {
+        "type": "object",
+        "properties": {
+          "discipline_type_id": {
+            "type": "integer"
+          },
+          "incident_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "incident_location": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "penalty_points": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 50
+          },
+          "attachments": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "title": "UpdateDisciplineRequest"
+      },
+      "UpdatePermissionRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255
+          }
+        },
+        "title": "UpdatePermissionRequest"
+      },
+      "UpdateRoleRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 500
+          },
+          "is_active": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "UpdateRoleRequest"
+      },
+      "UpdateScheduleRequest": {
+        "type": "object",
+        "properties": {
+          "class_id": {
+            "type": "integer"
+          },
+          "subject_id": {
+            "type": "integer"
+          },
+          "teacher_id": {
+            "type": "integer"
+          },
+          "day_of_week": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 7
+          },
+          "period": {
+            "type": "integer",
+            "description": "1: Monday, 7: Sunday",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "room": {
+            "type": "string",
+            "description": "Tiết học từ 1-10",
+            "maxLength": 10
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "academic_year_id": {
+            "type": "integer"
+          },
+          "semester": {
+            "type": "integer",
+            "enum": [
+              "1",
+              "2"
+            ]
+          }
+        },
+        "title": "UpdateScheduleRequest"
+      },
+      "UserSession": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "user_id": {
+            "type": "integer"
+          },
+          "refresh_token_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "device_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ip_address": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "user_agent": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "last_active_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "refresh_token_id",
+          "device_name",
+          "ip_address",
+          "user_agent",
+          "last_active_at",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "UserSession"
+      }
+    },
+    "responses": {
+      "ValidationException": {
+        "description": "Validation error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Errors overview."
+                },
+                "errors": {
+                  "type": "object",
+                  "description": "A detailed description of each field that failed validation.",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "message",
+                "errors"
+              ]
+            }
+          }
+        }
+      },
+      "ModelNotFoundException": {
+        "description": "Not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Error overview."
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      },
+      "AuthorizationException": {
+        "description": "Authorization error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Error overview."
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "openapi": "3.1.0",
+  "components": {
+    "schemas": {
+      "Template": {
+        "properties": {
+          "body": {
+            "example": "Xin chào {{name}}, cảm ơn bạn đã đăng ký!",
+            "type": "string"
+          },
+          "channels": {
+            "example": "email",
+            "items": {
+              "example": "email",
+              "type": "string"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "name": {
+            "example": "welcome_email",
+            "type": "string"
+          },
+          "subject": {
+            "example": "Chào mừng đến EduConnect",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "body",
+          "channels",
+          "name",
+          "subject",
+          "updated_at"
+        ],
+        "type": "object"
+      },
+      "templateListResponse": {
+        "description": "templateListResponse schema",
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/Template"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object"
+      },
+      "unknown-interface": {
+        "description": "unknown-interface schema"
+      }
+    }
+  },
+  "info": {
+    "description": "Notify microservice — quản lý mẫu thông báo (email/SMS).",
+    "title": "Notify API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/notify/templates": {
+      "get": {
+        "description": "#### Controller: \n\n`educonnect/notify/internal/handler.TemplateHandler.List`\n\n---\n\n",
+        "operationId": "GET_/api/notify/templates",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/templateListResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/templateListResponse"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "List notification templates",
+        "tags": [
+          "templates"
+        ]
+      },
+      "post": {
+        "description": "#### Controller: \n\n`educonnect/notify/internal/handler.TemplateHandler.Create`\n\n---\n\n",
+        "operationId": "POST_/api/notify/templates",
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/Template"
+              }
+            }
+          },
+          "description": "Request body for template.Template",
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Template"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Template"
+                }
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "summary": "Create or update template",
+        "tags": [
+          "templates"
+        ]
+      }
+    },
+    "/api/notify/templates/{name}": {
+      "get": {
+        "description": "#### Controller: \n\n`educonnect/notify/internal/handler.TemplateHandler.Get`\n\n---\n\n",
+        "operationId": "GET_/api/notify/templates/:name",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Template"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Template"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Get template by name",
+        "tags": [
+          "templates"
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "/api/notify"
+    }
+  ]
+}

@@ -1,0 +1,730 @@
+{
+  "openapi": "3.1.0",
+  "components": {
+    "schemas": {
+      "CreateFeeTypeRequest": {
+        "description": "CreateFeeTypeRequest schema",
+        "properties": {
+          "amount": {
+            "example": 1000000,
+            "format": "double",
+            "type": "number"
+          },
+          "description": {
+            "example": "Học phí học kỳ 1",
+            "type": "string"
+          },
+          "is_active": {
+            "example": true,
+            "type": "boolean"
+          },
+          "name": {
+            "example": "Học phí",
+            "type": "string"
+          }
+        },
+        "required": [
+          "amount",
+          "description",
+          "is_active",
+          "name"
+        ],
+        "type": "object"
+      },
+      "CreateInvoiceRequest": {
+        "description": "CreateInvoiceRequest schema",
+        "properties": {
+          "amount": {
+            "example": 1000000,
+            "format": "double",
+            "type": "number"
+          },
+          "fee_type_id": {
+            "example": 3,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "student_id": {
+            "example": 10,
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "amount",
+          "fee_type_id",
+          "student_id"
+        ],
+        "type": "object"
+      },
+      "CreatePaymentRequest": {
+        "description": "CreatePaymentRequest schema",
+        "properties": {
+          "amount": {
+            "example": 1000000,
+            "format": "double",
+            "type": "number"
+          },
+          "invoice_id": {
+            "example": 1,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "method": {
+            "enum": [
+              "cash",
+              "bank_transfer",
+              "vnpay"
+            ],
+            "example": "cash",
+            "type": "string"
+          },
+          "note": {
+            "example": "Thanh toán học phí",
+            "type": "string"
+          },
+          "paid_by": {
+            "example": 5,
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "amount",
+          "invoice_id",
+          "method",
+          "note",
+          "paid_by"
+        ],
+        "type": "object"
+      },
+      "FeeType": {
+        "properties": {
+          "amount": {
+            "example": 1000000,
+            "format": "double",
+            "type": "number"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "description": {
+            "example": "Học phí học kỳ 1",
+            "type": "string"
+          },
+          "id": {
+            "example": 1,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "is_active": {
+            "example": true,
+            "type": "boolean"
+          },
+          "name": {
+            "example": "Học phí",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "amount",
+          "created_at",
+          "description",
+          "id",
+          "is_active",
+          "name",
+          "updated_at"
+        ],
+        "type": "object"
+      },
+      "FeeTypeListResponse": {
+        "description": "FeeTypeListResponse schema",
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/FeeType"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object"
+      },
+      "Invoice": {
+        "properties": {
+          "amount": {
+            "example": 1000000,
+            "format": "double",
+            "type": "number"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "due_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "fee_type_id": {
+            "example": 3,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "id": {
+            "example": 1,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "paid_at": {
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "status": {
+            "example": "pending",
+            "type": "string"
+          },
+          "student_id": {
+            "example": 10,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "amount",
+          "created_at",
+          "due_date",
+          "fee_type_id",
+          "id",
+          "status",
+          "student_id",
+          "updated_at"
+        ],
+        "type": "object"
+      },
+      "InvoiceListResponse": {
+        "description": "InvoiceListResponse schema",
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/Invoice"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object"
+      },
+      "Payment": {
+        "properties": {
+          "amount": {
+            "example": 1000000,
+            "format": "double",
+            "type": "number"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "example": 1,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "invoice_id": {
+            "example": 1,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "method": {
+            "example": "cash",
+            "type": "string"
+          },
+          "note": {
+            "example": "Thanh toán học phí",
+            "type": "string"
+          },
+          "paid_by": {
+            "example": 5,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "amount",
+          "created_at",
+          "id",
+          "invoice_id",
+          "method",
+          "note",
+          "paid_by",
+          "updated_at"
+        ],
+        "type": "object"
+      },
+      "PaymentListResponse": {
+        "description": "PaymentListResponse schema",
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/Payment"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object"
+      },
+      "UpdateInvoiceRequest": {
+        "description": "UpdateInvoiceRequest schema",
+        "properties": {
+          "amount": {
+            "example": 1000000,
+            "format": "double",
+            "type": "number"
+          },
+          "fee_type_id": {
+            "example": 3,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "status": {
+            "enum": [
+              "pending",
+              "paid",
+              "overdue",
+              "cancelled"
+            ],
+            "example": "paid",
+            "type": "string"
+          },
+          "student_id": {
+            "example": 10,
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "amount",
+          "fee_type_id",
+          "status",
+          "student_id"
+        ],
+        "type": "object"
+      },
+      "UserListResponse": {
+        "description": "UserListResponse schema",
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/UserReadModel"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object"
+      },
+      "UserReadModel": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "email": {
+            "example": "a@example.com",
+            "type": "string"
+          },
+          "id": {
+            "example": 1,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "is_active": {
+            "example": true,
+            "type": "boolean"
+          },
+          "name": {
+            "example": "Nguyễn Văn A",
+            "type": "string"
+          },
+          "roles": {
+            "example": "[\"student\"]",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "created_at",
+          "email",
+          "id",
+          "is_active",
+          "name",
+          "roles",
+          "updated_at"
+        ],
+        "type": "object"
+      },
+      "unknown-interface": {
+        "description": "unknown-interface schema"
+      }
+    }
+  },
+  "info": {
+    "description": "Finance microservice — quản lý hoá đơn, loại phí và thanh toán.",
+    "title": "Finance API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/finance/fee-types": {
+      "get": {
+        "description": "#### Controller: \n\n`educonnect/finance/internal/handler.FeeTypeHandler.List`\n\n---\n\n",
+        "operationId": "GET_/api/finance/fee-types",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeeTypeListResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeeTypeListResponse"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "List fee types",
+        "tags": [
+          "fee-types"
+        ]
+      },
+      "post": {
+        "description": "#### Controller: \n\n`educonnect/finance/internal/handler.FeeTypeHandler.Create`\n\n---\n\n",
+        "operationId": "POST_/api/finance/fee-types",
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFeeTypeRequest"
+              }
+            }
+          },
+          "description": "Request body for dto.CreateFeeTypeRequest",
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeeType"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeeType"
+                }
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "summary": "Create fee type",
+        "tags": [
+          "fee-types"
+        ]
+      }
+    },
+    "/api/finance/invoices": {
+      "get": {
+        "description": "#### Controller: \n\n`educonnect/finance/internal/handler.InvoiceHandler.List`\n\n---\n\n",
+        "operationId": "GET_/api/finance/invoices",
+        "parameters": [
+          {
+            "description": "Filter by student ID",
+            "in": "query",
+            "name": "student_id",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceListResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceListResponse"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "List invoices",
+        "tags": [
+          "invoices"
+        ]
+      },
+      "post": {
+        "description": "#### Controller: \n\n`educonnect/finance/internal/handler.InvoiceHandler.Create`\n\n---\n\n",
+        "operationId": "POST_/api/finance/invoices",
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateInvoiceRequest"
+              }
+            }
+          },
+          "description": "Request body for dto.CreateInvoiceRequest",
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invoice"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invoice"
+                }
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "summary": "Create invoice",
+        "tags": [
+          "invoices"
+        ]
+      }
+    },
+    "/api/finance/invoices/{id}": {
+      "get": {
+        "description": "#### Controller: \n\n`educonnect/finance/internal/handler.InvoiceHandler.Get`\n\n---\n\n",
+        "operationId": "GET_/api/finance/invoices/:id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invoice"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invoice"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Get invoice by ID",
+        "tags": [
+          "invoices"
+        ]
+      },
+      "put": {
+        "description": "#### Controller: \n\n`educonnect/finance/internal/handler.InvoiceHandler.Update`\n\n---\n\n",
+        "operationId": "PUT_/api/finance/invoices/:id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateInvoiceRequest"
+              }
+            }
+          },
+          "description": "Request body for dto.UpdateInvoiceRequest",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invoice"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invoice"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Update invoice",
+        "tags": [
+          "invoices"
+        ]
+      }
+    },
+    "/api/finance/payments": {
+      "get": {
+        "description": "#### Controller: \n\n`educonnect/finance/internal/handler.PaymentHandler.List`\n\n---\n\n",
+        "operationId": "GET_/api/finance/payments",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentListResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentListResponse"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "List payments",
+        "tags": [
+          "payments"
+        ]
+      },
+      "post": {
+        "description": "#### Controller: \n\n`educonnect/finance/internal/handler.PaymentHandler.Create`\n\n---\n\n",
+        "operationId": "POST_/api/finance/payments",
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePaymentRequest"
+              }
+            }
+          },
+          "description": "Request body for dto.CreatePaymentRequest",
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Payment"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Payment"
+                }
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "summary": "Create payment",
+        "tags": [
+          "payments"
+        ]
+      }
+    },
+    "/api/finance/users": {
+      "get": {
+        "description": "#### Controller: \n\n`educonnect/finance/internal/handler.UserHandler.List`\n\n---\n\n",
+        "operationId": "GET_/api/finance/users",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserListResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserListResponse"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "List synced users",
+        "tags": [
+          "users"
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "/api/finance"
+    }
+  ]
+}

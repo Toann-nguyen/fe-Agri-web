@@ -1,0 +1,27 @@
+{
+  "name": "@repo/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Auto-generated TypeScript types from backend OpenAPI specs",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./laravel": "./src/generated/laravel.ts",
+    "./finance": "./src/generated/finance.ts",
+    "./notify": "./src/generated/notify.ts",
+    "./labels": "./src/labels.ts"
+  },
+  "scripts": {
+    "fetch:specs": "node ./scripts/fetch-openapi.mjs",
+    "gen:laravel": "openapi-typescript ./specs/laravel-openapi.json -o ./src/generated/laravel.ts --export-type",
+    "gen:finance": "openapi-typescript ./specs/finance-openapi.json -o ./src/generated/finance.ts --export-type",
+    "gen:notify": "openapi-typescript ./specs/notify-openapi.json -o ./src/generated/notify.ts --export-type",
+    "gen": "pnpm gen:laravel && pnpm gen:finance && pnpm gen:notify",
+    "gen:all": "pnpm fetch:specs && pnpm gen"
+  },
+  "devDependencies": {
+    "openapi-typescript": "^7.13.0"
+  }
+}
