@@ -36,6 +36,10 @@ setup('authenticate', async ({ page }) => {
   await page.getByLabel('Confirm Password').click();
   await page.getByLabel('Confirm Password').fill(user.password);
   await page.getByRole('button', { name: 'Sign up' }).click();
+
+  // registration success screen (no auto-redirect): back to sign in
+  await page.getByText(/verification link/i).waitFor();
+  await page.getByRole('link', { name: 'Back to sign in' }).click();
   await page.waitForURL('/auth/login');
 
   // log in:

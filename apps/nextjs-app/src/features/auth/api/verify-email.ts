@@ -5,7 +5,7 @@ import { api } from '@/lib/api/client';
 import { MessageResponse } from '../types/auth.model';
 
 const verifyEmail = (token: string): Promise<MessageResponse> =>
-  api.post('/auth/verify-email', { token });
+  api.post('/auth/email/verify', { token });
 
 type UseVerifyEmailOptions = { onSuccess?: () => void };
 
