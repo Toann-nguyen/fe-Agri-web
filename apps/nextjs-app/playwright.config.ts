@@ -13,6 +13,7 @@ const PORT = 3000;
  */
 export default defineConfig({
   testDir: './e2e',
+  globalSetup: './e2e/global-setup.ts',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -27,6 +28,10 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
+
+    /* Match the app's default locale so next-intl's `as-needed` prefix
+       keeps e2e URLs unprefixed (e.g. /edu/login, not /en/edu/login). */
+    locale: 'vi',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',

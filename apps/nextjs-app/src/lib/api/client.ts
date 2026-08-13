@@ -79,7 +79,7 @@ async function doFetch<T>(
     cookieHeader = await getServerCookies();
   }
 
-  const token = getToken();
+  const token = typeof window !== 'undefined' ? getToken() : null;
   const fullUrl = buildUrlWithParams(`${API_URL}${url}`, params);
 
   const response = await fetch(fullUrl, {

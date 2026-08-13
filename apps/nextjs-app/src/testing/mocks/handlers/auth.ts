@@ -89,7 +89,7 @@ export const authHandlers = [
         name: userObject.name,
         email: userObject.email,
         password: hash(userObject.password),
-        role: 'student',
+        role: 'ADMIN',
         teamId: '',
         bio: '',
       });

@@ -7,21 +7,19 @@ setup('authenticate', async ({ page }) => {
   const user = createUser();
 
   await page.goto('/auth/login');
-  await page.getByRole('link', { name: 'Register' }).click();
+  await page.getByRole('link', { name: 'Sign up' }).click();
   await page.waitForURL('/auth/register');
 
   // registration:
-  await page.getByLabel('First Name').click();
-  await page.getByLabel('First Name').fill(user.firstName);
-  await page.getByLabel('Last Name').click();
-  await page.getByLabel('Last Name').fill(user.lastName);
+  await page.getByLabel('Full Name').click();
+  await page.getByLabel('Full Name').fill(user.name);
   await page.getByLabel('Email Address').click();
   await page.getByLabel('Email Address').fill(user.email);
-  await page.getByLabel('Password').click();
-  await page.getByLabel('Password').fill(user.password);
-  await page.getByLabel('Team Name').click();
-  await page.getByLabel('Team Name').fill(user.teamName);
-  await page.getByRole('button', { name: 'Register' }).click();
+  await page.getByLabel('Password', { exact: true }).click();
+  await page.getByLabel('Password', { exact: true }).fill(user.password);
+  await page.getByLabel('Confirm Password').click();
+  await page.getByLabel('Confirm Password').fill(user.password);
+  await page.getByRole('button', { name: 'Sign up' }).click();
   await page.waitForURL('/app');
 
   // log out:
@@ -34,7 +32,7 @@ setup('authenticate', async ({ page }) => {
   await page.getByLabel('Email Address').fill(user.email);
   await page.getByLabel('Password').click();
   await page.getByLabel('Password').fill(user.password);
-  await page.getByRole('button', { name: 'Log in' }).click();
+  await page.getByRole('button', { name: 'Sign in' }).click();
   await page.waitForURL('/app');
 
   await page.context().storageState({ path: authFile });

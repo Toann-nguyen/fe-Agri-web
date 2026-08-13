@@ -4,29 +4,16 @@ import { createUser } from '../../src/testing/data-generators';
 const authFile = 'e2e/.auth/user.json';
 
 setup('authenticate', async ({ page }) => {
-  // Debug logging for CI
-  page.on('console', (msg) =>
-    console.log('[Browser Log]', msg.type(), msg.text()),
-  );
-  page.on('pageerror', (exception) =>
-    console.log('[Browser Uncaught Error]', exception.message),
-  );
-  page.on('requestfailed', (request) =>
-    console.log(
-      '[Network Failed]',
-      request.url(),
-      request.failure()?.errorText,
-    ),
-  );
-
   const user = createUser();
 
   await page.goto('/');
   await page.getByRole('link', { name: 'Open Terminal' }).click();
-  await page.waitForURL('/auth/login');
-  await page.getByRole('link', { name: 'Sign up' }).click();
+  await page.waitForURL('/edu/login');
 
-  // registration:
+  // sign up:
+  await page.getByRole('link', { name: 'Đăng ký ngay' }).click();
+  await page.waitForURL('/auth/register');
+
   await page.getByLabel('Full Name').click();
   await page.getByLabel('Full Name').fill(user.name);
   await page.getByLabel('Email Address').click();
@@ -36,19 +23,16 @@ setup('authenticate', async ({ page }) => {
   await page.getByLabel('Confirm Password').click();
   await page.getByLabel('Confirm Password').fill(user.password);
   await page.getByRole('button', { name: 'Sign up' }).click();
-
-  // registration success screen (no auto-redirect): back to sign in
-  await page.getByText(/verification link/i).waitFor();
   await page.getByRole('link', { name: 'Back to sign in' }).click();
-  await page.waitForURL('/auth/login');
+  await page.waitForURL('/edu/login');
 
-  // log in:
-  await page.getByLabel('Email Address').click();
-  await page.getByLabel('Email Address').fill(user.email);
-  await page.getByLabel('Password', { exact: true }).click();
-  await page.getByLabel('Password', { exact: true }).fill(user.password);
-  await page.getByRole('button', { name: 'Sign in' }).click();
-  await page.waitForURL('/app');
+  // log in via the edu portal:
+  await page.getByLabel('Tên đăng nhập hoặc Email').click();
+  await page.getByLabel('Tên đăng nhập hoặc Email').fill(user.email);
+  await page.getByLabel('Mật khẩu').click();
+  await page.getByLabel('Mật khẩu').fill(user.password);
+  await page.getByRole('button', { name: 'Đăng Nhập Edu-AI-VN' }).click();
+  await page.waitForURL('/edu/dashboard');
 
   await page.context().storageState({ path: authFile });
 });

@@ -28,7 +28,7 @@ export const commentsHandlers = [
       });
 
       if (!discussion?.public) {
-        const { error } = requireAuth(cookies);
+        const { error } = requireAuth(cookies, request);
         if (error) {
           return HttpResponse.json({ message: error }, { status: 401 });
         }
@@ -87,7 +87,7 @@ export const commentsHandlers = [
     await networkDelay();
 
     try {
-      const { user, error } = requireAuth(cookies);
+      const { user, error } = requireAuth(cookies, request);
       if (error) {
         return HttpResponse.json({ message: error }, { status: 401 });
       }
@@ -108,11 +108,11 @@ export const commentsHandlers = [
 
   http.delete(
     `${env.API_URL}/comments/:commentId`,
-    async ({ params, cookies }) => {
+    async ({ request, params, cookies }) => {
       await networkDelay();
 
       try {
-        const { user, error } = requireAuth(cookies);
+        const { user, error } = requireAuth(cookies, request);
         if (error) {
           return HttpResponse.json({ message: error }, { status: 401 });
         }

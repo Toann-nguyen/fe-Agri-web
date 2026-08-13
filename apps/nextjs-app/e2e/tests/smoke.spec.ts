@@ -20,10 +20,7 @@ test('smoke', async ({ page }) => {
   await page.getByLabel('Body').click();
   await page.getByLabel('Body').fill(discussion.body);
   await page.getByRole('button', { name: 'Submit' }).click();
-  await page
-    .getByLabel('Discussion Created')
-    .getByRole('button', { name: 'Close' })
-    .click();
+  await expect(page.getByText('Discussion Created')).toBeVisible();
 
   // visit discussion page - click the newly created discussion
   await page.getByRole('link', { name: 'View' }).last().click();
@@ -40,10 +37,7 @@ test('smoke', async ({ page }) => {
   await page.getByLabel('Body').click();
   await page.getByLabel('Body').fill(`${discussion.body} - updated`);
   await page.getByRole('button', { name: 'Submit' }).click();
-  await page
-    .getByLabel('Discussion Updated')
-    .getByRole('button', { name: 'Close' })
-    .click();
+  await expect(page.getByText('Discussion Updated')).toBeVisible();
 
   await expect(
     page.getByRole('heading', { name: `${discussion.title} - updated` }),
@@ -56,10 +50,7 @@ test('smoke', async ({ page }) => {
   await page.getByLabel('Body').fill(comment.body);
   await page.getByRole('button', { name: 'Submit' }).click();
   await expect(page.getByText(comment.body)).toBeVisible();
-  await page
-    .getByLabel('Comment Created')
-    .getByRole('button', { name: 'Close' })
-    .click();
+  await expect(page.getByText('Comment Created')).toBeVisible();
 
   // delete comment:
   await page.getByRole('button', { name: 'Delete Comment' }).click();
@@ -67,10 +58,7 @@ test('smoke', async ({ page }) => {
     page.getByText('Are you sure you want to delete this comment?'),
   ).toBeVisible();
   await page.getByRole('button', { name: 'Delete Comment' }).click();
-  await page
-    .getByLabel('Comment Deleted')
-    .getByRole('button', { name: 'Close' })
-    .click();
+  await expect(page.getByText('Comment Deleted')).toBeVisible();
   await expect(
     page.getByRole('heading', { name: 'No Comments Found' }),
   ).toBeVisible();
@@ -83,10 +71,7 @@ test('smoke', async ({ page }) => {
   // delete discussion:
   await page.getByRole('button', { name: 'Delete Discussion' }).click();
   await page.getByRole('button', { name: 'Delete Discussion' }).click();
-  await page
-    .getByLabel('Discussion Deleted')
-    .getByRole('button', { name: 'Close' })
-    .click();
+  await expect(page.getByText('Discussion Deleted')).toBeVisible();
   await expect(
     page.getByRole('heading', { name: 'No Entries Found' }),
   ).toBeVisible();

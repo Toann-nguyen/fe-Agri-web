@@ -40,40 +40,39 @@ export const db = factory(models);
 
 export type Model = keyof typeof models;
 
-const dbFilePath = 'mocked-db.json';
+type Persistence = {
+  load: () => Promise<Record<string, unknown> | null>;
+  store: (data: string) => Promise<void>;
+};
+
+let persistence: Persistence | null = null;
+
+// Injected by the Node mock server (mock-server.ts) so file I/O stays out of
+// the browser bundle. Keeping fs/promises out of this module prevents build
+// tools that re-bundle (e.g. next-on-pages) from failing to resolve it.
+export const setPersistence = (p: Persistence | null) => {
+  persistence = p;
+};
 
 export const loadDb = async () => {
-  // If we are running in a Node.js environment
-  if (typeof window === 'undefined') {
-    const { readFile, writeFile } = await import('fs/promises');
-    try {
-      const data = await readFile(dbFilePath, 'utf8');
-      return JSON.parse(data);
-    } catch (error: any) {
-      if (error?.code === 'ENOENT') {
-        const emptyDB = {};
-        await writeFile(dbFilePath, JSON.stringify(emptyDB, null, 2));
-        return emptyDB;
-      } else {
-        console.error('Error loading mocked DB:', error);
-        return null;
-      }
-    }
+  if (persistence) {
+    const data = await persistence.load();
+    return data ?? {};
   }
   // If we are running in a browser environment
-  if (typeof window.localStorage === 'undefined') {
-    return {};
+  if (typeof window !== 'undefined' && window.localStorage) {
+    return Object.assign(JSON.parse(window.localStorage.getItem('msw-db') || '{}'));
   }
-  return Object.assign(JSON.parse(window.localStorage.getItem('msw-db') || '{}'));
+  return {};
 };
 
 export const storeDb = async (data: string) => {
-  // If we are running in a Node.js environment
-  if (typeof window === 'undefined') {
-    const { writeFile } = await import('fs/promises');
-    await writeFile(dbFilePath, data);
-  } else {
-    // If we are running in a browser environment
+  if (persistence) {
+    await persistence.store(data);
+    return;
+  }
+  // If we are running in a browser environment
+  if (typeof window !== 'undefined' && window.localStorage) {
     window.localStorage.setItem('msw-db', data);
   }
 };
