@@ -55,7 +55,7 @@ export const VerifyEmailStatus = ({ token }: VerifyEmailStatusProps) => {
         </p>
         <Button
           className="w-full"
-          onClick={() => router.replace(paths.auth.login.getHref())}
+          onClick={() => router.replace(paths.edu.login.getHref())}
         >
           Continue to sign in
         </Button>

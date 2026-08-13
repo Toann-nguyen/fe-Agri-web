@@ -32,7 +32,7 @@ export const RegisterClient = () => {
             and click the link to verify your account before logging in.
           </p>
           <Button asChild className="w-full">
-            <Link href={paths.auth.login.getHref()}>Back to sign in</Link>
+            <Link href={paths.edu.login.getHref()}>Back to sign in</Link>
           </Button>
           <AuthFooterLinks variant="register" />
         </div>

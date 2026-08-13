@@ -41,10 +41,7 @@ export const AuthFooterLinks = ({
       return (
         <div className="mt-4 text-center text-sm text-ink-400">
           Already have an account?{' '}
-          <NextLink
-            href={paths.auth.login.getHref(redirectTo)}
-            className={linkClass}
-          >
+          <NextLink href={paths.edu.login.getHref()} className={linkClass}>
             Sign in
           </NextLink>
         </div>
@@ -54,10 +51,7 @@ export const AuthFooterLinks = ({
     case 'verify':
       return (
         <div className="mt-4 text-center text-sm text-ink-400">
-          <NextLink
-            href={paths.auth.login.getHref(redirectTo)}
-            className={linkClass}
-          >
+          <NextLink href={paths.edu.login.getHref()} className={linkClass}>
             Back to sign in
           </NextLink>
         </div>

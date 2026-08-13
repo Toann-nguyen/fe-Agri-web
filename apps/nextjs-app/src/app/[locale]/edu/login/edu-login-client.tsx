@@ -359,17 +359,12 @@ export default function EduAiLoginPage() {
             {/* Footer Sign up Link */}
             <div className="mt-6 text-center text-xs text-slate-400">
               {t('noAccount')}{' '}
-              <button
-                onClick={() =>
-                  setNotification({
-                    type: 'info',
-                    message: t('signUpHint'),
-                  })
-                }
+              <Link
+                href={paths.auth.register.getHref()}
                 className="font-semibold text-cyan-400 hover:underline"
               >
                 {t('signUp')}
-              </button>
+              </Link>
             </div>
           </div>
 

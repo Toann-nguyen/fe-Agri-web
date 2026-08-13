@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import * as React from 'react';
 
 import { Button } from '@/components/ui/button';
-import { Form, Input } from '@/components/ui/form';
+import { Form, Input, PasswordInput } from '@/components/ui/form';
 import { useRegister } from '@/features/auth/api/register';
 import { registerInputSchema } from '@/features/auth/schemas/register.schema';
 
@@ -46,15 +46,13 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
               registration={register('email')}
               autoComplete="email"
             />
-            <Input
-              type="password"
+            <PasswordInput
               label="Password"
               error={formState.errors['password']}
               registration={register('password')}
               autoComplete="new-password"
             />
-            <Input
-              type="password"
+            <PasswordInput
               label="Confirm Password"
               error={formState.errors['password_confirmation']}
               registration={register('password_confirmation')}

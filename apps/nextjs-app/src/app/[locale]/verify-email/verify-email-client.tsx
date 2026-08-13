@@ -69,7 +69,7 @@ export const VerifyEmailClient = () => {
             Your email has been verified successfully!
           </p>
           <Button asChild className="w-full">
-            <Link href={paths.auth.login.getHref()}>Sign in</Link>
+            <Link href={paths.edu.login.getHref()}>Sign in</Link>
           </Button>
         </div>
       )}
@@ -88,7 +88,7 @@ export const VerifyEmailClient = () => {
           </p>
           {token ? (
             <Button asChild className="w-full">
-              <Link href={paths.auth.login.getHref()}>Back to sign in</Link>
+              <Link href={paths.edu.login.getHref()}>Back to sign in</Link>
             </Button>
           ) : (
             <AuthFooterLinks variant="verify" />
