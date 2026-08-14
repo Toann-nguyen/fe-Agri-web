@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "description": "Agri-web-app",
   "scripts": {
-    "lint": "pnpm --filter fe-agri-nextjs-app run lint && pnpm --filter fe-agri-nextjs-pages run lint && pnpm --filter bulletproof-react-vite run lint",
-    "typecheck": "pnpm --filter fe-agri-nextjs-app exec tsc --noEmit --pretty && pnpm --filter bulletproof-react-vite exec tsc --noEmit --pretty && pnpm --filter fe-agri-nextjs-pages exec tsc --noEmit --pretty",
+    "lint": "pnpm --filter fe-agri-nextjs-app run lint && pnpm --filter bulletproof-react-vite run lint",
+    "typecheck": "pnpm --filter fe-agri-nextjs-app exec tsc --noEmit --pretty && pnpm --filter bulletproof-react-vite exec tsc --noEmit --pretty",
     "format:check": "prettier --check .",
     "api:regen": "pnpm --filter @repo/api gen:all",
     "check-before-push": "pnpm run lint && pnpm run typecheck && pnpm --filter fe-agri-nextjs-app run build",

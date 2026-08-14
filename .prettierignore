@@ -7,3 +7,10 @@ pnpm-lock.yaml
 .kilo/
 packages/api/specs/
 packages/api/src/generated/
+
+# Test / e2e artifacts (generated at runtime, never hand-edited)
+test-results/
+playwright-report/
+blob-report/
+e2e/.auth/
+mocked-db.json
