@@ -33,7 +33,7 @@ resource "digitalocean_droplet" "app" {
 }
 
 resource "digitalocean_firewall" "app" {
-  name = "${var.project_name}-${var.environment}-fw"
+  name        = "${var.project_name}-${var.environment}-fw"
   droplet_ids = [digitalocean_droplet.app.id]
 
   inbound_rule {

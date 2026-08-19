@@ -1,0 +1,50 @@
+name: Infra Deploy (Ansible)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'infra/ansible/**'
+      # Also re-deploy the frontend when its compose build context changes.
+      - 'apps/nextjs-app/**'
+  workflow_dispatch:
+    inputs:
+      service:
+        description: 'Compose service to redeploy (default: nextjs_app)'
+        required: false
+        default: 'nextjs_app'
+
+jobs:
+  deploy:
+    name: Deploy to production VPS
+    runs-on: ubuntu-latest
+    environment: production
+    defaults:
+      run:
+        working-directory: infra/ansible
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Ansible + collections
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible
+          ansible-galaxy collection install -r requirements.yml
+
+      - name: Write SSH key
+        run: |
+          install -m 600 -D /dev/stdin ~/.ssh/id_ed25519 <<< "${{ secrets.DEPLOY_SSH_KEY }}"
+        shell: bash
+
+      - name: Deploy frontend via Ansible
+        run: |
+          ansible-playbook -i inventory.yml playbook.yml \
+            --extra-vars "app_service=${{ github.event.inputs.service || 'nextjs_app' }}" \
+            --tags frontend
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
