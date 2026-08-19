@@ -25,7 +25,7 @@ export const useLogin = ({ onSuccess, ...rest }: UseLoginOptions = {}) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: loginWithEmailAndPassword,
-    onSuccess: (user) => {
+    onSuccess: () => {
       // Invalidate so useUser refetches the server session (cookie).
       queryClient.invalidateQueries({ queryKey: userKeys.all });
       onSuccess?.();
