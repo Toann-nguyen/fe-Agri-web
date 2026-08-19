@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server';
 
 import { env } from '@/config/env';
-import { SESSION_COOKIE_NAME, buildSessionCookieOptions } from '@/lib/auth/session';
+import {
+  SESSION_COOKIE_NAME,
+  buildSessionCookieOptions,
+} from '@/lib/auth/session';
 
 /**
  * BFF logout: forward to backend, then clear the HttpOnly session cookie on
