@@ -2,14 +2,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '@/lib/api/client';
 import { userKeys } from '@/lib/auth/auth-provider';
-import { setToken } from '@/lib/auth/token-store';
 
 const logout = async (): Promise<void> => {
-  try {
-    await api.post('/auth/logout');
-  } finally {
-    setToken(null);
-  }
+  // Same-origin BFF route clears the HttpOnly session cookie.
+  await api.post('/api/auth/logout');
 };
 
 type UseLogoutOptions = { onSuccess?: () => void };

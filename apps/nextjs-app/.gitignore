@@ -41,3 +41,5 @@ mocked-db.json
 /.next
 /.vite
 tsconfig.tsbuildinfo
+# e2e auth storage artifacts
+e2e/.auth/

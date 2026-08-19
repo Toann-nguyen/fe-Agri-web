@@ -1,6 +1,8 @@
 import Cookies from 'js-cookie';
 import { delay } from 'msw';
 
+import { SESSION_COOKIE_NAME } from '@/lib/auth/session';
+
 import { db } from './db';
 import { hash } from './hash';
 
@@ -95,7 +97,11 @@ export function requireAuth(
   request?: Request,
 ) {
   try {
-    let encodedToken = cookies[AUTH_COOKIE] || Cookies.get(AUTH_COOKIE);
+    let encodedToken =
+      cookies[AUTH_COOKIE] ||
+      cookies[SESSION_COOKIE_NAME] ||
+      Cookies.get(AUTH_COOKIE) ||
+      Cookies.get(SESSION_COOKIE_NAME);
 
     if (!encodedToken && request) {
       const authHeader = request.headers.get('Authorization');

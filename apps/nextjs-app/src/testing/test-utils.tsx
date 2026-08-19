@@ -7,13 +7,14 @@ import userEvent from '@testing-library/user-event';
 import Cookies from 'js-cookie';
 
 import { AppProvider } from '@/app/provider';
-import { setToken } from '@/lib/auth/token-store';
+import { SESSION_COOKIE_NAME } from '@/lib/auth/session';
 
 import {
   createDiscussion as generateDiscussion,
   createUser as generateUser,
 } from './data-generators';
 import { db } from './mocks/db';
+import { setCurrentSessionToken } from './mocks/session-bridge';
 import { AUTH_COOKIE, authenticate, hash } from './mocks/utils';
 
 export const waitForLoadingToFinish = () =>
@@ -39,8 +40,12 @@ export const createDiscussion = async (discussionProperties?: any) => {
 
 export const loginAsUser = async (user: any) => {
   const authUser = await authenticate(user);
+  // Simulate the HttpOnly session cookie set by the backend.
+  Cookies.set(SESSION_COOKIE_NAME, authUser.access_token);
   Cookies.set(AUTH_COOKIE, authUser.access_token);
-  setToken(authUser.access_token);
+  // Surface the token for the /api/auth/me MSW handler (jsdom+node fetch
+  // does not forward document.cookie).
+  setCurrentSessionToken(authUser.access_token);
   return authUser;
 };
 

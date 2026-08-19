@@ -96,7 +96,7 @@ export const TechStack = () => {
           {SKILL_GROUPS.map((group) => (
             <div
               key={group.category}
-              className={`skill-card-dark reveal-scale group relative overflow-hidden rounded-2xl border ${group.borderColor} hover:bg-white/[8%] bg-white/5 p-5 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-white/20 hover:shadow-xl`}
+              className={`skill-card-dark reveal-scale group relative overflow-hidden rounded-2xl border ${group.borderColor} bg-white/5 p-5 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[8%] hover:shadow-xl`}
             >
               {/* Header category */}
               <div className="mb-4 flex items-center gap-3">

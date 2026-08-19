@@ -6,32 +6,24 @@ import { useEffect } from 'react';
 
 import { User } from '@/types/api';
 
-import { api } from '../api/client';
-
-import { getToken } from './token-store';
-
 export const userKeys = {
   all: ['user'] as const,
 };
 
-export const getUser = async (): Promise<User> => {
-  if (!getToken()) {
-    return null as unknown as User;
-  }
+/**
+ * Fetches the current user from our server route handler `/api/auth/me`,
+ * which reads the HttpOnly session cookie and proxies the backend.
+ * The client never sees the raw token.
+ */
+export const getUser = async (): Promise<User | null> => {
   try {
-    const response: any = await api.get('/auth/me');
-    const { id, email, profile, roles } = response.data;
-    return {
-      id: String(id),
-      email,
-      name: profile?.full_name || email,
-      role: roles?.[0] || 'student',
-      bio: profile?.bio || '',
-      avatar: profile?.avatar || undefined,
-      createdAt: Date.now(),
-    };
+    const res = await fetch('/api/auth/me', { cache: 'no-store' });
+    if (!res.ok) return null;
+    const body = await res.json();
+    if (!body.authenticated) return null;
+    return body.user as User;
   } catch {
-    return null as unknown as User;
+    return null;
   }
 };
 
@@ -39,6 +31,7 @@ export const getUserQueryOptions = () => {
   return queryOptions({
     queryKey: userKeys.all,
     queryFn: getUser,
+    staleTime: 1000 * 60, // 1 min
   });
 };
 
