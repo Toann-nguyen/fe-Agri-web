@@ -1,7 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { GET } from '../route';
 import { SESSION_COOKIE_NAME } from '@/lib/auth/session';
+
+import { GET } from '../route';
 
 function makeRequest(cookieValue?: string): Request {
   const headers = new Headers();

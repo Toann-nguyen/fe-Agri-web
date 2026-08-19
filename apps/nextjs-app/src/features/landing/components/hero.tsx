@@ -154,7 +154,7 @@ export const Hero = () => {
           <div className="relative">
             {/* Vòng ring hiệu ứng - Fixed: Arbitrary negative value syntax */}
             <div className="absolute inset-[-3px] rounded-full bg-gradient-to-br from-cyan-400 via-teal-400 to-orange-400 opacity-80 blur-sm" />
-            <div className="absolute inset-[-1px] rounded-full bg-gradient-to-br from-cyan-500 to-orange-400" />
+            <div className="absolute -inset-px rounded-full bg-gradient-to-br from-cyan-500 to-orange-400" />
             <div className="relative size-24 overflow-hidden rounded-full border-2 border-white/20 sm:size-28">
               <Image
                 src="/avatar.webp"

@@ -7,15 +7,15 @@ import userEvent from '@testing-library/user-event';
 import Cookies from 'js-cookie';
 
 import { AppProvider } from '@/app/provider';
+import { SESSION_COOKIE_NAME } from '@/lib/auth/session';
 
 import {
   createDiscussion as generateDiscussion,
   createUser as generateUser,
 } from './data-generators';
 import { db } from './mocks/db';
-import { AUTH_COOKIE, authenticate, hash } from './mocks/utils';
 import { setCurrentSessionToken } from './mocks/session-bridge';
-import { SESSION_COOKIE_NAME } from '@/lib/auth/session';
+import { AUTH_COOKIE, authenticate, hash } from './mocks/utils';
 
 export const waitForLoadingToFinish = () =>
   waitForElementToBeRemoved(

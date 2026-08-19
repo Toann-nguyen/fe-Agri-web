@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { describe, expect, it } from 'vitest';
 
 import { SESSION_COOKIE_NAME } from '@/lib/auth/session';
+
 import middleware from '../middleware';
 
 function makeReq(path: string, cookieValue?: string): NextRequest {

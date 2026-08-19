@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 
 import { env } from '@/config/env';
+import { LoginInput } from '@/features/auth/schemas/login.schema';
 import {
   SESSION_COOKIE_NAME,
   buildSessionCookieOptions,
 } from '@/lib/auth/session';
-import { LoginInput } from '@/features/auth/schemas/login.schema';
 
 /**
  * BFF login endpoint (same-origin). The browser POSTs credentials here; we

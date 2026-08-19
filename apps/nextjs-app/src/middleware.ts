@@ -1,8 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
 
-import { SESSION_COOKIE_NAME } from './lib/auth/session';
 import { routing } from './i18n/routing';
+import { SESSION_COOKIE_NAME } from './lib/auth/session';
 
 const intlMiddleware = createMiddleware(routing);
 

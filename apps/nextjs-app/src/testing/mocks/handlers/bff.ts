@@ -1,8 +1,8 @@
 import { HttpResponse, http } from 'msw';
 
 import { env } from '@/config/env';
-
 import { SESSION_COOKIE_NAME } from '@/lib/auth/session';
+
 import {
   getCurrentSessionToken,
   setCurrentSessionToken,

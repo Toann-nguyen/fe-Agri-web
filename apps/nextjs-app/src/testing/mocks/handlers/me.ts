@@ -1,7 +1,7 @@
 import { HttpResponse, http } from 'msw';
 
-import { decode } from '../utils';
 import { getCurrentSessionToken } from '../session-bridge';
+import { decode } from '../utils';
 
 /**
  * Frontend-only session proxy. In tests, `loginAsUser` sets the session token
