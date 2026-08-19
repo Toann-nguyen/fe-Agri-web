@@ -11,9 +11,7 @@ import { LoginResponse, toUserModel } from '../types/auth.model';
  * Performs the credential login. The backend sets the HttpOnly session cookie
  * on the response; we do NOT store the token on the client.
  */
-export const loginWithEmailAndPassword = (
-  data: LoginInput,
-): Promise<User> =>
+export const loginWithEmailAndPassword = (data: LoginInput): Promise<User> =>
   // Hit the same-origin BFF route which sets the HttpOnly session cookie.
   api.post<LoginResponse>('/api/auth/login', data).then((response) => {
     return toUserModel(response);

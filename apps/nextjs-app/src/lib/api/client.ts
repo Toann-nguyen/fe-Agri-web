@@ -45,8 +45,14 @@ async function doFetch<T>(
   url: string,
   options: RequestConfig = {},
 ): Promise<T> {
-  const { method = 'GET', headers = {}, body, params, cache = 'no-store', next } =
-    options;
+  const {
+    method = 'GET',
+    headers = {},
+    body,
+    params,
+    cache = 'no-store',
+    next,
+  } = options;
 
   const fullUrl = buildUrlWithParams(
     // Same-origin BFF routes (app/api/*) must NOT be prefixed with API_URL.
