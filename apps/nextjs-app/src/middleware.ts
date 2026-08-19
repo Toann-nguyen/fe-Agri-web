@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
 
+import { SESSION_COOKIE_NAME } from './lib/auth/session';
 import { routing } from './i18n/routing';
 
 const intlMiddleware = createMiddleware(routing);
@@ -38,7 +39,29 @@ function applySecurityHeaders(response: NextResponse, pathname: string) {
   }
 }
 
+const PROTECTED_PREFIX = '/edu/';
+const LOGIN_PATH = '/edu/login';
+
+function isAuthenticated(request: NextRequest): boolean {
+  const cookie = request.cookies.get(SESSION_COOKIE_NAME);
+  return Boolean(cookie?.value);
+}
+
 export default function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // Route guard: any /edu/* page except the login page requires a session.
+  if (
+    pathname.startsWith(PROTECTED_PREFIX) &&
+    !pathname.startsWith(LOGIN_PATH)
+  ) {
+    if (!isAuthenticated(request)) {
+      const loginUrl = new URL(LOGIN_PATH, request.url);
+      loginUrl.searchParams.set('redirectTo', pathname);
+      return NextResponse.redirect(loginUrl);
+    }
+  }
+
   const response = intlMiddleware(request);
   applySecurityHeaders(response, request.nextUrl.pathname);
   return response;

@@ -2,8 +2,6 @@ import toast from 'react-hot-toast';
 
 import { env } from '@/config/env';
 
-import { getToken, setToken } from '../auth/token-store';
-
 import { parseErrorPayload } from './error';
 import { RequestConfig } from './types';
 
@@ -11,16 +9,16 @@ const API_URL = env.API_URL;
 
 let isRefreshing = false;
 let failedQueue: Array<{
-  resolve: (token: string) => void;
+  resolve: (ok: boolean) => void;
   reject: (error: unknown) => void;
 }> = [];
 
-function processQueue(error: unknown, token: string | null) {
+function processQueue(error: unknown, ok: boolean) {
   failedQueue.forEach(({ resolve, reject }) => {
     if (error) {
       reject(error);
     } else {
-      resolve(token as string);
+      resolve(ok);
     }
   });
   failedQueue = [];
@@ -43,55 +41,29 @@ function buildUrlWithParams(
   return `${url}?${queryString}`;
 }
 
-export function getServerCookies() {
-  if (typeof window !== 'undefined') return '';
-
-  return import('next/headers').then(({ cookies }) => {
-    try {
-      const cookieStore = cookies();
-      return cookieStore
-        .getAll()
-        .map((c) => `${c.name}=${c.value}`)
-        .join('; ');
-    } catch (error) {
-      console.error('Failed to access cookies:', error);
-      return '';
-    }
-  });
-}
-
 async function doFetch<T>(
   url: string,
   options: RequestConfig = {},
 ): Promise<T> {
-  const {
-    method = 'GET',
-    headers = {},
-    body,
-    cookie,
+  const { method = 'GET', headers = {}, body, params, cache = 'no-store', next } =
+    options;
+
+  const fullUrl = buildUrlWithParams(
+    // Same-origin BFF routes (app/api/*) must NOT be prefixed with API_URL.
+    url.startsWith('/api/') ? url : `${API_URL}${url}`,
     params,
-    cache = 'no-store',
-    next,
-  } = options;
-
-  let cookieHeader = cookie;
-  if (typeof window === 'undefined' && !cookie) {
-    cookieHeader = await getServerCookies();
-  }
-
-  const token = typeof window !== 'undefined' ? getToken() : null;
-  const fullUrl = buildUrlWithParams(`${API_URL}${url}`, params);
+  );
 
   const response = await fetch(fullUrl, {
     method,
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...headers,
-      ...(cookieHeader ? { Cookie: cookieHeader } : {}),
     },
     body: body ? JSON.stringify(body) : undefined,
+    // The HttpOnly session cookie is sent automatically by the browser.
+    // We never read or attach a token from JS.
     credentials: 'include',
     cache,
     next,
@@ -131,12 +103,12 @@ async function handleRefresh<T>(
   if (isRefreshing) {
     return new Promise<T>((resolve, reject) => {
       failedQueue.push({
-        resolve: (token) => {
-          originalOptions.headers = {
-            ...originalOptions.headers,
-            Authorization: `Bearer ${token}`,
-          };
-          resolve(doFetch<T>(originalUrl, originalOptions));
+        resolve: (ok) => {
+          if (ok) {
+            resolve(doFetch<T>(originalUrl, originalOptions));
+          } else {
+            reject(new Error('Refresh failed'));
+          }
         },
         reject,
       });
@@ -147,7 +119,8 @@ async function handleRefresh<T>(
   originalOptions = { ...originalOptions, _retry: true };
 
   try {
-    const res = await fetch(`${API_URL}/auth/refresh`, {
+    // Relies on the HttpOnly session cookie being sent with credentials: include.
+    const res = await fetch(`${API_URL}/api/auth/refresh`, {
       method: 'POST',
       credentials: 'include',
       headers: { Accept: 'application/json' },
@@ -157,18 +130,11 @@ async function handleRefresh<T>(
       throw new Error('Refresh failed');
     }
 
-    const data = await res.json();
-    setToken(data.access_token);
-    processQueue(null, data.access_token);
+    processQueue(null, true);
 
-    originalOptions.headers = {
-      ...originalOptions.headers,
-      Authorization: `Bearer ${data.access_token}`,
-    };
     return doFetch<T>(originalUrl, originalOptions);
   } catch (error) {
-    processQueue(error, null);
-    setToken(null);
+    processQueue(error, false);
     if (typeof window !== 'undefined') {
       window.location.href = '/edu/login';
     }
