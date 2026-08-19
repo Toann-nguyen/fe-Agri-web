@@ -12,3 +12,6 @@
 .next/
 dist/
 .kilo/
+
+# e2e auth storage
+apps/nextjs-app/e2e/.auth/

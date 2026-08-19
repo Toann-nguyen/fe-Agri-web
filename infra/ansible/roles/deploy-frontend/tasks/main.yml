@@ -1,0 +1,41 @@
+---
+# Role: deploy-frontend
+# Pulls the latest frontend source and rebuilds + restarts the Next.js
+# container through the existing docker-compose stack.
+- name: Ensure project directory exists
+  ansible.builtin.file:
+    path: '{{ app_project_dir }}'
+    state: directory
+    mode: '0755'
+
+- name: Pull latest frontend source
+  ansible.builtin.git:
+    repo: "{{ frontend_repo | default('https://github.com/your-org/fe-agri.git') }}"
+    dest: '{{ app_project_dir }}'
+    version: "{{ frontend_branch | default('main') }}"
+    force: true
+  when: frontend_repo is defined
+
+- name: Rebuild & start the Next.js container via compose
+  community.docker.docker_compose_v2:
+    project_src: '{{ compose_dir }}'
+    services:
+      - '{{ app_service }}'
+    build: always
+    pull: false
+    restarted: true
+    state: present
+  register: compose_result
+
+- name: Show compose result
+  ansible.builtin.debug:
+    var: compose_result
+  when: compose_result is changed
+
+- name: Verify container is healthy
+  ansible.builtin.command:
+    cmd: "docker inspect -f '{{ '{{.State.Health.Status}}' }}' {{ app_service }}"
+  register: health
+  changed_when: false
+  failed_when: health.stdout not in ['healthy', 'starting', '']
+  when: not ansible_check_mode

@@ -1,0 +1,19 @@
+---
+# Deploy playbook for the fe-agri Next.js frontend on the production VPS.
+# Usage:
+#   ansible-playbook -i inventory.yml playbook.yml
+# Or limit to just the frontend:
+#   ansible-playbook -i inventory.yml playbook.yml --tags frontend
+- name: Provision & deploy production frontend
+  hosts: web
+  become: true
+  gather_facts: true
+
+  pre_tasks:
+    - name: Wait for SSH to be ready
+      wait_for_connection:
+        timeout: 120
+
+  roles:
+    - role: docker
+    - role: deploy-frontend

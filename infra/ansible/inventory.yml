@@ -1,0 +1,21 @@
+---
+# Inventory for the production VPS.
+# Terraform can regenerate this from its output; keep in sync with the
+# droplet IP. `ansible_host` is the existing server (or a fresh Terraform VM).
+all:
+  children:
+    web:
+      hosts:
+        prod:
+          ansible_host: "{{ lookup('env', 'DEPLOY_HOST') | default('toanrobert.online') }}"
+          ansible_user: "{{ lookup('env', 'DEPLOY_USER') | default('root') }}"
+          ansible_ssh_private_key_file: "{{ lookup('env', 'DEPLOY_KEY') | default('~/.ssh/id_ed25519') }}"
+          ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+  vars:
+    # Where the docker-compose stack lives on the host.
+    compose_dir: /home/robert/production/docker
+    app_project_dir: /home/robert/Agri-web-app/fe-agri
+    app_service: nextjs_app
+    # Image / build context (the frontend Next.js app)
+    frontend_image: fe-agri-nextjs-app:latest
+    domain: toanrobert.online

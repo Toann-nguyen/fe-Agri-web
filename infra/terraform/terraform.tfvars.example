@@ -1,0 +1,12 @@
+# Copy to terraform.tfvars and fill in. NEVER commit this file.
+do_token        = "your-digitalocean-token"
+region          = "sgp1"
+droplet_size    = "s-1vcpu-1gb"
+environment     = "production"
+domain          = "toanrobert.online"
+project_name    = "fe-agri"
+volume_size_gb  = 10
+
+# Paste your PUBLIC ssh key (matching private key stays local).
+ssh_public_key  = "ssh-ed25519 AAAA... your@laptop"
+ssh_allowed_cidrs = ["YOUR_OFFICE_IP/32"]
