@@ -1,0 +1,16 @@
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+*.tfvars
+crash.log
+*.backup
+
+# Ansible
+inventory.generated.yml
+vault.yml
+*.retry
+*.pem
+*.key
