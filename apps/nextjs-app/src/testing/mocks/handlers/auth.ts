@@ -3,6 +3,8 @@ import { HttpResponse, http } from 'msw';
 
 import { env } from '@/config/env';
 
+import { SESSION_COOKIE_NAME } from '@/lib/auth/session';
+
 import { db, persistDb } from '../db';
 import {
   authenticate,
@@ -129,7 +131,11 @@ export const authHandlers = [
 
       return HttpResponse.json(result, {
         headers: {
-          'Set-Cookie': `${AUTH_COOKIE}=${result.access_token}; Path=/;`,
+          'Set-Cookie': [
+            `${AUTH_COOKIE}=${result.access_token}; Path=/;`,
+            // Mimic the backend setting the HttpOnly session cookie.
+            `${SESSION_COOKIE_NAME}=${result.access_token}; Path=/; HttpOnly; SameSite=Lax`,
+          ].join(', '),
         },
       });
     } catch (error: any) {
@@ -144,12 +150,16 @@ export const authHandlers = [
     await networkDelay();
 
     Cookies.remove(AUTH_COOKIE);
+    Cookies.remove(SESSION_COOKIE_NAME);
 
     return HttpResponse.json(
       { message: 'Logged out' },
       {
         headers: {
-          'Set-Cookie': `${AUTH_COOKIE}=; Path=/;`,
+          'Set-Cookie': [
+            `${AUTH_COOKIE}=; Path=/;`,
+            `${SESSION_COOKIE_NAME}=; Path=/; HttpOnly; SameSite=Lax`,
+          ].join(', '),
         },
       },
     );
