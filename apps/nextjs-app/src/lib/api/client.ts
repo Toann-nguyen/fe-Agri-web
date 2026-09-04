@@ -125,8 +125,9 @@ async function handleRefresh<T>(
   originalOptions = { ...originalOptions, _retry: true };
 
   try {
-    // Relies on the HttpOnly session cookie being sent with credentials: include.
-    const res = await fetch(`${API_URL}/api/auth/refresh`, {
+    // Same-origin BFF refresh (HttpOnly session cookie auto-sent).
+    // Never call the backend directly from the browser (CORS + leaks API_URL).
+    const res = await fetch('/api/auth/refresh', {
       method: 'POST',
       credentials: 'include',
       headers: { Accept: 'application/json' },

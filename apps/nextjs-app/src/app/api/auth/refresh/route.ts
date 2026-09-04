@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { env } from '@/config/env';
+import { serverApiUrl } from '@/config/env';
 import {
   SESSION_COOKIE_NAME,
   buildSessionCookieOptions,
@@ -14,7 +14,7 @@ import {
 export async function POST(request: Request): Promise<NextResponse> {
   const cookieHeader = request.headers.get('cookie') ?? '';
 
-  const backendRes = await fetch(`${env.API_URL}/auth/refresh`, {
+  const backendRes = await fetch(`${serverApiUrl()}/auth/refresh`, {
     method: 'POST',
     headers: { Accept: 'application/json', Cookie: cookieHeader },
     cache: 'no-store',
@@ -35,7 +35,10 @@ export async function POST(request: Request): Promise<NextResponse> {
     res.cookies.set(
       SESSION_COOKIE_NAME,
       token,
-      buildSessionCookieOptions({ secure: false }),
+      // Secure in production (HTTPS); plain HTTP only for local dev.
+      buildSessionCookieOptions({
+        secure: process.env.NODE_ENV === 'production',
+      }),
     );
   }
   return res;

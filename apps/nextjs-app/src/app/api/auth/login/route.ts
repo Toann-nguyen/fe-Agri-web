@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { env } from '@/config/env';
+import { serverApiUrl } from '@/config/env';
 import { LoginInput } from '@/features/auth/schemas/login.schema';
 import {
   SESSION_COOKIE_NAME,
@@ -21,7 +21,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json({ message: 'Invalid body' }, { status: 400 });
   }
 
-  const backendRes = await fetch(`${env.API_URL}/auth/login`, {
+  const backendRes = await fetch(`${serverApiUrl()}/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
     body: JSON.stringify(body),
@@ -49,7 +49,10 @@ export async function POST(request: Request): Promise<NextResponse> {
   res.cookies.set(
     SESSION_COOKIE_NAME,
     token,
-    buildSessionCookieOptions({ secure: false }),
+    // Secure in production (HTTPS); plain HTTP only for local dev.
+    buildSessionCookieOptions({
+      secure: process.env.NODE_ENV === 'production',
+    }),
   );
   return res;
 }
