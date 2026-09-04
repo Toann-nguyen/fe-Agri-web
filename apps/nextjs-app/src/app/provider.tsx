@@ -9,7 +9,13 @@ import { Toaster } from 'react-hot-toast';
 import { MainErrorFallback } from '@/components/errors/main';
 import { ThemeProvider } from '@/components/theme/theme-provider';
 import { queryConfig } from '@/lib/api/query-client';
+import { useSessionAutoRefresh } from '@/lib/auth/use-auto-refresh';
 import { enableMocking } from '@/testing/mocks';
+
+function SessionAutoRefresh() {
+  useSessionAutoRefresh(true);
+  return null;
+}
 
 type AppProviderProps = {
   children: React.ReactNode;
@@ -33,6 +39,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         <QueryClientProvider client={queryClient}>
           {process.env.DEV && <ReactQueryDevtools />}
           <Toaster position="top-right" />
+          <SessionAutoRefresh />
           {children}
         </QueryClientProvider>
       </ThemeProvider>

@@ -21,12 +21,24 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json({ message: 'Invalid body' }, { status: 400 });
   }
 
-  const backendRes = await fetch(`${serverApiUrl()}/auth/login`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify(body),
-    cache: 'no-store',
-  });
+  let backendRes: Response;
+  try {
+    backendRes = await fetch(`${serverApiUrl()}/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(body),
+      cache: 'no-store',
+    });
+  } catch {
+    // Backend unreachable — controlled JSON instead of Next.js default 500 page.
+    return NextResponse.json(
+      { message: 'Auth service unavailable' },
+      { status: 503 },
+    );
+  }
 
   const data = await backendRes.json().catch(() => ({}));
 

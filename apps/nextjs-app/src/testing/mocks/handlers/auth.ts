@@ -315,4 +315,52 @@ export const authHandlers = [
       );
     }
   }),
+
+  http.post(`${env.API_URL}/auth/refresh`, async ({ request, cookies }) => {
+    await networkDelay();
+    try {
+      const { user, error } = requireAuth(cookies, request);
+      if (error || !user) {
+        return HttpResponse.json({ message: 'Unauthorized' }, { status: 401 });
+      }
+      const dbUser = db.user.findFirst({
+        where: { id: { equals: (user as any).id } },
+      });
+      if (!dbUser) {
+        return HttpResponse.json({ message: 'Unauthorized' }, { status: 401 });
+      }
+      const exp = Math.floor(Date.now() / 1000) + 900;
+      const { sanitizeUser: sanitize } = await import('../utils');
+      const sanitized = sanitize(dbUser as any);
+      const newToken = encode({ ...sanitized, exp });
+      return HttpResponse.json(
+        {
+          access_token: newToken,
+          expires_in: 900,
+          token_type: 'Bearer',
+          data: {
+            id: dbUser.id,
+            email: dbUser.email,
+            name: dbUser.name,
+            profile: {
+              full_name: dbUser.name,
+              bio: dbUser.bio || '',
+              avatar: null,
+            },
+            roles: [dbUser.role],
+          },
+        },
+        {
+          headers: {
+            'Set-Cookie': `${SESSION_COOKIE_NAME}=${newToken}; Path=/; HttpOnly; SameSite=Lax`,
+          },
+        },
+      );
+    } catch (error: any) {
+      return HttpResponse.json(
+        { message: error?.message || 'Server Error' },
+        { status: 500 },
+      );
+    }
+  }),
 ];

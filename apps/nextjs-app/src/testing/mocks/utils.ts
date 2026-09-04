@@ -67,7 +67,8 @@ export function authenticate({
 
   if (user?.password === hash(password)) {
     const sanitizedUser = sanitizeUser(user);
-    const accessToken = encode(sanitizedUser);
+    const exp = Math.floor(Date.now() / 1000) + 900;
+    const accessToken = encode({ ...sanitizedUser, exp });
     return {
       access_token: accessToken,
       expires_in: 900,

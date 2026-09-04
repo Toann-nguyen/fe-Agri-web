@@ -1,7 +1,7 @@
 import { HttpResponse, http } from 'msw';
 
 import { env } from '@/config/env';
-import { SESSION_COOKIE_NAME } from '@/lib/auth/session';
+import { getTokenExp, SESSION_COOKIE_NAME } from '@/lib/auth/session';
 
 import {
   getCurrentSessionToken,
@@ -47,5 +47,23 @@ export const bffHandlers = [
       setCurrentSessionToken(data.access_token);
     }
     return HttpResponse.json(data, { status: res.status });
+  }),
+
+  http.get('/api/auth/session', async () => {
+    const token = getCurrentSessionToken();
+    if (!token) {
+      return HttpResponse.json({ authenticated: false }, { status: 401 });
+    }
+    const expSec = getTokenExp(token);
+    const nowSec = Math.floor(Date.now() / 1000);
+    const exp = expSec ?? nowSec + 900;
+    const expiresAt = exp * 1000;
+    const expiresIn = Math.max(0, exp - nowSec);
+    return HttpResponse.json({
+      authenticated: true,
+      expiresAt,
+      expiresIn,
+      exp,
+    });
   }),
 ];

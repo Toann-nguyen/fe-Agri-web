@@ -14,11 +14,20 @@ import {
 export async function POST(request: Request): Promise<NextResponse> {
   const cookieHeader = request.headers.get('cookie') ?? '';
 
-  const backendRes = await fetch(`${serverApiUrl()}/auth/refresh`, {
-    method: 'POST',
-    headers: { Accept: 'application/json', Cookie: cookieHeader },
-    cache: 'no-store',
-  });
+  let backendRes: Response;
+  try {
+    backendRes = await fetch(`${serverApiUrl()}/auth/refresh`, {
+      method: 'POST',
+      headers: { Accept: 'application/json', Cookie: cookieHeader },
+      cache: 'no-store',
+    });
+  } catch {
+    // Backend unreachable — controlled JSON instead of Next.js default 500 page.
+    return NextResponse.json(
+      { message: 'Auth service unavailable' },
+      { status: 503 },
+    );
+  }
 
   const data = await backendRes.json().catch(() => ({}));
 

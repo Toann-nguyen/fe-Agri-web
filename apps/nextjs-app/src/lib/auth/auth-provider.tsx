@@ -6,6 +6,8 @@ import { useEffect } from 'react';
 
 import { User } from '@/types/api';
 
+import { useSessionAutoRefresh } from './use-auto-refresh';
+
 export const userKeys = {
   all: ['user'] as const,
 };
@@ -40,6 +42,10 @@ export const useUser = () => useQuery(getUserQueryOptions());
 export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const user = useUser();
   const router = useRouter();
+
+  // Proactive refresh 30-60s before expiry (single-flight, no token in JS).
+  // Runs only inside protected pages; no-ops when unauthenticated.
+  useSessionAutoRefresh(Boolean(user.data));
 
   useEffect(() => {
     if (!user.data && !user.isLoading && !user.isFetching) {
