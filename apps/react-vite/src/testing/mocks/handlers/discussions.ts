@@ -15,7 +15,7 @@ export const discussionsHandlers = [
     await networkDelay();
 
     try {
-      const { user, error } = requireAuth(cookies);
+      const { user, error } = requireAuth(cookies, Object.fromEntries(request.headers.entries()));
       if (error) {
         return HttpResponse.json({ message: error }, { status: 401 });
       }
@@ -70,11 +70,11 @@ export const discussionsHandlers = [
     }
   }),
 
-  http.get(`${env.API_URL}/discussions/:discussionId`, async ({ params, cookies }) => {
+  http.get(`${env.API_URL}/discussions/:discussionId`, async ({ params, cookies, request }) => {
     await networkDelay();
 
     try {
-      const { user, error } = requireAuth(cookies);
+      const { user, error } = requireAuth(cookies, Object.fromEntries(request.headers.entries()));
       if (error) {
         return HttpResponse.json({ message: error }, { status: 401 });
       }
@@ -117,7 +117,7 @@ export const discussionsHandlers = [
     await networkDelay();
 
     try {
-      const { user, error } = requireAuth(cookies);
+      const { user, error } = requireAuth(cookies, Object.fromEntries(request.headers.entries()));
       if (error) {
         return HttpResponse.json({ message: error }, { status: 401 });
       }
@@ -139,7 +139,7 @@ export const discussionsHandlers = [
     await networkDelay();
 
     try {
-      const { user, error } = requireAuth(cookies);
+      const { user, error } = requireAuth(cookies, Object.fromEntries(request.headers.entries()));
       if (error) {
         return HttpResponse.json({ message: error }, { status: 401 });
       }
@@ -164,11 +164,11 @@ export const discussionsHandlers = [
     }
   }),
 
-  http.delete(`${env.API_URL}/discussions/:discussionId`, async ({ cookies, params }) => {
+  http.delete(`${env.API_URL}/discussions/:discussionId`, async ({ cookies, params, request }) => {
     await networkDelay();
 
     try {
-      const { user, error } = requireAuth(cookies);
+      const { user, error } = requireAuth(cookies, Object.fromEntries(request.headers.entries()));
       if (error) {
         return HttpResponse.json({ message: error }, { status: 401 });
       }

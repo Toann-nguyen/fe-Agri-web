@@ -76,9 +76,7 @@ const Progress = () => {
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
-  const logout = useLogout({
-    onSuccess: () => navigate(paths.auth.login.getHref(location.pathname)),
-  });
+  const logout = useLogout();
   const { checkAccess } = useAuthorization();
   const navigation = [
     { name: 'Dashboard', to: paths.app.dashboard.getHref(), icon: Home },
@@ -174,7 +172,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className={cn('block px-4 py-2 text-sm text-gray-700 w-full')}
-                onClick={() => logout.mutate({})}
+                onClick={() => logout.mutate()}
               >
                 Sign Out
               </DropdownMenuItem>

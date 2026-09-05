@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie';
 import { HttpResponse, http } from 'msw';
 
 import { env } from '@/config/env';
@@ -50,6 +49,14 @@ const isValidToken = (token: string, type: 'reset' | 'verify'): { email: string 
     return null;
   }
 };
+
+// Helper to build auth response with Bearer token (PKCE memory) — still set cookie for backward test compat
+const authResponse = (result: { user: unknown; jwt: string }) =>
+  HttpResponse.json(result, {
+    headers: {
+      'Set-Cookie': `${AUTH_COOKIE}=${result.jwt}; Path=/;`,
+    },
+  });
 
 export const authHandlers = [
   http.post(`${env.API_URL}/auth/register`, async ({ request }) => {
@@ -114,15 +121,16 @@ export const authHandlers = [
         password: userObject.password,
       });
 
-      // todo: remove once tests in Github Actions are fixed
-      Cookies.set(AUTH_COOKIE, result.jwt, { path: '/' });
+      // Store token in memory for PKCE tests (no js-cookie)
+      if (typeof window !== 'undefined') {
+        try {
+          window.sessionStorage.setItem('__test_token', result.jwt);
+        } catch {
+          /* no-op */
+        }
+      }
 
-      return HttpResponse.json(result, {
-        headers: {
-          // with a real API servier, the token cookie should also be Secure and HttpOnly
-          'Set-Cookie': `${AUTH_COOKIE}=${result.jwt}; Path=/;`,
-        },
-      });
+      return authResponse(result);
     } catch (error: any) {
       return HttpResponse.json({ message: error?.message || 'Server Error' }, { status: 500 });
     }
@@ -135,15 +143,15 @@ export const authHandlers = [
       const credentials = (await request.json()) as LoginBody;
       const result = authenticate(credentials);
 
-      // todo: remove once tests in Github Actions are fixed
-      Cookies.set(AUTH_COOKIE, result.jwt, { path: '/' });
+      if (typeof window !== 'undefined') {
+        try {
+          window.sessionStorage.setItem('__test_token', result.jwt);
+        } catch {
+          /* no-op */
+        }
+      }
 
-      return HttpResponse.json(result, {
-        headers: {
-          // with a real API servier, the token cookie should also be Secure and HttpOnly
-          'Set-Cookie': `${AUTH_COOKIE}=${result.jwt}; Path=/;`,
-        },
-      });
+      return authResponse(result);
     } catch (error: any) {
       return HttpResponse.json({ message: error?.message || 'Server Error' }, { status: 500 });
     }
@@ -152,8 +160,13 @@ export const authHandlers = [
   http.post(`${env.API_URL}/auth/logout`, async () => {
     await networkDelay();
 
-    // todo: remove once tests in Github Actions are fixed
-    Cookies.remove(AUTH_COOKIE);
+    if (typeof window !== 'undefined') {
+      try {
+        window.sessionStorage.removeItem('__test_token');
+      } catch {
+        /* no-op */
+      }
+    }
 
     return HttpResponse.json(
       { message: 'Logged out' },
@@ -165,11 +178,15 @@ export const authHandlers = [
     );
   }),
 
-  http.get(`${env.API_URL}/auth/me`, async ({ cookies }) => {
+  http.get(`${env.API_URL}/auth/me`, async ({ cookies, request }) => {
     await networkDelay();
 
     try {
-      const { user } = requireAuth(cookies);
+      const headers = Object.fromEntries(request.headers.entries());
+      const { user, error } = requireAuth(cookies, headers as Record<string, string>);
+      if (error || !user) {
+        return HttpResponse.json({ message: 'Unauthorized' }, { status: 401 });
+      }
       return HttpResponse.json({ data: user });
     } catch (error: any) {
       return HttpResponse.json({ message: error?.message || 'Server Error' }, { status: 500 });

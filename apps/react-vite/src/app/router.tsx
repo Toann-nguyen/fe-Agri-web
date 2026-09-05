@@ -39,6 +39,10 @@ export const createAppRouter = (queryClient: QueryClient) =>
       lazy: () => import('./routes/auth/login').then(convert(queryClient)),
     },
     {
+      path: paths.auth.callback.path,
+      lazy: () => import('./routes/auth/callback').then(convert(queryClient)),
+    },
+    {
       path: paths.auth.forgotPassword.path,
       lazy: () => import('./routes/auth/forgot-password').then(convert(queryClient)),
     },
