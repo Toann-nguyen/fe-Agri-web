@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from 'react';
 
-import { getRefreshDelayMs } from '@/lib/auth/session';
 import { refreshSession } from '@/lib/auth/refresh-manager';
+import { getRefreshDelayMs } from '@/lib/auth/session';
 
 type SessionInfo = { authenticated: boolean; expiresAt?: number };
 

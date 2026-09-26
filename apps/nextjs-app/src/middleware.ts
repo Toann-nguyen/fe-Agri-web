@@ -60,7 +60,6 @@ function getLocalePrefix(pathname: string): string {
 }
 
 const LOGIN_SUFFIX = '/edu/login';
-const PROTECTED_PREFIXES = ['/app', '/edu/'];
 
 function isProtectedPath(normalizedPath: string): boolean {
   // /app and /app/* are fully protected

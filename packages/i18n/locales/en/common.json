@@ -10,6 +10,287 @@
     "getStarted": "Get started",
     "githubRepo": "Github Repo"
   },
+  "portfolio": {
+    "title": "Nguyen Minh Toan — Full-Stack Web Developer",
+    "description": "Portfolio of Nguyen Minh Toan: Laravel, React, Next.js for CRM/B2B. Performance tuning, API security, buttery-smooth animation.",
+    "nav": {
+      "brand": "Minh Toan",
+      "home": "Home",
+      "about": "About",
+      "projects": "Projects",
+      "experience": "Experience",
+      "contact": "Contact",
+      "hireMe": "Hire me"
+    },
+    "hero": {
+      "availability": "Open for freelance projects",
+      "location": "Cau Giay, Hanoi, Vietnam",
+      "phone": "0964748324",
+      "phoneHref": "0964748324",
+      "greeting": "Hello, I am",
+      "name": "Nguyen Minh Toan",
+      "role": "Full-Stack Web Developer",
+      "shortName": "Minh Toan",
+      "tagline": "I build fast, secure, measurable CRM/B2B platforms. Specialized in Laravel, React/Next.js and animations that make users go “wow” on the very first scroll.",
+      "viewProjects": "View projects",
+      "contactNow": "Contact now",
+      "avatarAlt": "Portrait of Nguyen Minh Toan",
+      "codeComment": "// what I do",
+      "badgeTitle": "−30% API latency",
+      "badgeDesc": "SQL tuning in production",
+      "stats": {
+        "stat0": {
+          "value": "2",
+          "suffix": "+",
+          "label": "Years of experience"
+        },
+        "stat1": {
+          "value": "30",
+          "suffix": "%",
+          "prefix": "−",
+          "label": "Production API latency"
+        },
+        "stat2": {
+          "value": "20",
+          "suffix": "%",
+          "prefix": "+",
+          "label": "Lead conversion"
+        },
+        "stat3": {
+          "value": "50",
+          "suffix": "k+",
+          "label": "Rows exported smoothly"
+        }
+      }
+    },
+    "marquee": {
+      "m0": "Laravel",
+      "m1": "React",
+      "m2": "Next.js",
+      "m3": "TypeScript",
+      "m4": "MySQL",
+      "m5": "Redis",
+      "m6": "RabbitMQ",
+      "m7": "Docker"
+    },
+    "about": {
+      "eyebrow": "About",
+      "titleA": "2 years of Full-Stack with",
+      "titleB": "Laravel · Node.js · Next.js",
+      "description": "2+ years building Full-Stack CRM/B2B multi-tenant platforms with Laravel, React and Next.js. Strong in backend optimization (SQL, Redis caching) and API security hardening — always owning features end to end, shipped with real numbers.",
+      "perks": {
+        "perk0": {
+          "title": "Measurably fast backend",
+          "desc": "Window Functions, CTEs, indexing, N+1 fixes — 30% less API latency in real production."
+        },
+        "perk1": {
+          "title": "Security by default",
+          "desc": "CSP, JWT blacklist, rate limiting, ORM prepared statements — blocking SQLi, XSS and brute force."
+        },
+        "perk2": {
+          "title": "Community sharing",
+          "desc": "YouTube channel @Toan-Robert: Laravel, React/Next.js tutorials and backend performance tuning."
+        }
+      },
+      "groups": {
+        "group0": {
+          "name": "Frontend",
+          "level": "90",
+          "icon": "frontend",
+          "items": {
+            "i0": "React",
+            "i1": "Next.js",
+            "i2": "TypeScript",
+            "i3": "TanStack Query",
+            "i4": "React Hook Form",
+            "i5": "Zod",
+            "i6": "Ant Design"
+          }
+        },
+        "group1": {
+          "name": "Backend",
+          "level": "92",
+          "icon": "backend",
+          "items": {
+            "i0": "Laravel",
+            "i1": "Microservices",
+            "i2": "Event-Driven",
+            "i3": "RabbitMQ",
+            "i4": "Redis Queue",
+            "i5": "JWT",
+            "i6": "WebSocket",
+            "i7": "Rate Limiting"
+          }
+        },
+        "group2": {
+          "name": "Database & Perf",
+          "level": "88",
+          "icon": "database",
+          "items": {
+            "i0": "MySQL",
+            "i1": "Redis",
+            "i2": "Window Functions",
+            "i3": "CTEs",
+            "i4": "Indexing",
+            "i5": "Fix N+1",
+            "i6": "Nested Set"
+          }
+        },
+        "group3": {
+          "name": "DevOps & Tools",
+          "level": "80",
+          "icon": "devops",
+          "items": {
+            "i0": "Docker",
+            "i1": "Nginx",
+            "i2": "GitLab CI/CD",
+            "i3": "Git",
+            "i4": "Jira",
+            "i5": "Postman",
+            "i6": "Shell"
+          }
+        }
+      },
+      "quote": "“A great portfolio doesn't show off code — it tells a story with numbers: lower latency, higher conversion, exports that never choke.”"
+    },
+    "projects": {
+      "eyebrow": "Featured",
+      "titleA": "Selected",
+      "titleB": "work",
+      "description": "From CRM/B2B to AI — every project solved a real production problem. Scroll to feel the parallax depth.",
+      "items": {
+        "project0": {
+          "title": "CRM B2B Multi-tenant",
+          "period": "2024 — Present",
+          "description": "End-to-end CRM modules (KPI, Contract, Order, Quotation, Product Variant) on Laravel + React/Next.js with SOLID, microservices-oriented and event-driven architecture.",
+          "tags": {
+            "tag0": "Laravel",
+            "tag1": "Next.js",
+            "tag2": "SOLID",
+            "tag3": "Event-Driven"
+          },
+          "stat": "5",
+          "statLabel": "modules end-to-end"
+        },
+        "project1": {
+          "title": "Email Marketing Automation",
+          "period": "2024",
+          "description": "Variable Templator for dynamic content injection plus queued batch sending (RabbitMQ, Laravel Scheduler), visibly lifting lead conversion.",
+          "tags": {
+            "tag0": "Laravel",
+            "tag1": "RabbitMQ",
+            "tag2": "Scheduler"
+          },
+          "stat": "+20%",
+          "statLabel": "lead conversion"
+        },
+        "project2": {
+          "title": "Customer Support Unified Inbox",
+          "period": "2024",
+          "description": "One inbox for email, live-chat and social channels (adapter pattern), realtime via Redis Pub/Sub with SLA-based escalation.",
+          "tags": {
+            "tag0": "Redis Pub/Sub",
+            "tag1": "WebSocket",
+            "tag2": "Adapter"
+          },
+          "stat": "3",
+          "statLabel": "channels unified realtime"
+        },
+        "project3": {
+          "title": "Reporting & 50k+ row Export",
+          "period": "2024",
+          "description": "Queued chunked Excel/PDF exports (no memory spikes) plus customer analytics: cohorts, lifecycle, referrer tracking.",
+          "tags": {
+            "tag0": "Laravel Excel",
+            "tag1": "Queue",
+            "tag2": "Analytics"
+          },
+          "stat": "50k+",
+          "statLabel": "rows, buttery smooth"
+        },
+        "project4": {
+          "title": "AI ID-Photo & OCR",
+          "period": "2022",
+          "description": "Document digitization system: U-Net background removal, PnP perspective correction, CRNN (CNN + LSTM) OCR. Role: CV & Deep Learning Lead (team of 4).",
+          "tags": {
+            "tag0": "U-Net",
+            "tag1": "CRNN",
+            "tag2": "OpenCV"
+          },
+          "stat": "Lead",
+          "statLabel": "CV & Deep Learning"
+        }
+      }
+    },
+    "experience": {
+      "eyebrow": "Journey",
+      "titleA": "Work",
+      "titleB": "experience",
+      "description": "From intern to full-stack — every stage taught me to build better products.",
+      "items": {
+        "exp0": {
+          "period": "02/2024 — Present",
+          "role": "Full Stack Web Developer",
+          "company": "Infinilab · Hanoi",
+          "description": "Owning features end to end on a multi-tenant CRM/B2B platform: KPI, Contract, Order, Quotation and Product Variant modules on Laravel + React/Next.js with SOLID and event-driven architecture. Built Email Marketing Automation (RabbitMQ, Scheduler) lifting lead conversion by 20%; realtime customer-service Unified Inbox via Redis Pub/Sub; Reporting module exporting 50k+ rows without memory spikes. Cut production API latency 30% with Window Functions, CTEs, composite indexes and N+1 fixes; hardened security with CSP, JWT blacklist and rate limiting.",
+          "highlights": {
+            "h0": "Laravel",
+            "h1": "Next.js",
+            "h2": "Redis",
+            "h3": "Security"
+          }
+        },
+        "exp1": {
+          "period": "09/2023 — 12/2023",
+          "role": "Intern .NET Web Developer",
+          "company": "DEHA Vietnam · Hanoi",
+          "description": "Helped build an online movie ticket booking & streaming platform with ASP.NET Core, EF Core, MySQL and Docker — from database design and APIs to container deploys. Integrated the ZaloPay QR payment gateway into a secure end-to-end booking flow. The internship taught me professional teamwork: code reviews, Git flow and technical documentation.",
+          "highlights": {
+            "h0": "ASP.NET Core",
+            "h1": "Docker",
+            "h2": "ZaloPay"
+          }
+        },
+        "exp2": {
+          "period": "2021 — 2025",
+          "role": "B.Sc. Information Technology",
+          "company": "Phuong Dong University",
+          "description": "Graduated with a solid foundation in OOP, SOLID, Clean Architecture and the Repository Pattern — principles I apply directly to every production project. While studying, I also led a 4-person team building an AI ID-Photo & OCR system (U-Net, CRNN), sharpened algorithms on LeetCode and shared knowledge on my personal YouTube channel.",
+          "highlights": {
+            "h0": "OOP",
+            "h1": "SOLID",
+            "h2": "Clean Architecture"
+          }
+        }
+      }
+    },
+    "contact": {
+      "eyebrow": "Contact",
+      "titleA": "Let's build something",
+      "titleB": "great",
+      "description": "Have a CRM project, a web app, or need a performance tune-up? My inbox and phone are always open.",
+      "email": "nguyenminhtoan2712py@gmail.com",
+      "emailLabel": "Send me an email",
+      "emailHint": "Replies within 24h",
+      "phone": "0964748324",
+      "phoneHref": "0964748324",
+      "callLabel": "Call directly",
+      "formName": "Your name",
+      "formNamePh": "John Doe",
+      "formEmail": "Email",
+      "formEmailPh": "you@email.com",
+      "formMsg": "Message",
+      "formMsgPh": "Tell me about your project...",
+      "submit": "Send message",
+      "successTitle": "Received!",
+      "successDesc": "Thanks {name} for reaching out. I'll reply by email within 24 hours.",
+      "sendAnother": "Send another message"
+    },
+    "footer": {
+      "bigText": "MINH TOAN",
+      "rights": "© 2026 Nguyen Minh Toan. Laravel × Next.js — build with passion."
+    }
+  },
   "auth": {
     "loginTitle": "Sign in to your account",
     "loginDescription": "Access your dashboard and manage your account.",
