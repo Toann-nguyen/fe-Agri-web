@@ -1,28 +1,12 @@
 import toast from 'react-hot-toast';
 
 import { env } from '@/config/env';
+import { refreshSession } from '@/lib/auth/refresh-manager';
 
 import { parseErrorPayload } from './error';
 import { RequestConfig } from './types';
 
 const API_URL = env.API_URL;
-
-let isRefreshing = false;
-let failedQueue: Array<{
-  resolve: (ok: boolean) => void;
-  reject: (error: unknown) => void;
-}> = [];
-
-function processQueue(error: unknown, ok: boolean) {
-  failedQueue.forEach(({ resolve, reject }) => {
-    if (error) {
-      reject(error);
-    } else {
-      resolve(ok);
-    }
-  });
-  failedQueue = [];
-}
 
 function buildUrlWithParams(
   url: string,
@@ -102,51 +86,24 @@ async function doFetch<T>(
   return response.json();
 }
 
+/**
+ * 401 handler with single-flight lock (via refresh-manager).
+ * All concurrent 401s share the same POST /api/auth/refresh.
+ */
 async function handleRefresh<T>(
   originalUrl: string,
   originalOptions: RequestConfig,
 ): Promise<T> {
-  if (isRefreshing) {
-    return new Promise<T>((resolve, reject) => {
-      failedQueue.push({
-        resolve: (ok) => {
-          if (ok) {
-            resolve(doFetch<T>(originalUrl, originalOptions));
-          } else {
-            reject(new Error('Refresh failed'));
-          }
-        },
-        reject,
-      });
-    });
-  }
-
-  isRefreshing = true;
-  originalOptions = { ...originalOptions, _retry: true };
-
+  const retryOptions = { ...originalOptions, _retry: true } as RequestConfig;
   try {
-    // Relies on the HttpOnly session cookie being sent with credentials: include.
-    const res = await fetch(`${API_URL}/api/auth/refresh`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: { Accept: 'application/json' },
-    });
-
-    if (!res.ok) {
-      throw new Error('Refresh failed');
-    }
-
-    processQueue(null, true);
-
-    return doFetch<T>(originalUrl, originalOptions);
+    // Single-flight: concurrent callers join the same promise.
+    await refreshSession();
+    return doFetch<T>(originalUrl, retryOptions);
   } catch (error) {
-    processQueue(error, false);
     if (typeof window !== 'undefined') {
       window.location.href = '/edu/login';
     }
     throw error;
-  } finally {
-    isRefreshing = false;
   }
 }
 

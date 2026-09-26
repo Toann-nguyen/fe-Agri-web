@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 
-import { env } from '@/config/env';
+export const runtime = 'edge';
+
+import { serverApiUrl } from '@/config/env';
 import { LoginInput } from '@/features/auth/schemas/login.schema';
 import {
   SESSION_COOKIE_NAME,
@@ -21,12 +23,24 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json({ message: 'Invalid body' }, { status: 400 });
   }
 
-  const backendRes = await fetch(`${env.API_URL}/auth/login`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify(body),
-    cache: 'no-store',
-  });
+  let backendRes: Response;
+  try {
+    backendRes = await fetch(`${serverApiUrl()}/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(body),
+      cache: 'no-store',
+    });
+  } catch {
+    // Backend unreachable — controlled JSON instead of Next.js default 500 page.
+    return NextResponse.json(
+      { message: 'Auth service unavailable' },
+      { status: 503 },
+    );
+  }
 
   const data = await backendRes.json().catch(() => ({}));
 
@@ -49,7 +63,10 @@ export async function POST(request: Request): Promise<NextResponse> {
   res.cookies.set(
     SESSION_COOKIE_NAME,
     token,
-    buildSessionCookieOptions({ secure: false }),
+    // Secure in production (HTTPS); plain HTTP only for local dev.
+    buildSessionCookieOptions({
+      secure: process.env.NODE_ENV === 'production',
+    }),
   );
   return res;
 }

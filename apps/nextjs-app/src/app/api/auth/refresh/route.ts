@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 
-import { env } from '@/config/env';
+export const runtime = 'edge';
+
+import { serverApiUrl } from '@/config/env';
 import {
   SESSION_COOKIE_NAME,
   buildSessionCookieOptions,
@@ -14,11 +16,20 @@ import {
 export async function POST(request: Request): Promise<NextResponse> {
   const cookieHeader = request.headers.get('cookie') ?? '';
 
-  const backendRes = await fetch(`${env.API_URL}/auth/refresh`, {
-    method: 'POST',
-    headers: { Accept: 'application/json', Cookie: cookieHeader },
-    cache: 'no-store',
-  });
+  let backendRes: Response;
+  try {
+    backendRes = await fetch(`${serverApiUrl()}/auth/refresh`, {
+      method: 'POST',
+      headers: { Accept: 'application/json', Cookie: cookieHeader },
+      cache: 'no-store',
+    });
+  } catch {
+    // Backend unreachable — controlled JSON instead of Next.js default 500 page.
+    return NextResponse.json(
+      { message: 'Auth service unavailable' },
+      { status: 503 },
+    );
+  }
 
   const data = await backendRes.json().catch(() => ({}));
 
@@ -35,7 +46,10 @@ export async function POST(request: Request): Promise<NextResponse> {
     res.cookies.set(
       SESSION_COOKIE_NAME,
       token,
-      buildSessionCookieOptions({ secure: false }),
+      // Secure in production (HTTPS); plain HTTP only for local dev.
+      buildSessionCookieOptions({
+        secure: process.env.NODE_ENV === 'production',
+      }),
     );
   }
   return res;

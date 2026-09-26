@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 
-import { env } from '@/config/env';
+export const runtime = 'edge';
+
+import { serverApiUrl } from '@/config/env';
 import { SESSION_COOKIE_NAME } from '@/lib/auth/session';
 import { User } from '@/types/api';
 
@@ -20,7 +22,7 @@ export async function GET(request: Request): Promise<NextResponse> {
   }
 
   try {
-    const res = await fetch(`${env.API_URL}/auth/me`, {
+    const res = await fetch(`${serverApiUrl()}/auth/me`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',

@@ -31,15 +31,15 @@ export const AuthShell = ({ children, title, description }: AuthShellProps) => (
           </Link>
         </div>
 
-        <h1 className='text-gradient-hero mt-6 animate-fade-up text-center text-3xl font-extrabold delay-150'>
+        <h1 className='text-gradient-hero animate-fade-up mt-6 text-center text-3xl font-extrabold delay-150'>
           {title}
         </h1>
         {description && (
-          <p className='mt-2 animate-fade-up text-center text-sm text-ink-400 delay-300'>{description}</p>
+          <p className='animate-fade-up mt-2 text-center text-sm text-ink-400 delay-300'>{description}</p>
         )}
       </div>
 
-      <div className='mt-8 animate-slide-up sm:mx-auto sm:w-full sm:max-w-md delay-500'>
+      <div className='animate-slide-up mt-8 delay-500 sm:mx-auto sm:w-full sm:max-w-md'>
         <div className='glow-border glass-hero rounded-2xl px-4 py-8 sm:px-10'>{children}</div>
       </div>
     </div>

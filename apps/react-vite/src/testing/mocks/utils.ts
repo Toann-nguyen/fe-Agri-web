@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie';
 import { delay } from 'msw';
 
 import { db } from './db';
@@ -62,11 +61,58 @@ export function authenticate({ email, password }: { email: string; password: str
   throw error;
 }
 
+// Kept for transition — MSW now prefers Authorization: Bearer, fallback to cookie for legacy
 export const AUTH_COOKIE = `bulletproof_react_app_token`;
 
-export function requireAuth(cookies: Record<string, string>) {
+// In-memory token for tests (replaces js-cookie localStorage)
+let memoryToken: string | null = null;
+export const setMemoryToken = (t: string | null) => {
+  memoryToken = t;
+  if (typeof window !== 'undefined' && t) {
+    try {
+      window.sessionStorage.setItem('__test_token', t);
+    } catch {
+      /* no-op */
+    }
+  }
+};
+export const getMemoryToken = () => {
+  if (memoryToken) return memoryToken;
+  if (typeof window !== 'undefined') {
+    try {
+      return window.sessionStorage.getItem('__test_token');
+    } catch {
+      return null;
+    }
+  }
+  return null;
+};
+export const clearMemoryToken = () => {
+  memoryToken = null;
+  if (typeof window !== 'undefined') {
+    try {
+      window.sessionStorage.removeItem('__test_token');
+    } catch {
+      /* no-op */
+    }
+  }
+};
+
+export function requireAuth(cookies: Record<string, string>, headers?: Record<string, string> | Headers) {
   try {
-    const encodedToken = cookies[AUTH_COOKIE] || Cookies.get(AUTH_COOKIE);
+    // Prefer Authorization: Bearer <token> (PKCE)
+    let encodedToken: string | null = null;
+    if (headers) {
+      const h =
+        headers instanceof Headers
+          ? headers.get('authorization') || headers.get('Authorization')
+          : (headers as Record<string, string>)['authorization'] ||
+            (headers as Record<string, string>)['Authorization'];
+      if (h?.startsWith('Bearer ')) encodedToken = h.slice(7);
+    }
+    // Fallback to memory token / cookie for tests
+    if (!encodedToken) encodedToken = getMemoryToken();
+    if (!encodedToken) encodedToken = cookies[AUTH_COOKIE] || null;
     if (!encodedToken) {
       return { error: 'Unauthorized', user: null };
     }

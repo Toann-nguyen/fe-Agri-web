@@ -10,6 +10,287 @@
     "getStarted": "Bắt đầu",
     "githubRepo": "Kho lưu trữ Github"
   },
+  "portfolio": {
+    "title": "Nguyễn Minh Toàn — Full-Stack Web Developer",
+    "description": "Portfolio của Nguyễn Minh Toàn: Laravel, React, Next.js cho CRM/B2B. Tối ưu hiệu năng, bảo mật API, animation mượt mà.",
+    "nav": {
+      "brand": "Minh Toàn",
+      "home": "Trang chủ",
+      "about": "Giới thiệu",
+      "projects": "Dự án",
+      "experience": "Kinh nghiệm",
+      "contact": "Liên hệ",
+      "hireMe": "Thuê tôi"
+    },
+    "hero": {
+      "availability": "Đang nhận dự án freelance",
+      "location": "Cầu Giấy, Hà Nội, Việt Nam",
+      "phone": "0964748324",
+      "phoneHref": "0964748324",
+      "greeting": "Xin chào, tôi là",
+      "name": "Nguyễn Minh Toàn",
+      "role": "Full-Stack Web Developer",
+      "shortName": "Minh Toàn",
+      "tagline": "Tôi xây CRM/B2B platforms nhanh, an toàn và đo được hiệu quả. Chuyên Laravel, React/Next.js và những animation khiến người dùng phải “wow” ngay từ lần cuộn đầu tiên.",
+      "viewProjects": "Xem dự án",
+      "contactNow": "Liên hệ ngay",
+      "avatarAlt": "Ảnh đại diện Nguyễn Minh Toàn",
+      "codeComment": "// tôi làm gì",
+      "badgeTitle": "−30% API latency",
+      "badgeDesc": "SQL tuning production",
+      "stats": {
+        "stat0": {
+          "value": "2",
+          "suffix": "+",
+          "label": "Năm kinh nghiệm"
+        },
+        "stat1": {
+          "value": "30",
+          "suffix": "%",
+          "prefix": "−",
+          "label": "API latency production"
+        },
+        "stat2": {
+          "value": "20",
+          "suffix": "%",
+          "prefix": "+",
+          "label": "Lead conversion"
+        },
+        "stat3": {
+          "value": "50",
+          "suffix": "k+",
+          "label": "Rows export không nghẽn"
+        }
+      }
+    },
+    "marquee": {
+      "m0": "Laravel",
+      "m1": "React",
+      "m2": "Next.js",
+      "m3": "TypeScript",
+      "m4": "MySQL",
+      "m5": "Redis",
+      "m6": "RabbitMQ",
+      "m7": "Docker"
+    },
+    "about": {
+      "eyebrow": "Giới thiệu",
+      "titleA": "2 năm Full-Stack với",
+      "titleB": "Laravel · Node.js · Next.js",
+      "description": "Hơn 2 năm làm Full-Stack với Laravel, React và Next.js cho nền tảng CRM/B2B multi-tenant. Mạnh về tối ưu backend (SQL, Redis caching), hardening API security — và luôn own feature từ đầu tới cuối, giao hàng đo được bằng số liệu thật.",
+      "perks": {
+        "perk0": {
+          "title": "Backend nhanh đo được",
+          "desc": "Window Functions, CTEs, indexing, fix N+1 — giảm 30% API latency trên production thật."
+        },
+        "perk1": {
+          "title": "Security by default",
+          "desc": "CSP, JWT blacklist, rate limiting, ORM prepared statements — chặn SQLi, XSS, brute-force."
+        },
+        "perk2": {
+          "title": "Chia sẻ cộng đồng",
+          "desc": "Kênh YouTube @Toan-Robert: tutorial Laravel, React/Next.js và backend performance tuning."
+        }
+      },
+      "groups": {
+        "group0": {
+          "name": "Frontend",
+          "level": "90",
+          "icon": "frontend",
+          "items": {
+            "i0": "React",
+            "i1": "Next.js",
+            "i2": "TypeScript",
+            "i3": "TanStack Query",
+            "i4": "React Hook Form",
+            "i5": "Zod",
+            "i6": "Ant Design"
+          }
+        },
+        "group1": {
+          "name": "Backend",
+          "level": "92",
+          "icon": "backend",
+          "items": {
+            "i0": "Laravel",
+            "i1": "Microservices",
+            "i2": "Event-Driven",
+            "i3": "RabbitMQ",
+            "i4": "Redis Queue",
+            "i5": "JWT",
+            "i6": "WebSocket",
+            "i7": "Rate Limiting"
+          }
+        },
+        "group2": {
+          "name": "Database & Perf",
+          "level": "88",
+          "icon": "database",
+          "items": {
+            "i0": "MySQL",
+            "i1": "Redis",
+            "i2": "Window Functions",
+            "i3": "CTEs",
+            "i4": "Indexing",
+            "i5": "Fix N+1",
+            "i6": "Nested Set"
+          }
+        },
+        "group3": {
+          "name": "DevOps & Tools",
+          "level": "80",
+          "icon": "devops",
+          "items": {
+            "i0": "Docker",
+            "i1": "Nginx",
+            "i2": "GitLab CI/CD",
+            "i3": "Git",
+            "i4": "Jira",
+            "i5": "Postman",
+            "i6": "Shell"
+          }
+        }
+      },
+      "quote": "“Một portfolio tốt không khoe code — nó kể câu chuyện bằng số liệu: latency giảm, conversion tăng, export không nghẽn.”"
+    },
+    "projects": {
+      "eyebrow": "Dự án nổi bật",
+      "titleA": "Dự án",
+      "titleB": "tiêu biểu",
+      "description": "Từ CRM/B2B tới AI — mỗi dự án đều giải bài toán production cụ thể. Cuộn để cảm nhận chiều sâu parallax.",
+      "items": {
+        "project0": {
+          "title": "CRM B2B Multi-tenant",
+          "period": "2024 — Nay",
+          "description": "Module CRM end-to-end (KPI, Contract, Order, Quotation, Product Variant) trên Laravel + React/Next.js, kiến trúc SOLID, hướng microservices và event-driven.",
+          "tags": {
+            "tag0": "Laravel",
+            "tag1": "Next.js",
+            "tag2": "SOLID",
+            "tag3": "Event-Driven"
+          },
+          "stat": "5",
+          "statLabel": "modules end-to-end"
+        },
+        "project1": {
+          "title": "Email Marketing Automation",
+          "period": "2024",
+          "description": "Variable Templator chèn nội dung động + gửi batch qua hàng đợi (RabbitMQ, Laravel Scheduler), cải thiện chuyển đổi lead rõ rệt.",
+          "tags": {
+            "tag0": "Laravel",
+            "tag1": "RabbitMQ",
+            "tag2": "Scheduler"
+          },
+          "stat": "+20%",
+          "statLabel": "lead conversion"
+        },
+        "project2": {
+          "title": "Unified Inbox CSKH",
+          "period": "2024",
+          "description": "Hộp thư hợp nhất email, live-chat và mạng xã hội (adapter pattern) realtime qua Redis Pub/Sub, kèm leo thang theo SLA.",
+          "tags": {
+            "tag0": "Redis Pub/Sub",
+            "tag1": "WebSocket",
+            "tag2": "Adapter"
+          },
+          "stat": "3",
+          "statLabel": "kênh hợp nhất realtime"
+        },
+        "project3": {
+          "title": "Reporting & Export 50k+ rows",
+          "period": "2024",
+          "description": "Xuất Excel/PDF theo chunk qua queue (không spike memory) + analytics khách hàng: cohort, lifecycle, referrer tracking.",
+          "tags": {
+            "tag0": "Laravel Excel",
+            "tag1": "Queue",
+            "tag2": "Analytics"
+          },
+          "stat": "50k+",
+          "statLabel": "rows mượt mà"
+        },
+        "project4": {
+          "title": "AI ID-Photo & OCR",
+          "period": "2022",
+          "description": "Hệ thống số hóa giấy tờ: tách nền U-Net, nắn phối cảnh PnP, OCR bằng CRNN (CNN + LSTM). Vai trò: CV & Deep Learning Lead (team 4 người).",
+          "tags": {
+            "tag0": "U-Net",
+            "tag1": "CRNN",
+            "tag2": "OpenCV"
+          },
+          "stat": "Lead",
+          "statLabel": "CV & Deep Learning"
+        }
+      }
+    },
+    "experience": {
+      "eyebrow": "Hành trình",
+      "titleA": "Kinh nghiệm",
+      "titleB": "làm việc",
+      "description": "Từ intern tới full-stack — mỗi chặng đều dạy tôi cách build sản phẩm tốt hơn.",
+      "items": {
+        "exp0": {
+          "period": "02/2024 — Nay",
+          "role": "Full Stack Web Developer",
+          "company": "Infinilab · Hà Nội",
+          "description": "Own feature end-to-end cho nền tảng CRM/B2B multi-tenant: phát triển các module KPI, Contract, Order, Quotation và Product Variant trên Laravel + React/Next.js theo SOLID và kiến trúc event-driven. Xây Email Marketing Automation (RabbitMQ, Scheduler) giúp tăng 20% lead conversion; Unified Inbox CSKH realtime qua Redis Pub/Sub; module Reporting xuất 50k+ rows không nghẽn memory. Giảm 30% API latency production nhờ Window Functions, CTEs, composite index và fix N+1 query; hardening security với CSP, JWT blacklist và rate limiting.",
+          "highlights": {
+            "h0": "Laravel",
+            "h1": "Next.js",
+            "h2": "Redis",
+            "h3": "Security"
+          }
+        },
+        "exp1": {
+          "period": "09/2023 — 12/2023",
+          "role": "Intern .NET Web Developer",
+          "company": "DEHA Vietnam · Hà Nội",
+          "description": "Tham gia xây dựng platform đặt vé xem phim và streaming trực tuyến bằng ASP.NET Core, EF Core, MySQL và Docker — từ thiết kế database, API cho tới deploy container. Tích hợp cổng thanh toán ZaloPay QR vào luồng booking end-to-end đảm bảo giao dịch an toàn và mượt mà. Kỳ thực tập giúp tôi nắm vững quy trình làm việc nhóm chuyên nghiệp: code review, Git flow và viết tài liệu kỹ thuật.",
+          "highlights": {
+            "h0": "ASP.NET Core",
+            "h1": "Docker",
+            "h2": "ZaloPay"
+          }
+        },
+        "exp2": {
+          "period": "2021 — 2025",
+          "role": "Cử nhân Công nghệ Thông tin",
+          "company": "Đại học Phương Đông",
+          "description": "Tốt nghiệp với nền tảng vững chắc về OOP, SOLID, Clean Architecture và Repository Pattern — những nguyên tắc tôi áp dụng trực tiếp vào mọi dự án production. Trong thời gian học còn dẫn dắt team 4 người làm hệ thống AI ID-Photo & OCR (U-Net, CRNN), song song rèn luyện thuật toán trên LeetCode và chia sẻ kiến thức qua kênh YouTube cá nhân.",
+          "highlights": {
+            "h0": "OOP",
+            "h1": "SOLID",
+            "h2": "Clean Architecture"
+          }
+        }
+      }
+    },
+    "contact": {
+      "eyebrow": "Liên hệ",
+      "titleA": "Cùng tạo ra thứ",
+      "titleB": "tuyệt vời",
+      "description": "Có dự án CRM, web app hay cần tối ưu hiệu năng? Hộp thư và điện thoại của tôi luôn mở.",
+      "email": "nguyenminhtoan2712py@gmail.com",
+      "emailLabel": "Gửi email cho tôi",
+      "emailHint": "Phản hồi trong 24h",
+      "phone": "0964748324",
+      "phoneHref": "0964748324",
+      "callLabel": "Gọi trực tiếp",
+      "formName": "Tên bạn",
+      "formNamePh": "Nguyễn Văn A",
+      "formEmail": "Email",
+      "formEmailPh": "ban@email.com",
+      "formMsg": "Tin nhắn",
+      "formMsgPh": "Kể tôi nghe về dự án của bạn...",
+      "submit": "Gửi tin nhắn",
+      "successTitle": "Nhận được rồi!",
+      "successDesc": "Cảm ơn {name} đã liên hệ. Tôi sẽ phản hồi qua email trong vòng 24 giờ.",
+      "sendAnother": "Gửi tin nhắn khác"
+    },
+    "footer": {
+      "bigText": "MINH TOÀN",
+      "rights": "© 2026 Nguyễn Minh Toàn. Laravel × Next.js — build with passion."
+    }
+  },
   "auth": {
     "loginTitle": "Đăng nhập vào tài khoản",
     "loginDescription": "Truy cập trang quản lý và quản lý tài khoản của bạn.",

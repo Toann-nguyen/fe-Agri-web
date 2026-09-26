@@ -20,6 +20,14 @@ export const paths = {
       getHref: (redirectTo?: string | null | undefined) =>
         `/auth/login${redirectTo ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ''}`,
     },
+    callback: {
+      path: '/auth/callback',
+      getHref: () => '/auth/callback',
+    },
+    logout: {
+      path: '/auth/logout',
+      getHref: () => '/auth/logout',
+    },
     forgotPassword: {
       path: '/auth/forgot-password',
       getHref: () => '/auth/forgot-password',
