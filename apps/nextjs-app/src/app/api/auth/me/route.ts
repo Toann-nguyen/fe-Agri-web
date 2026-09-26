@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+export const runtime = 'edge';
+
 import { serverApiUrl } from '@/config/env';
 import { SESSION_COOKIE_NAME } from '@/lib/auth/session';
 import { User } from '@/types/api';

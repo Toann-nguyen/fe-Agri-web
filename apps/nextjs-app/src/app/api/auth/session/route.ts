@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+export const runtime = 'edge';
+
 import { getTokenExp } from '@/lib/auth/session';
 
 /**

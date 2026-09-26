@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+export const runtime = 'edge';
+
 import { serverApiUrl } from '@/config/env';
 import { LoginInput } from '@/features/auth/schemas/login.schema';
 import {
