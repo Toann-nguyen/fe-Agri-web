@@ -1,11 +1,7 @@
 export const AuthBackground = () => (
   <div className="pointer-events-none fixed inset-0 -z-50 overflow-hidden">
-    <div
-      className="absolute inset-0 bg-cover bg-center"
-      style={{ backgroundImage: 'url(/bg-hero-1.webp)' }}
-    >
-      <div className="absolute inset-0 bg-slate-950/75" />
-      <div className="dot-grid-dark absolute inset-0 opacity-30" />
-    </div>
+    <div className="absolute inset-0 bg-[color:var(--ax-paper)]" />
+    <div className="ax-columns absolute inset-0" />
+    <div className="ax-grain absolute inset-0" />
   </div>
 );

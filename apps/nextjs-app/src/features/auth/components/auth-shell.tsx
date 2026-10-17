@@ -1,11 +1,14 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { useRef, type ReactNode } from 'react';
 
 import { Link } from '@/components/ui/link';
 import { paths } from '@/config/paths';
 
+import '@/features/auth/auth.css';
+
 import { AuthBackground } from './auth-background';
+import { gsap, motionAllowed, useGSAP } from '../motion';
 
 type AuthShellProps = {
   children: ReactNode;
@@ -13,45 +16,86 @@ type AuthShellProps = {
   description?: string;
 };
 
-export const AuthShell = ({ children, title, description }: AuthShellProps) => (
-  <>
-    <AuthBackground />
-    <div className="relative flex min-h-screen flex-col justify-center overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
-      {/* Ambient gradient blobs behind glass */}
-      <div
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-        aria-hidden="true"
-      >
-        <div className="h-[300px] w-[300px] animate-morph rounded-[60%_40%_30%_70%/60%_30%_70%_40%] bg-cyan-500/20 blur-3xl" />
-        <div className="-ml-20 mt-10 h-[250px] w-[250px] animate-morph rounded-[30%_60%_70%_40%/50%_60%_30%_60%] bg-ember-500/10 blur-3xl" />
-      </div>
+export const AuthShell = ({ children, title, description }: AuthShellProps) => {
+  const ref = useRef<HTMLDivElement>(null);
 
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center">
-          <Link className="flex items-center" href={paths.home.getHref()}>
-            <img
-              className="h-16 w-auto"
-              src="/logo.webp"
-              alt="Nguyen Minh Toan"
-            />
+  // Editorial entrance: wordmark → title → rule → card.
+  useGSAP(
+    () => {
+      if (!ref.current || !motionAllowed()) return;
+
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      tl.from('[data-auth-wordmark]', { autoAlpha: 0, y: 14, duration: 0.6 })
+        .from(
+          '[data-auth-title]',
+          { autoAlpha: 0, y: 20, duration: 0.7 },
+          '-=0.35',
+        )
+        .from(
+          '[data-auth-desc]',
+          { autoAlpha: 0, y: 14, duration: 0.6 },
+          '-=0.5',
+        )
+        .from('[data-auth-rule]', { scaleX: 0, duration: 0.7 }, '-=0.45')
+        .from(
+          '[data-auth-card]',
+          { autoAlpha: 0, y: 26, duration: 0.8 },
+          '-=0.5',
+        );
+    },
+    { scope: ref },
+  );
+
+  return (
+    <div
+      ref={ref}
+      className="auth-editorial relative flex min-h-screen flex-col justify-center overflow-hidden px-4 py-14 selection:bg-[color:var(--ax-accent)] selection:text-[color:var(--ax-paper)] sm:px-6 lg:px-8"
+    >
+      <AuthBackground />
+
+      <div className="relative sm:mx-auto sm:w-full sm:max-w-md">
+        <div data-auth-wordmark className="flex justify-center">
+          <Link
+            className="ax-serif inline-flex items-baseline text-[26px] leading-none"
+            href={paths.home.getHref()}
+          >
+            Minh Toan
+            <span className="text-[color:var(--ax-accent)]">.</span>
           </Link>
         </div>
 
-        <h1 className="text-gradient-hero mt-6 animate-fade-up text-center text-3xl font-extrabold delay-150">
+        <h1
+          data-auth-title
+          className="ax-serif mt-8 text-center text-[2.1rem] leading-[1.1]"
+        >
           {title}
         </h1>
+
         {description && (
-          <p className="mt-2 animate-fade-up text-center text-sm text-ink-400 delay-300">
+          <p
+            data-auth-desc
+            className="mt-3 text-center text-sm leading-relaxed text-[color:var(--ax-ink-soft)]"
+          >
             {description}
           </p>
         )}
+
+        <div
+          data-auth-rule
+          className="mx-auto mt-7 h-px w-14 bg-[color:var(--ax-accent)]"
+        />
       </div>
 
-      <div className="mt-8 animate-slide-up delay-500 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="glow-border glass-hero rounded-2xl px-4 py-8 sm:px-10">
+      <div className="relative mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div data-auth-card className="ax-card px-5 py-8 sm:px-10">
           {children}
         </div>
       </div>
+
+      <p className="ax-eyebrow relative mt-10 text-center text-[10px]">
+        © Nguyen Minh Toan
+      </p>
     </div>
-  </>
-);
+  );
+};

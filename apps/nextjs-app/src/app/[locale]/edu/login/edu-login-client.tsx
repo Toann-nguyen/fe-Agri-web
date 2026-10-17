@@ -10,7 +10,10 @@ import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { paths } from '@/config/paths';
 import { useLogin } from '@/features/auth/api/login';
+import { AuthBackground } from '@/features/auth/components/auth-background';
 import { Link, useRouter } from '@/i18n/navigation';
+
+import '@/features/auth/auth.css';
 
 const DEMO_ACCOUNT = {
   identifier: 'student_edu_ai',
@@ -93,23 +96,17 @@ export default function EduAiLoginPage() {
     });
   };
 
-  const inputClass =
-    'w-full rounded-xl border border-white/10 bg-slate-950/70 py-2.5 pl-10 pr-4 text-sm text-white placeholder-slate-500 transition-all focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500';
+  const inputClass = 'ax-input w-full py-2.5 pl-10 pr-4 text-sm';
 
   return (
-    <main className="relative min-h-screen w-full overflow-hidden bg-slate-950 font-sans text-slate-100 selection:bg-cyan-500 selection:text-white">
-      {/* Background Dot Grid */}
-      <div className="dot-grid-dark absolute inset-0 opacity-25"></div>
-
-      {/* Glowing background gradient spheres */}
-      <div className="pointer-events-none absolute left-1/2 top-1/4 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/15 blur-[140px]"></div>
-      <div className="pointer-events-none absolute bottom-10 right-10 h-[400px] w-[400px] rounded-full bg-ember-500/10 blur-[140px]"></div>
+    <main className="auth-editorial relative min-h-screen w-full overflow-hidden font-sans selection:bg-[color:var(--ax-accent)] selection:text-[color:var(--ax-paper)]">
+      <AuthBackground />
 
       {/* Top Header Navigation */}
-      <header className="relative z-10 flex items-center justify-between border-b border-white/10 bg-slate-900/60 px-6 py-4 backdrop-blur-md">
+      <header className="relative z-10 flex items-center justify-between border-b border-[color:var(--ax-rule)] px-6 py-4">
         <Link
           href="/"
-          className="group inline-flex items-center gap-2 font-mono text-xs font-medium text-slate-400 transition-colors hover:text-cyan-400"
+          className="group inline-flex items-center gap-2 font-mono text-xs font-medium text-[color:var(--ax-ink-soft)] transition-colors hover:text-[color:var(--ax-accent)]"
         >
           <Icon
             icon="mdi:arrow-left"
@@ -120,10 +117,10 @@ export default function EduAiLoginPage() {
         </Link>
 
         <div className="flex items-center gap-3">
-          <div className="hidden items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 font-mono text-xs text-cyan-300 sm:flex">
+          <div className="hidden items-center gap-2 border border-[color:var(--ax-rule)] px-3 py-1.5 font-mono text-xs text-[color:var(--ax-ink-soft)] sm:flex">
             <span className="relative flex size-2">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-cyan-400 opacity-75"></span>
-              <span className="relative inline-flex size-2 rounded-full bg-cyan-400"></span>
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-[color:var(--ax-accent)] opacity-60"></span>
+              <span className="relative inline-flex size-2 rounded-full bg-[color:var(--ax-accent)]"></span>
             </span>
             <Icon icon="mdi:web" width="14" />
             <span>{t('domain')}</span>
@@ -137,40 +134,48 @@ export default function EduAiLoginPage() {
         <div className="w-full max-w-md">
           {/* Brand Logo & Title */}
           <div className="mb-8 text-center">
-            <div className="inline-flex size-16 items-center justify-center rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-cyan-500/20 via-slate-900 to-ember-500/20 p-3 shadow-xl shadow-cyan-500/10 backdrop-blur-md">
-              <Icon icon="mdi:school" width="32" className="text-cyan-400" />
+            <div className="inline-flex size-16 items-center justify-center border border-[color:var(--ax-rule-strong)] bg-[color:var(--ax-paper-2)] p-3">
+              <Icon
+                icon="mdi:school"
+                width="30"
+                className="text-[color:var(--ax-accent)]"
+              />
             </div>
 
-            <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+            <h1 className="ax-serif mt-5 text-4xl leading-[1.1] sm:text-[2.6rem]">
               {t('brand')}
             </h1>
-            <p className="mt-2 text-sm text-slate-400">{t('subtitle')}</p>
+            <p className="mt-2.5 text-sm text-[color:var(--ax-ink-soft)]">
+              {t('subtitle')}
+            </p>
           </div>
 
           {/* Form Card Container */}
-          <div className="glow-border glass-hero relative overflow-hidden rounded-2xl border border-white/10 p-6 shadow-2xl backdrop-blur-xl sm:p-8">
+          <div className="ax-card relative overflow-hidden p-6 sm:p-8">
             {/* Top Subdomain Badge in Card */}
-            <div className="mb-6 flex items-center justify-between rounded-xl border border-white/5 bg-slate-900/80 p-3 font-mono text-xs text-slate-300">
+            <div className="mb-6 flex items-center justify-between border border-[color:var(--ax-rule)] px-3 py-2.5 font-mono text-[11px] text-[color:var(--ax-ink-soft)]">
               <div className="flex items-center gap-2">
                 <Icon
                   icon="mdi:shield-check-outline"
-                  width="18"
-                  className="text-emerald-400"
+                  width="16"
+                  className="text-[color:var(--ax-accent)]"
                 />
                 <span>{t('sslBadge')}</span>
               </div>
-              <span className="font-semibold text-cyan-400">{t('domain')}</span>
+              <span className="font-semibold text-[color:var(--ax-accent)]">
+                {t('domain')}
+              </span>
             </div>
 
             {/* Notification Alert */}
             {notification && (
               <div
-                className={`mb-6 flex items-start gap-3 rounded-xl border p-3.5 text-xs font-medium transition-all ${
+                className={`mb-6 flex items-start gap-3 border p-3.5 text-xs font-medium transition-all ${
                   notification.type === 'success'
-                    ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300'
+                    ? 'border-emerald-500/35 bg-emerald-500/[0.07] text-emerald-700 dark:text-emerald-300'
                     : notification.type === 'error'
-                      ? 'border-red-500/30 bg-red-500/10 text-red-300'
-                      : 'border-cyan-500/30 bg-cyan-500/10 text-cyan-300'
+                      ? 'border-red-500/35 bg-red-500/[0.07] text-red-700 dark:text-red-300'
+                      : 'border-[color:var(--ax-rule)] bg-[color:var(--ax-paper)] text-[color:var(--ax-ink-soft)]'
                 }`}
               >
                 <Icon
@@ -194,13 +199,13 @@ export default function EduAiLoginPage() {
                 type="button"
                 onClick={handleGoogleLogin}
                 disabled={isGoogleLoading || login.isPending}
-                className="group relative flex w-full items-center justify-center gap-3 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm font-semibold text-white transition-all duration-300 hover:border-cyan-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-cyan-500/10 active:scale-[0.99] disabled:opacity-50"
+                className="group relative flex w-full items-center justify-center gap-3 border border-[color:var(--ax-rule-strong)] px-4 py-3 text-sm font-semibold transition-all duration-300 hover:border-[color:var(--ax-ink)] active:scale-[0.99] disabled:opacity-50"
               >
                 {isGoogleLoading ? (
                   <Icon
                     icon="mdi:loading"
                     width="20"
-                    className="animate-spin text-cyan-400"
+                    className="animate-spin text-[color:var(--ax-accent)]"
                   />
                 ) : (
                   <Icon icon="logos:google-icon" width="20" />
@@ -212,9 +217,9 @@ export default function EduAiLoginPage() {
             {/* Divider */}
             <div className="relative mb-6 flex items-center justify-center">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-white/10"></div>
+                <div className="w-full border-t border-[color:var(--ax-rule)]"></div>
               </div>
-              <span className="relative bg-slate-900 px-3 font-mono text-[11px] uppercase tracking-wider text-slate-400">
+              <span className="relative bg-[color:var(--ax-paper-2)] px-3 font-mono text-[10px] uppercase tracking-[0.2em] text-[color:var(--ax-ink-soft)]">
                 {t('divider')}
               </span>
             </div>
@@ -227,12 +232,12 @@ export default function EduAiLoginPage() {
                   <div>
                     <label
                       htmlFor="identifier"
-                      className="mb-1.5 block font-mono text-xs font-medium text-slate-300"
+                      className="mb-1.5 block font-mono text-xs font-medium text-[color:var(--ax-ink-soft)]"
                     >
                       {t('identifierLabel')}
                     </label>
                     <div className="relative">
-                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[color:var(--ax-ink-faint)]">
                         <Icon icon="mdi:account-outline" width="18" />
                       </div>
                       <input
@@ -244,7 +249,7 @@ export default function EduAiLoginPage() {
                       />
                     </div>
                     {formState.errors['identifier'] && (
-                      <p className="mt-1.5 text-xs text-red-400">
+                      <p className="mt-1.5 text-xs text-red-600 dark:text-red-400">
                         {formState.errors['identifier'].message}
                       </p>
                     )}
@@ -255,7 +260,7 @@ export default function EduAiLoginPage() {
                     <div className="mb-1.5 flex items-center justify-between">
                       <label
                         htmlFor="password"
-                        className="font-mono text-xs font-medium text-slate-300"
+                        className="font-mono text-xs font-medium text-[color:var(--ax-ink-soft)]"
                       >
                         {t('passwordLabel')}
                       </label>
@@ -269,13 +274,13 @@ export default function EduAiLoginPage() {
                             }),
                           });
                         }}
-                        className="font-mono text-xs text-cyan-400 transition-colors hover:text-cyan-300 hover:underline"
+                        className="font-mono text-xs text-[color:var(--ax-accent)] transition-colors hover:underline"
                       >
                         {t('forgotPassword')}
                       </button>
                     </div>
                     <div className="relative">
-                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[color:var(--ax-ink-faint)]">
                         <Icon icon="mdi:lock-outline" width="18" />
                       </div>
                       <input
@@ -288,7 +293,7 @@ export default function EduAiLoginPage() {
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 hover:text-slate-200"
+                        className="absolute inset-y-0 right-0 flex items-center pr-3.5 text-[color:var(--ax-ink-faint)] hover:text-[color:var(--ax-ink)]"
                       >
                         <Icon
                           icon={
@@ -301,7 +306,7 @@ export default function EduAiLoginPage() {
                       </button>
                     </div>
                     {formState.errors['password'] && (
-                      <p className="mt-1.5 text-xs text-red-400">
+                      <p className="mt-1.5 text-xs text-red-600 dark:text-red-400">
                         {formState.errors['password'].message}
                       </p>
                     )}
@@ -314,9 +319,9 @@ export default function EduAiLoginPage() {
                         type="checkbox"
                         checked={rememberMe}
                         onChange={(e) => setRememberMe(e.target.checked)}
-                        className="size-4 rounded border-white/20 bg-slate-900 text-cyan-500 focus:ring-cyan-500 focus:ring-offset-slate-950"
+                        className="size-4 accent-[var(--ax-accent)]"
                       />
-                      <span className="text-xs text-slate-300">
+                      <span className="text-xs text-[color:var(--ax-ink-soft)]">
                         {t('rememberMe')}
                       </span>
                     </label>
@@ -324,7 +329,7 @@ export default function EduAiLoginPage() {
                     <button
                       type="button"
                       onClick={() => handleFillDemo(setValue)}
-                      className="font-mono text-[11px] text-amber-400 hover:text-amber-300 hover:underline"
+                      className="font-mono text-[11px] text-[color:var(--ax-accent)] hover:underline"
                     >
                       {t('fillDemo')}
                     </button>
@@ -339,7 +344,7 @@ export default function EduAiLoginPage() {
                       isGoogleLoading ||
                       formState.isSubmitting
                     }
-                    className="group relative mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-500 px-4 py-3 font-semibold !text-slate-950 shadow-lg shadow-cyan-500/25 transition-all duration-300 hover:opacity-95 hover:shadow-cyan-500/40 active:scale-[0.99]"
+                    className="group ax-btn mt-2"
                   >
                     {!(login.isPending || formState.isSubmitting) && (
                       <>
@@ -357,11 +362,11 @@ export default function EduAiLoginPage() {
             </Form>
 
             {/* Footer Sign up Link */}
-            <div className="mt-6 text-center text-xs text-slate-400">
+            <div className="mt-7 text-center text-xs text-[color:var(--ax-ink-soft)]">
               {t('noAccount')}{' '}
               <Link
                 href={paths.auth.register.getHref()}
-                className="font-semibold text-cyan-400 hover:underline"
+                className="font-semibold text-[color:var(--ax-accent)] hover:underline"
               >
                 {t('signUp')}
               </Link>
@@ -369,34 +374,34 @@ export default function EduAiLoginPage() {
           </div>
 
           {/* Feature Badges below card */}
-          <div className="mt-8 grid grid-cols-3 gap-2 text-center">
-            <div className="rounded-xl border border-white/5 bg-slate-900/40 p-2.5 backdrop-blur-sm">
+          <div className="mt-8 grid grid-cols-3 gap-px overflow-hidden border border-[color:var(--ax-rule)] bg-[color:var(--ax-rule)]">
+            <div className="bg-[color:var(--ax-paper)] p-3 text-center">
               <Icon
                 icon="mdi:robot"
                 width="20"
-                className="mx-auto mb-1 text-cyan-400"
+                className="mx-auto mb-1.5 text-[color:var(--ax-accent)]"
               />
-              <div className="text-[10px] font-medium text-slate-300">
+              <div className="text-[10px] font-medium text-[color:var(--ax-ink-soft)]">
                 {t('badgeTutor')}
               </div>
             </div>
-            <div className="rounded-xl border border-white/5 bg-slate-900/40 p-2.5 backdrop-blur-sm">
+            <div className="bg-[color:var(--ax-paper)] p-3 text-center">
               <Icon
                 icon="mdi:chart-timeline-variant"
                 width="20"
-                className="mx-auto mb-1 text-amber-400"
+                className="mx-auto mb-1.5 text-[color:var(--ax-accent)]"
               />
-              <div className="text-[10px] font-medium text-slate-300">
+              <div className="text-[10px] font-medium text-[color:var(--ax-ink-soft)]">
                 {t('badgeRoadmap')}
               </div>
             </div>
-            <div className="rounded-xl border border-white/5 bg-slate-900/40 p-2.5 backdrop-blur-sm">
+            <div className="bg-[color:var(--ax-paper)] p-3 text-center">
               <Icon
                 icon="mdi:certificate"
                 width="20"
-                className="mx-auto mb-1 text-emerald-400"
+                className="mx-auto mb-1.5 text-[color:var(--ax-accent)]"
               />
-              <div className="text-[10px] font-medium text-slate-300">
+              <div className="text-[10px] font-medium text-[color:var(--ax-ink-soft)]">
                 {t('badgeGrading')}
               </div>
             </div>
