@@ -120,6 +120,7 @@ const RootLayout = async ({
   return (
     <html
       lang={locale}
+      suppressHydrationWarning
       className={`${inter.variable} ${firaCode.variable} ${instrumentSerif.variable} scroll-smooth`}
     >
       <head>

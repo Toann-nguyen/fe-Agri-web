@@ -125,7 +125,7 @@ export default function EduAiLoginPage() {
             <Icon icon="mdi:web" width="14" />
             <span>{t('domain')}</span>
           </div>
-          <ThemeToggle />
+          <ThemeToggle className="border-[color:var(--ax-rule)] bg-transparent text-[color:var(--ax-ink-soft)] backdrop-blur-none hover:border-[color:var(--ax-ink)] hover:text-[color:var(--ax-accent)]" />
         </div>
       </header>
 

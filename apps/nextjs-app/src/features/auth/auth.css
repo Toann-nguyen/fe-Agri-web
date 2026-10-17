@@ -122,6 +122,14 @@
   opacity: 0.55;
 }
 
+/* Button (ui) wraps children in a span — keep label + icon on one row. */
+.ax-btn > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-inline: 0;
+}
+
 /* Unify the shared ui-form controls with the shell. */
 .auth-editorial form :where(input:not([type='checkbox']), textarea) {
   border-radius: 2px;
