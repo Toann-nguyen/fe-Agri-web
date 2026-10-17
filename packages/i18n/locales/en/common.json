@@ -219,8 +219,39 @@
           },
           "stat": "Lead",
           "statLabel": "CV & Deep Learning"
+        },
+        "project5": {
+          "title": "Aerive — 1:1 Website Clone",
+          "period": "2026 — Present",
+          "description": "Pixel-accurate rebuild of the Aerive private-aviation template in Next.js 16 + React 19 + Tailwind v4: magnetic CTA, nav glide, theme flip, booking dialog, scroll-scrubbed blur reveals.",
+          "tags": {
+            "tag0": "Next.js 16",
+            "tag1": "React 19",
+            "tag2": "GSAP",
+            "tag3": "Tailwind v4"
+          },
+          "stat": "1:1",
+          "statLabel": "pixel-accurate clone",
+          "links": {
+            "compare": "/compare/aerive",
+            "source": "https://aerive-template.modulify.website/",
+            "demo": "https://aerive.toanrobert.online"
+          }
         }
+      },
+      "linkLabels": {
+        "compare": "Compare 1:1",
+        "demo": "Demo",
+        "source": "Original"
       }
+    },
+    "compare": {
+      "back": "Back to portfolio",
+      "title": "Aerive — Original ↔ Clone",
+      "description": "Compare the original Aerive website against the 1:1 Next.js 16 + GSAP clone, side by side.",
+      "sourceLabel": "Original",
+      "cloneLabel": "Clone",
+      "openTab": "Open in new tab"
     },
     "experience": {
       "eyebrow": "Journey",

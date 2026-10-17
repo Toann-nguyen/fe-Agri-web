@@ -5,11 +5,14 @@ import {
   FileSpreadsheet,
   Headset,
   Mails,
+  Plane,
   ScanFace,
 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useRef } from 'react';
+
+import { Link } from '@/i18n/navigation';
 
 import { gsap, motionAllowed, useGSAP } from '../motion/gsap';
 
@@ -21,6 +24,7 @@ const icons = {
   inbox: Headset,
   report: FileSpreadsheet,
   ai: ScanFace,
+  plane: Plane,
 } as const;
 
 type Project = {
@@ -32,6 +36,7 @@ type Project = {
   tags: string[];
   stat: string;
   statLabel: string;
+  links?: { compare?: string; demo?: string; source?: string };
 };
 
 // Static visuals keyed by position; copy lives in messages.
@@ -41,6 +46,7 @@ const visuals = [
   { icon: 'inbox', image: '/portfolio/projects/inbox.jpg' },
   { icon: 'report', image: '/portfolio/projects/report.jpg' },
   { icon: 'ai', image: '/portfolio/projects/ai.jpg' },
+  { icon: 'plane', image: '/portfolio/projects/aerive.jpg' },
 ] as const;
 
 export const PortfolioProjects = () => {
@@ -167,6 +173,7 @@ const ProjectCard = ({
 }) => {
   const Icon = icons[project.icon];
   const flip = index % 2 === 1;
+  const t = useTranslations('common');
 
   return (
     <article className="pf-card grid overflow-hidden lg:grid-cols-2">
@@ -210,6 +217,41 @@ const ProjectCard = ({
           <p className="mt-5 text-sm leading-relaxed text-[color:var(--pf-ink-soft)] md:text-[15px]">
             {project.description}
           </p>
+          {project.links && (
+            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+              {project.links.compare && (
+                <Link
+                  href={project.links.compare}
+                  className="pf-link font-mono text-[10px] uppercase tracking-[0.16em]"
+                >
+                  {t('portfolio.projects.linkLabels.compare')}
+                  <span aria-hidden>→</span>
+                </Link>
+              )}
+              {project.links.demo && (
+                <a
+                  href={project.links.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="pf-link font-mono text-[10px] uppercase tracking-[0.16em]"
+                >
+                  {t('portfolio.projects.linkLabels.demo')}
+                  <span aria-hidden>↗</span>
+                </a>
+              )}
+              {project.links.source && (
+                <a
+                  href={project.links.source}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="pf-link font-mono text-[10px] uppercase tracking-[0.16em]"
+                >
+                  {t('portfolio.projects.linkLabels.source')}
+                  <span aria-hidden>↗</span>
+                </a>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="mt-8 flex items-end justify-between gap-6 border-t border-[color:var(--pf-rule)] pt-5">

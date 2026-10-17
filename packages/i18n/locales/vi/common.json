@@ -219,8 +219,39 @@
           },
           "stat": "Lead",
           "statLabel": "CV & Deep Learning"
+        },
+        "project5": {
+          "title": "Aerive — Clone Website 1:1",
+          "period": "2026 — Nay",
+          "description": "Dựng lại 1:1 template hàng không tư nhân Aerive bằng Next.js 16 + React 19 + Tailwind v4: magnetic CTA, nav glide, theme flip, booking dialog, blur reveal scrub theo scroll.",
+          "tags": {
+            "tag0": "Next.js 16",
+            "tag1": "React 19",
+            "tag2": "GSAP",
+            "tag3": "Tailwind v4"
+          },
+          "stat": "1:1",
+          "statLabel": "pixel-accurate clone",
+          "links": {
+            "compare": "/compare/aerive",
+            "source": "https://aerive-template.modulify.website/",
+            "demo": "https://aerive.toanrobert.online"
+          }
         }
+      },
+      "linkLabels": {
+        "compare": "So sánh 1:1",
+        "demo": "Demo",
+        "source": "Bản gốc"
       }
+    },
+    "compare": {
+      "back": "Về portfolio",
+      "title": "Aerive — Bản gốc ↔ Bản clone",
+      "description": "So sánh trực tiếp bản gốc và bản clone 1:1 (Next.js 16 + GSAP) của website Aerive.",
+      "sourceLabel": "Bản gốc",
+      "cloneLabel": "Bản clone",
+      "openTab": "Mở tab riêng"
     },
     "experience": {
       "eyebrow": "Hành trình",
