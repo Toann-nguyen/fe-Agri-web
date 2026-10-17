@@ -7,8 +7,9 @@ import { paths } from '@/config/paths';
 
 import '@/features/auth/auth.css';
 
-import { AuthBackground } from './auth-background';
 import { gsap, motionAllowed, useGSAP } from '../motion';
+
+import { AuthBackground } from './auth-background';
 
 type AuthShellProps = {
   children: ReactNode;

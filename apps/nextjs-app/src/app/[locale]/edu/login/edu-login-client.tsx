@@ -344,7 +344,7 @@ export default function EduAiLoginPage() {
                       isGoogleLoading ||
                       formState.isSubmitting
                     }
-                    className="group ax-btn mt-2"
+                    className="ax-btn group mt-2"
                   >
                     {!(login.isPending || formState.isSubmitting) && (
                       <>

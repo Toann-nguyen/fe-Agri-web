@@ -176,7 +176,7 @@ const ProjectCard = ({
           flip ? 'lg:order-2 lg:border-l' : 'lg:border-r'
         }`}
       >
-        <div data-parallax-cover className="absolute inset-x-0 -inset-y-[8%]">
+        <div data-parallax-cover className="absolute inset-x-0 inset-y-[-8%]">
           <Image
             src={project.image}
             alt={project.title}
@@ -216,7 +216,7 @@ const ProjectCard = ({
           <span className="pf-serif text-4xl leading-none md:text-5xl">
             {project.stat}
           </span>
-          <span className="max-w-[13rem] text-right font-mono text-[10px] uppercase leading-relaxed tracking-[0.16em] text-[color:var(--pf-ink-soft)]">
+          <span className="max-w-52 text-right font-mono text-[10px] uppercase leading-relaxed tracking-[0.16em] text-[color:var(--pf-ink-soft)]">
             {project.statLabel}
           </span>
         </div>

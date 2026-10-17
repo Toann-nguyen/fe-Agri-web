@@ -333,10 +333,7 @@ export const PortfolioHero = () => {
       {/* Full-bleed banner plate */}
       <div data-hero-banner className="relative mt-2 md:mt-4">
         <div className="relative h-[46vh] min-h-[300px] overflow-hidden border-y border-[color:var(--pf-rule)]">
-          <div
-            data-speed="0.9"
-            className="absolute inset-x-0 -top-[10%] -bottom-[10%]"
-          >
+          <div data-speed="0.9" className="absolute inset-x-0 inset-y-[-10%]">
             <Image
               src="/portfolio/banner.jpg"
               alt=""
