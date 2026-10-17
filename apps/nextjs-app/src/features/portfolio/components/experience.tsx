@@ -1,11 +1,12 @@
 'use client';
 
-import { motion, useScroll, useSpring } from 'framer-motion';
-import { ArrowUpRight, Briefcase } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useRef } from 'react';
 
-import { Reveal, SectionHeading } from './reveal';
+import { gsap, motionAllowed, useGSAP } from '../motion/gsap';
+
+import { SectionHeading } from './reveal';
 
 type ExperienceItem = {
   period: string;
@@ -19,10 +20,12 @@ type ExperienceItem = {
 // Company links are stable facts, not copy — kept out of messages.
 const companyUrls = ['https://infinilab.vn/', 'https://deha-soft.com/'];
 
-/** Work timeline: the rail draws itself as you scroll. */
+/** Work timeline printed on ink: the vermilion rail draws itself on scroll. */
 export const PortfolioExperience = () => {
   const t = useTranslations('common');
-  const ref = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+  const railRef = useRef<HTMLDivElement>(null);
+
   const itemMap = t.raw('portfolio.experience.items') as Record<
     string,
     Omit<ExperienceItem, 'companyUrl' | 'highlights'> & {
@@ -37,104 +40,97 @@ export const PortfolioExperience = () => {
     companyUrl: companyUrls[i],
   }));
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start 0.75', 'end 0.55'],
-  });
-  const lineScale = useSpring(scrollYProgress, {
-    stiffness: 90,
-    damping: 24,
-  });
+  useGSAP(() => {
+    if (!listRef.current || !railRef.current || !motionAllowed()) return;
+
+    gsap.fromTo(
+      railRef.current,
+      { scaleY: 0 },
+      {
+        scaleY: 1,
+        transformOrigin: 'top center',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: listRef.current,
+          start: 'top 72%',
+          end: 'bottom 55%',
+          scrub: true,
+        },
+      },
+    );
+  }, []);
 
   return (
-    <section id="experience" className="relative scroll-mt-20 py-24 md:py-32">
-      <div
-        className="absolute -left-32 bottom-0 size-96 rounded-full bg-[#06b6d4]/10 blur-[120px]"
-        aria-hidden
-      />
-      <div className="relative mx-auto max-w-4xl px-5 md:px-8">
+    <section
+      id="experience"
+      className="pf-ink-band relative scroll-mt-24 py-24 md:py-36"
+    >
+      <div className="mx-auto max-w-4xl px-5 md:px-8">
         <SectionHeading
+          index="04"
           eyebrow={t('portfolio.experience.eyebrow')}
           title={
             <>
               {t('portfolio.experience.titleA')}{' '}
-              <span className="text-gradient">
+              <em className="italic text-[color:var(--pf-accent)]">
                 {t('portfolio.experience.titleB')}
-              </span>
+              </em>
             </>
           }
           description={t('portfolio.experience.description')}
         />
 
-        <div ref={ref} className="relative pl-10 md:pl-14">
-          {/* Rail */}
-          <div className="absolute inset-y-2 left-[13px] w-[2px] rounded bg-white/10 md:left-[21px]" />
-          <motion.div
-            style={{ scaleY: lineScale }}
-            className="absolute inset-y-2 left-[13px] w-[2px] origin-top rounded bg-gradient-to-b from-[#8b5cf6] via-[#818cf8] to-[#22d3ee] md:left-[21px]"
+        <div ref={listRef} className="relative pl-8 md:pl-14">
+          {/* Rail: faint base + drawn vermilion line */}
+          <div className="absolute inset-y-1 left-[3px] w-px bg-[color:var(--pf-rule)]" />
+          <div
+            ref={railRef}
+            className="absolute inset-y-1 left-[3px] w-px bg-[color:var(--pf-accent)]"
           />
 
-          <div className="space-y-8">
-            {experience.map((e, i) => (
-              <Reveal key={e.role} delay={i * 0.08}>
-                <motion.div
-                  whileHover={{ x: 6 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-                  className="glass card-shine relative rounded-3xl p-6 md:p-8"
-                >
-                  <motion.span
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      delay: 0.15,
-                      type: 'spring',
-                      stiffness: 320,
-                      damping: 16,
-                    }}
-                    className="absolute -left-10 top-7 flex size-7 items-center justify-center rounded-full bg-gradient-to-br from-[#8b5cf6] to-[#22d3ee] text-white shadow-lg shadow-[#8b5cf6]/40 md:-left-14 md:size-9"
+          <div>
+            {experience.map((e) => (
+              <article
+                key={e.role}
+                className="relative border-t border-[color:var(--pf-rule)] py-9 first:border-t-0 md:py-11"
+              >
+                <span
+                  aria-hidden
+                  className="absolute -left-8 top-[42px] size-[7px] rotate-45 bg-[color:var(--pf-accent)] md:-left-14 md:top-[50px]"
+                />
+
+                <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[color:var(--pf-accent)]">
+                  {e.period}
+                </p>
+                <h3 className="pf-serif mt-3 text-2xl leading-tight md:text-[1.75rem]">
+                  {e.role}
+                </h3>
+                {e.companyUrl ? (
+                  <a
+                    href={e.companyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="pf-link mt-2 text-sm"
                   >
-                    <Briefcase size={14} />
-                  </motion.span>
-                  <span className="font-mono text-xs tracking-wider text-[#67e8f9]">
-                    {e.period}
-                  </span>
-                  <h3 className="mt-2 text-xl font-bold text-white">
-                    {e.role}
-                  </h3>
-                  {e.companyUrl ? (
-                    <a
-                      href={e.companyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group/link mt-1 inline-flex items-center gap-1 text-sm font-medium text-[#c4b5fd] transition-colors hover:text-[#ddd6fe]"
-                    >
-                      {e.company}
-                      <ArrowUpRight
-                        size={15}
-                        className="transition-transform duration-200 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
-                      />
-                    </a>
-                  ) : (
-                    <p className="mt-1 text-sm font-medium text-[#c4b5fd]">
-                      {e.company}
-                    </p>
-                  )}
-                  <p className="mt-3 text-sm leading-relaxed text-zinc-400">
-                    {e.description}
+                    {e.company}
+                    <ArrowUpRight size={14} />
+                  </a>
+                ) : (
+                  <p className="mt-2 text-sm font-medium text-[color:var(--pf-ink-soft)]">
+                    {e.company}
                   </p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {e.highlights.map((h) => (
-                      <span
-                        key={h}
-                        className="rounded-full bg-white/5 px-3 py-1 text-xs text-zinc-300 ring-1 ring-white/10"
-                      >
-                        {h}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
-              </Reveal>
+                )}
+                <p className="mt-3.5 max-w-2xl text-sm leading-relaxed text-[color:var(--pf-ink-soft)]">
+                  {e.description}
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {e.highlights.map((h) => (
+                    <span key={h} className="pf-chip">
+                      {h}
+                    </span>
+                  ))}
+                </div>
+              </article>
             ))}
           </div>
         </div>
