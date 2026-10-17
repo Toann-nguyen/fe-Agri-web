@@ -395,7 +395,7 @@ const CountUp = ({ value }: { value: number }) => {
       duration: 1.6,
       ease: 'power2.out',
       snap: { v: 1 },
-      scrollTrigger: { trigger: el, start: 'top 92%', once: true },
+      scrollTrigger: { trigger: el, start: 'top bottom', once: true },
       onUpdate: () => {
         el.textContent = String(Math.round(obj.v));
       },

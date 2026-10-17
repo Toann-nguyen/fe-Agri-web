@@ -148,7 +148,7 @@ export const PortfolioNavbar = () => {
 
       <div
         ref={menuRef}
-        className="invisible border-b border-[color:var(--pf-rule)] bg-[color:var(--pf-paper)] md:hidden"
+        className="invisible absolute inset-x-0 top-full border-b border-[color:var(--pf-rule)] bg-[color:var(--pf-paper)] md:hidden"
       >
         <ul className="px-5 py-2">
           {links.map((link) => (
