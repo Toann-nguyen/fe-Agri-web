@@ -1,7 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 
 import {
-  CursorGlow,
   PortfolioAbout,
   PortfolioContact,
   PortfolioExperience,
@@ -26,11 +25,12 @@ export async function generateMetadata() {
 
 const HomePage = () => {
   return (
-    <SmoothScroll>
-      <div className="min-h-screen bg-[#06060c] font-sans text-zinc-100 antialiased">
-        <ScrollProgress />
-        <CursorGlow />
-        <PortfolioNavbar />
+    <div className="pf-editorial relative min-h-screen font-sans antialiased">
+      {/* Fixed UI lives outside #smooth-wrapper (ScrollSmoother transforms the content). */}
+      <ScrollProgress />
+      <PortfolioNavbar />
+
+      <SmoothScroll>
         <main>
           <PortfolioHero />
           <PortfolioMarquee />
@@ -40,8 +40,11 @@ const HomePage = () => {
           <PortfolioContact />
         </main>
         <PortfolioFooter />
-      </div>
-    </SmoothScroll>
+      </SmoothScroll>
+
+      {/* Paper grain overlay for the whole page. */}
+      <div className="pf-grain" aria-hidden />
+    </div>
   );
 };
 

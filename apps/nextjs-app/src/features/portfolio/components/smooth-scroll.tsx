@@ -1,92 +1,62 @@
 'use client';
 
-import { motion, useMotionValue, useScroll, useSpring } from 'framer-motion';
-import Lenis from 'lenis';
-import { useEffect, type ReactNode } from 'react';
+import { useRef, type ReactNode } from 'react';
 
-/** Smooth scrolling for the whole portfolio page via Lenis. */
+import { gsap, ScrollSmoother, ScrollTrigger, useGSAP } from '../motion/gsap';
+
+/**
+ * GSAP ScrollSmoother provider for the portfolio page.
+ *
+ * Fixed UI (navbar, progress bar) must be rendered OUTSIDE of
+ * #smooth-wrapper by the parent — transformed content breaks position:fixed.
+ */
 export const SmoothScroll = ({ children }: { children: ReactNode }) => {
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.15,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      const smoother = ScrollSmoother.create({
+        wrapper: '#smooth-wrapper',
+        content: '#smooth-content',
+        smooth: 1.15,
+        effects: true,
+        normalizeScroll: true,
+      });
+
+      // Recalculate trigger positions once the serif webfont swaps in.
+      document.fonts?.ready.then(() => ScrollTrigger.refresh());
+
+      return () => smoother.kill();
     });
 
-    let rafId: number;
-    const raf = (time: number) => {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    };
-    rafId = requestAnimationFrame(raf);
-
-    // Route anchor links (#about, #projects, ...) through Lenis.
-    const onClick = (e: MouseEvent) => {
-      const anchor = (e.target as HTMLElement).closest('a[href^="#"]');
-      if (!anchor) return;
-      const id = anchor.getAttribute('href');
-      if (!id || id === '#') return;
-      const el = document.querySelector(id);
-      if (el) {
-        e.preventDefault();
-        lenis.scrollTo(el as HTMLElement, { offset: -72 });
-      }
-    };
-    document.addEventListener('click', onClick);
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      document.removeEventListener('click', onClick);
-      lenis.destroy();
-    };
+    return () => mm.revert();
   }, []);
 
-  return <>{children}</>;
+  return (
+    <div id="smooth-wrapper">
+      <div id="smooth-content">{children}</div>
+    </div>
+  );
 };
 
-/** Reading progress bar pinned to the top edge. */
+/** Reading progress: a vermilion hairline pinned to the top edge. */
 export const ScrollProgress = () => {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 28,
-    mass: 0.4,
-  });
-  return (
-    <motion.div
-      className="fixed inset-x-0 top-0 z-[60] h-[3px] origin-left bg-gradient-to-r from-[#8b5cf6] via-[#818cf8] to-[#22d3ee]"
-      style={{ scaleX }}
-    />
-  );
-};
+  const ref = useRef<HTMLDivElement>(null);
 
-/** Soft glow following the mouse (fine-pointer devices only). */
-export const CursorGlow = () => {
-  const x = useMotionValue(-400);
-  const y = useMotionValue(-400);
-  const sx = useSpring(x, { stiffness: 90, damping: 20, mass: 0.5 });
-  const sy = useSpring(y, { stiffness: 90, damping: 20, mass: 0.5 });
+  useGSAP(() => {
+    if (!ref.current) return;
 
-  useEffect(() => {
-    if (!window.matchMedia('(pointer: fine)').matches) return;
-    const move = (e: PointerEvent) => {
-      x.set(e.clientX - 250);
-      y.set(e.clientY - 250);
-    };
-    window.addEventListener('pointermove', move);
-    return () => window.removeEventListener('pointermove', move);
-  }, [x, y]);
+    gsap.to(ref.current, {
+      scaleX: 1,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#smooth-content',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 0.3,
+      },
+    });
+  }, []);
 
-  return (
-    <motion.div
-      aria-hidden
-      className="pointer-events-none fixed left-0 top-0 z-[5] hidden h-[500px] w-[500px] rounded-full opacity-25 md:block"
-      style={{
-        x: sx,
-        y: sy,
-        background:
-          'radial-gradient(circle, rgba(139,92,246,0.35) 0%, rgba(34,211,238,0.12) 40%, transparent 70%)',
-      }}
-    />
-  );
+  return <div ref={ref} className="pf-progress" aria-hidden />;
 };

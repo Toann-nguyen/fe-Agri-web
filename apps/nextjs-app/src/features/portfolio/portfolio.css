@@ -166,6 +166,29 @@
 
 /* ── Fixed layers ───────────────────────────────────────────── */
 
+/* Native smooth-scroll must not fight ScrollSmoother. */
+html:has(.pf-editorial) {
+  scroll-behavior: auto;
+}
+
+.pf-nav {
+  border-bottom: 1px solid transparent;
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.pf-nav-scrolled {
+  border-color: var(--pf-rule);
+  background: color-mix(in srgb, var(--pf-paper) 90%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.pf-btn-sm {
+  padding: 0.6rem 1.1rem;
+}
+
 .pf-grain {
   position: fixed;
   inset: 0;
