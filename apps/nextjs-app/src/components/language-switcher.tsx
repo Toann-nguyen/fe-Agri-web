@@ -23,16 +23,16 @@ export const LanguageSwitcher = () => {
   };
 
   return (
-    <div className="flex items-center gap-2 text-xs">
+    <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.14em]">
       {routing.locales.map((loc) => (
         <button
           key={loc}
           type="button"
           onClick={() => switchTo(loc)}
-          className={`rounded-full border px-2 py-1 transition-colors ${
+          className={`border px-2.5 py-1.5 transition-colors duration-200 ${
             locale === loc
-              ? 'border-cyan-500 bg-cyan-500/10 text-cyan-300'
-              : 'border-white/10 text-slate-400 hover:text-slate-200'
+              ? 'border-[color:var(--pf-accent)] text-[color:var(--pf-accent)]'
+              : 'border-[color:var(--pf-rule)] text-[color:var(--pf-ink-soft)] hover:border-[color:var(--pf-ink)] hover:text-[color:var(--pf-ink)]'
           }`}
         >
           {localeLabel(loc as 'vi' | 'en')}

@@ -1,128 +1,238 @@
-/* Portfolio feature styles — self-contained, no tailwind.config changes. */
+/* Portfolio feature styles — "Editorial Ink" theme.
+   Self-contained: palette tokens + a few semantic classes live here;
+   everything else is composed with Tailwind utilities in the components. */
 
-.pf-marquee {
-  animation: pf-marquee 30s linear infinite;
+/* ── Palette tokens ─────────────────────────────────────────── */
+
+.pf-editorial {
+  --pf-paper: #f7f3ec;
+  --pf-paper-2: #efe8db;
+  --pf-ink: #0e0e10;
+  --pf-ink-soft: rgba(14, 14, 16, 0.62);
+  --pf-ink-faint: rgba(14, 14, 16, 0.38);
+  --pf-rule: rgba(14, 14, 16, 0.16);
+  --pf-rule-strong: rgba(14, 14, 16, 0.42);
+  --pf-accent: #c2410c;
+  background-color: var(--pf-paper);
+  color: var(--pf-ink);
 }
 
-.pf-marquee-reverse {
-  animation: pf-marquee-reverse 36s linear infinite;
+/* Inverted band: sections that print on ink instead of paper. */
+.pf-editorial .pf-ink-band {
+  --pf-paper: #101014;
+  --pf-paper-2: #17171c;
+  --pf-ink: #f2ede3;
+  --pf-ink-soft: rgba(242, 237, 227, 0.62);
+  --pf-ink-faint: rgba(242, 237, 227, 0.38);
+  --pf-rule: rgba(242, 237, 227, 0.16);
+  --pf-rule-strong: rgba(242, 237, 227, 0.42);
+  --pf-accent: #f97316;
+  background-color: var(--pf-paper);
+  color: var(--pf-ink);
 }
 
-@keyframes pf-marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+/* ── Typography helpers ─────────────────────────────────────── */
+
+.pf-serif {
+  font-family:
+    var(--font-serif), 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
-@keyframes pf-marquee-reverse {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0);
-  }
+.pf-eyebrow {
+  font-family: var(--font-fira-code), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pf-ink-soft);
 }
 
-.pf-float {
-  animation: pf-float 7s ease-in-out infinite;
+/* ── Components ─────────────────────────────────────────────── */
+
+.pf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.6rem;
+  border: 1px solid var(--pf-ink);
+  border-radius: 2px;
+  background: var(--pf-ink);
+  color: var(--pf-paper);
+  font-family: var(--font-fira-code), ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+  will-change: transform;
 }
 
-@keyframes pf-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-16px);
-  }
+.pf-btn:hover {
+  background: transparent;
+  color: var(--pf-ink);
 }
 
-.pf-spin-slow {
-  animation: pf-spin-slow 16s linear infinite;
+.pf-btn-ghost {
+  background: transparent;
+  color: var(--pf-ink);
 }
 
-@keyframes pf-spin-slow {
-  to {
-    transform: rotate(360deg);
-  }
+.pf-btn-ghost:hover {
+  background: var(--pf-ink);
+  color: var(--pf-paper);
 }
 
-.text-gradient {
-  background: linear-gradient(92deg, #c4b5fd 0%, #818cf8 35%, #22d3ee 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.pf-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.7rem;
+  border: 1px solid var(--pf-rule);
+  border-radius: 2px;
+  font-family: var(--font-fira-code), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--pf-ink-soft);
+  white-space: nowrap;
 }
 
-.glass {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+.pf-card {
+  background: var(--pf-paper);
+  border: 1px solid var(--pf-rule);
+  border-radius: 4px;
 }
 
-.grid-bg {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(
-    ellipse 90% 70% at 50% 30%,
-    black 35%,
-    transparent 75%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse 90% 70% at 50% 30%,
-    black 35%,
-    transparent 75%
-  );
+/* Hard offset print-shadow, like a pasted plate. */
+.pf-plate {
+  box-shadow:
+    14px 14px 0 -1px var(--pf-paper),
+    14px 14px 0 0 var(--pf-rule);
 }
 
-.card-shine {
+.pf-input {
+  width: 100%;
+  border: 1px solid var(--pf-rule);
+  border-radius: 2px;
+  background: transparent;
+  padding: 0.8rem 1rem;
+  font-size: 14px;
+  color: inherit;
+  outline: none;
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.pf-input::placeholder {
+  color: var(--pf-ink-faint);
+}
+
+.pf-input:focus {
+  border-color: var(--pf-ink);
+  background: color-mix(in srgb, var(--pf-ink) 4%, transparent);
+}
+
+/* Thin underline links that grow a rule on hover. */
+.pf-link {
   position: relative;
-  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+  color: var(--pf-ink);
 }
 
-.card-shine::after {
+.pf-link::after {
   content: '';
   position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0.999);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.pf-link:hover {
+  color: var(--pf-accent);
+}
+
+/* ── Fixed layers ───────────────────────────────────────────── */
+
+/* Native smooth-scroll must not fight ScrollSmoother. */
+html:has(.pf-editorial) {
+  scroll-behavior: auto;
+}
+
+.pf-nav {
+  border-bottom: 1px solid transparent;
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.pf-nav-scrolled {
+  border-color: var(--pf-rule);
+  background: color-mix(in srgb, var(--pf-paper) 90%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.pf-btn-sm {
+  padding: 0.6rem 1.1rem;
+}
+
+.pf-grain {
+  position: fixed;
   inset: 0;
-  background: linear-gradient(
-    105deg,
-    transparent 40%,
-    rgba(255, 255, 255, 0.09) 50%,
-    transparent 60%
-  );
-  transform: translateX(-120%);
-  transition: transform 0.9s ease;
+  z-index: 30;
   pointer-events: none;
+  opacity: 0.55;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
 }
 
-.card-shine:hover::after {
-  transform: translateX(120%);
+.pf-progress {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 70;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: var(--pf-accent);
 }
 
-html.lenis,
-html.lenis body {
-  height: auto;
+/* ── Projects: sticky stacked plates ────────────────────────── */
+
+.pf-stack-item {
+  position: sticky;
 }
 
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
+/* ── Marquee ────────────────────────────────────────────────── */
+
+.pf-marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  will-change: transform;
 }
 
-.lenis.lenis-stopped {
-  overflow: hidden;
+/* Avoid long unclipped text selection across the moving track. */
+.pf-marquee-track ::selection {
+  background: transparent;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pf-marquee,
-  .pf-marquee-reverse,
-  .pf-float,
-  .pf-spin-slow {
-    animation: none !important;
+  .pf-marquee-track {
+    will-change: auto;
   }
 }

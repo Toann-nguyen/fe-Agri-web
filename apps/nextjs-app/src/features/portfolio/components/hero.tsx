@@ -1,33 +1,17 @@
 'use client';
 
-import {
-  animate,
-  motion,
-  useInView,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from 'framer-motion';
-import { ArrowDown, ArrowRight, MapPin, Phone, Sparkles } from 'lucide-react';
+import { ArrowUpRight, MapPin, Phone } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { useEffect, useRef } from 'react';
+import { useRef, type MouseEvent } from 'react';
 
-import { Reveal } from './reveal';
-
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 32 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: 'easeOut' as const },
-  },
-};
+import {
+  gsap,
+  motionAllowed,
+  scrollToTarget,
+  SplitText,
+  useGSAP,
+} from '../motion/gsap';
 
 type Stat = {
   value: number;
@@ -47,279 +31,373 @@ export const PortfolioHero = () => {
     value: Number(s.value),
   }));
 
-  // Tilt the card with the mouse.
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const rotateX = useSpring(useTransform(my, [-0.5, 0.5], [10, -10]), {
-    stiffness: 120,
-    damping: 16,
-  });
-  const rotateY = useSpring(useTransform(mx, [-0.5, 0.5], [-12, 12]), {
-    stiffness: 120,
-    damping: 16,
-  });
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const root = sectionRef.current;
+      if (!root || !motionAllowed()) return;
+
+      const q = gsap.utils.selector(root);
+
+      // ── Intro: masked serif headline, then the rest of the page set ──
+      const title = q('[data-hero-title]')[0] as HTMLElement | undefined;
+      if (title) {
+        SplitText.create(title, {
+          type: 'lines',
+          mask: 'lines',
+          autoSplit: true,
+          onSplit: (self) =>
+            gsap.from(self.lines, {
+              yPercent: 115,
+              duration: 1.15,
+              stagger: 0.12,
+              delay: 0.15,
+              ease: 'power4.out',
+            }),
+        });
+      }
+
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      tl.from(
+        q('[data-hero-meta] > *'),
+        { autoAlpha: 0, y: 14, duration: 0.6, stagger: 0.08 },
+        0.05,
+      )
+        .from(
+          q('[data-hero-greet]'),
+          { autoAlpha: 0, y: 10, duration: 0.6 },
+          0.35,
+        )
+        .from(
+          q('[data-hero-tagline]'),
+          { autoAlpha: 0, y: 22, duration: 0.8 },
+          0.75,
+        )
+        .from(
+          q('[data-hero-cta] > *'),
+          { autoAlpha: 0, y: 18, duration: 0.7, stagger: 0.1 },
+          0.9,
+        )
+        .from(
+          q('[data-hero-stat]'),
+          { autoAlpha: 0, y: 24, duration: 0.7, stagger: 0.09 },
+          1.05,
+        )
+        .from(
+          q('[data-hero-portrait]'),
+          { autoAlpha: 0, y: 48, duration: 1.1 },
+          0.4,
+        )
+        .from(
+          q('[data-hero-specimen]'),
+          { autoAlpha: 0, y: 20, duration: 0.7 },
+          0.75,
+        )
+        .from(q('[data-hero-banner]'), { autoAlpha: 0, duration: 1.2 }, 0.6)
+        .from(
+          q('[data-hero-hint]'),
+          { autoAlpha: 0, y: 10, duration: 0.6 },
+          1.2,
+        );
+
+      // ── Scroll exit: copy drifts up and fades while the banner takes over ──
+      gsap.to(q('[data-hero-copy]'), {
+        yPercent: -14,
+        autoAlpha: 0.35,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: root,
+          start: 'top top',
+          end: '70% top',
+          scrub: true,
+        },
+      });
+
+      // ── Scroll hint line: endless gentle pulse ──
+      const hintLine = q('[data-hero-hint-line]')[0] as HTMLElement | undefined;
+      if (hintLine) {
+        gsap.fromTo(
+          hintLine,
+          { scaleY: 0 },
+          {
+            scaleY: 1,
+            transformOrigin: 'top center',
+            duration: 1.3,
+            repeat: -1,
+            yoyo: true,
+            ease: 'power1.inOut',
+            delay: 1.6,
+          },
+        );
+      }
+
+      // ── Magnetic pull on the primary CTA (fine pointers only) ──
+      const cta = q('[data-magnetic]')[0] as HTMLElement | undefined;
+      let move: ((e: PointerEvent) => void) | undefined;
+      let leave: (() => void) | undefined;
+
+      if (cta && window.matchMedia('(pointer: fine)').matches) {
+        const xTo = gsap.quickTo(cta, 'x', { duration: 0.5, ease: 'power3' });
+        const yTo = gsap.quickTo(cta, 'y', { duration: 0.5, ease: 'power3' });
+
+        move = (e) => {
+          const r = cta.getBoundingClientRect();
+          xTo((e.clientX - (r.left + r.width / 2)) * 0.16);
+          yTo((e.clientY - (r.top + r.height / 2)) * 0.3);
+        };
+        leave = () => {
+          xTo(0);
+          yTo(0);
+        };
+
+        cta.addEventListener('pointermove', move);
+        cta.addEventListener('pointerleave', leave);
+      }
+
+      return () => {
+        if (cta && move && leave) {
+          cta.removeEventListener('pointermove', move);
+          cta.removeEventListener('pointerleave', leave);
+        }
+      };
+    },
+    { scope: sectionRef },
+  );
+
+  const go = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    event.preventDefault();
+    scrollToTarget(href);
+  };
 
   return (
     <section
       id="home"
-      onMouseMove={(e) => {
-        const r = e.currentTarget.getBoundingClientRect();
-        mx.set((e.clientX - r.left) / r.width - 0.5);
-        my.set((e.clientY - r.top) / r.height - 0.5);
-      }}
+      ref={sectionRef}
       className="relative overflow-hidden pt-[72px]"
     >
-      {/* Banner background + dark overlay */}
-      <div className="absolute inset-0" aria-hidden>
-        <Image
-          src="/portfolio/banner.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-35"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#06060c]/60 via-[#06060c]/85 to-[#06060c]" />
-      </div>
-      <div className="grid-bg absolute inset-0" aria-hidden />
-      <div
-        className="absolute -top-40 left-1/2 h-[560px] w-[860px] -translate-x-1/2 rounded-full opacity-30 blur-[130px]"
-        style={{
-          background:
-            'linear-gradient(90deg, #7c3aed 0%, #4f46e5 50%, #06b6d4 100%)',
-        }}
-        aria-hidden
-      />
-      <motion.div
-        className="absolute right-[8%] top-24 size-56 rounded-full bg-[#22d3ee]/15 blur-[100px]"
-        animate={{ y: [0, -30, 0], x: [0, 20, 0] }}
-        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-        aria-hidden
-      />
-
-      <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-5 pb-20 pt-16 md:px-8 md:pt-24 lg:grid-cols-[1.15fr_0.85fr]">
-        {/* Copy column */}
-        <motion.div variants={container} initial="hidden" animate="show">
-          <motion.div variants={item}>
-            <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium text-zinc-300">
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
-              </span>
-              {t('portfolio.hero.availability')}
-            </span>
-          </motion.div>
-
-          <motion.p
-            variants={item}
-            className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium tracking-wide text-zinc-400"
-          >
-            <span className="flex items-center gap-2">
-              <MapPin size={15} className="text-[#67e8f9]" />
-              {t('portfolio.hero.location')}
-            </span>
-            <a
-              href={`tel:${t('portfolio.hero.phoneHref')}`}
-              className="flex items-center gap-2 transition-colors hover:text-white"
-            >
-              <Phone size={15} className="text-[#67e8f9]" />
-              {t('portfolio.hero.phone')}
-            </a>
-          </motion.p>
-
-          <motion.h1
-            variants={item}
-            className="mt-3 text-5xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-6xl lg:text-7xl"
-          >
-            {t('portfolio.hero.greeting')}
-            <br />
-            <span className="text-gradient">{t('portfolio.hero.name')}</span>
-            <br />
-            <span className="text-zinc-500">{t('portfolio.hero.role')}</span>
-          </motion.h1>
-
-          <motion.p
-            variants={item}
-            className="mt-6 max-w-xl text-base leading-relaxed text-zinc-400 md:text-lg"
-          >
-            {t('portfolio.hero.tagline')}
-          </motion.p>
-
-          <motion.div variants={item} className="mt-8 flex flex-wrap gap-4">
-            <motion.a
-              href="#projects"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.96 }}
-              className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#8b5cf6] to-[#6366f1] px-7 py-3.5 text-sm font-semibold text-white shadow-xl shadow-[#7c3aed]/40"
-            >
-              {t('portfolio.hero.viewProjects')}
-              <ArrowRight
-                size={17}
-                className="transition-transform duration-300 group-hover:translate-x-1"
-              />
-            </motion.a>
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.96 }}
-              className="glass inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white"
-            >
-              <Sparkles size={17} className="text-[#67e8f9]" />
-              {t('portfolio.hero.contactNow')}
-            </motion.a>
-          </motion.div>
-
-          {/* Animated stats */}
-          <motion.dl
-            variants={item}
-            className="mt-12 grid max-w-lg grid-cols-2 gap-6 sm:grid-cols-4"
-          >
-            {stats.map((s, i) => (
-              <div key={s.label}>
-                <dt className="order-2 mt-1 text-xs leading-snug text-zinc-500">
-                  {s.label}
-                </dt>
-                <dd className="order-1 text-2xl font-extrabold text-white md:text-3xl">
-                  {s.prefix ? (
-                    <span className="text-gradient">{s.prefix}</span>
-                  ) : null}
-                  <CountUp value={s.value} delay={0.6 + i * 0.15} />
-                  <span className="text-gradient">{s.suffix}</span>
-                </dd>
-              </div>
-            ))}
-          </motion.dl>
-        </motion.div>
-
-        {/* 3D card column */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.35 }}
-          style={{ perspective: 1000 }}
-          className="relative mx-auto w-full max-w-sm"
+      <div className="mx-auto max-w-6xl px-5 md:px-8">
+        {/* Meta row */}
+        <div
+          data-hero-meta
+          className="flex flex-wrap items-center gap-x-8 gap-y-3 border-b border-[color:var(--pf-rule)] pb-6 pt-10 font-mono text-[11px] uppercase tracking-[0.18em] text-[color:var(--pf-ink-soft)]"
         >
-          <div
-            className="pf-spin-slow absolute -inset-6 rounded-[2.5rem] opacity-40 blur-2xl"
-            style={{
-              background:
-                'conic-gradient(from 0deg, #7c3aed, #06b6d4, #f472b6, #7c3aed)',
-            }}
-            aria-hidden
-          />
-          <motion.div
-            style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-            className="glass card-shine relative rounded-[2rem] p-8"
+          <span className="inline-flex items-center gap-2.5">
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-[color:var(--pf-accent)] opacity-60" />
+              <span className="relative inline-flex size-2 rounded-full bg-[color:var(--pf-accent)]" />
+            </span>
+            {t('portfolio.hero.availability')}
+          </span>
+          <span className="inline-flex items-center gap-2">
+            <MapPin size={13} />
+            {t('portfolio.hero.location')}
+          </span>
+          <a
+            href={`tel:${t('portfolio.hero.phoneHref')}`}
+            className="inline-flex items-center gap-2 transition-colors hover:text-[color:var(--pf-ink)]"
           >
-            <div className="flex items-center gap-4">
-              <div className="relative size-16 shrink-0 overflow-hidden rounded-2xl shadow-lg shadow-[#8b5cf6]/40 ring-2 ring-[#a78bfa]/60">
+            <Phone size={13} />
+            {t('portfolio.hero.phone')}
+          </a>
+        </div>
+
+        <div className="grid gap-14 py-14 md:py-16 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 lg:py-20">
+          {/* Copy column */}
+          <div data-hero-copy className="self-center">
+            <p data-hero-greet className="pf-eyebrow">
+              <span className="text-[color:var(--pf-accent)]">(</span>
+              {t('portfolio.hero.greeting')}
+              <span className="text-[color:var(--pf-accent)]">)</span>
+            </p>
+
+            <h1
+              data-hero-title
+              className="pf-serif mt-5 text-[clamp(2.9rem,7.5vw,5.9rem)] leading-[1.0] tracking-tight"
+            >
+              <span className="block">{t('portfolio.hero.name')}</span>
+              <span className="block pt-2 text-[0.46em] italic leading-[1.2] text-[color:var(--pf-ink-soft)]">
+                {t('portfolio.hero.role')}
+                <span className="not-italic text-[color:var(--pf-accent)]">
+                  .
+                </span>
+              </span>
+            </h1>
+
+            <p
+              data-hero-tagline
+              className="mt-7 max-w-xl text-[15px] leading-relaxed text-[color:var(--pf-ink-soft)] md:text-base"
+            >
+              {t('portfolio.hero.tagline')}
+            </p>
+
+            <div
+              data-hero-cta
+              className="mt-9 flex flex-wrap items-center gap-7"
+            >
+              <a
+                data-magnetic
+                href="#projects"
+                onClick={(e) => go(e, '#projects')}
+                className="pf-btn"
+              >
+                {t('portfolio.hero.viewProjects')}
+              </a>
+              <a
+                href="#contact"
+                onClick={(e) => go(e, '#contact')}
+                className="pf-link text-sm"
+              >
+                {t('portfolio.hero.contactNow')}
+                <ArrowUpRight size={15} />
+              </a>
+            </div>
+
+            <dl className="mt-14 grid max-w-xl grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4">
+              {stats.map((s) => (
+                <div
+                  key={s.label}
+                  data-hero-stat
+                  className="border-t border-[color:var(--pf-rule-strong)] pt-4"
+                >
+                  <dd className="pf-serif text-3xl leading-none md:text-4xl">
+                    {s.prefix ? (
+                      <span className="text-[color:var(--pf-accent)]">
+                        {s.prefix}
+                      </span>
+                    ) : null}
+                    <CountUp value={s.value} />
+                    <span className="text-[color:var(--pf-accent)]">
+                      {s.suffix}
+                    </span>
+                  </dd>
+                  <dt className="mt-2.5 font-mono text-[10px] uppercase leading-snug tracking-[0.14em] text-[color:var(--pf-ink-soft)]">
+                    {s.label}
+                  </dt>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          {/* Portrait plate */}
+          <div className="mx-auto w-full max-w-[380px] self-center">
+            <figure data-hero-portrait className="pf-plate relative">
+              <div className="relative aspect-[4/5] overflow-hidden border border-[color:var(--pf-rule-strong)] bg-[color:var(--pf-paper-2)]">
                 <Image
                   src="/portfolio/avatar.png"
                   alt={t('portfolio.hero.avatarAlt')}
                   fill
-                  sizes="64px"
+                  sizes="(max-width: 1024px) 340px, 380px"
                   className="object-cover"
                   priority
                 />
               </div>
-              <div>
-                <p className="font-bold text-white">
-                  {t('portfolio.hero.shortName')}
-                </p>
-                <p className="text-sm text-zinc-400">
-                  {t('portfolio.hero.role')}
-                </p>
+              <figcaption className="flex items-center justify-between gap-3 border-x border-b border-[color:var(--pf-rule)] bg-[color:var(--pf-paper)] px-4 py-3 font-mono text-[10px] uppercase tracking-[0.16em] text-[color:var(--pf-ink-soft)]">
+                <span>Fig. 01 — {t('portfolio.hero.shortName')}</span>
+                <span className="text-[color:var(--pf-accent)]">
+                  {t('portfolio.hero.location').split(',')[0]}
+                </span>
+              </figcaption>
+            </figure>
+
+            <div
+              data-hero-specimen
+              className="pf-card mt-6 p-4 font-mono text-[11.5px] leading-relaxed text-[color:var(--pf-ink-soft)]"
+            >
+              <p>{t('portfolio.hero.codeComment')}</p>
+              <p className="mt-1.5 text-[color:var(--pf-ink)]">
+                stack —{' '}
+                <span className="text-[color:var(--pf-accent)]">
+                  Laravel × Next.js
+                </span>
+              </p>
+              <p className="text-[color:var(--pf-ink)]">
+                perf —{' '}
+                <span className="text-[color:var(--pf-accent)]">
+                  {t('portfolio.hero.badgeTitle')}
+                </span>
+              </p>
+              <div className="mt-3.5 flex flex-wrap gap-2">
+                {['Laravel', 'Next.js', 'Redis'].map((tag) => (
+                  <span key={tag} className="pf-chip">
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
-            <div className="mt-6 space-y-3 font-mono text-[13px] leading-relaxed">
-              <p className="text-zinc-500">{t('portfolio.hero.codeComment')}</p>
-              <p>
-                <span className="text-[#e879f9]">const</span>{' '}
-                <span className="text-[#67e8f9]">dev</span>{' '}
-                <span className="text-zinc-500">=</span>{' '}
-                <span className="text-emerald-300">{'{'}</span>
-              </p>
-              <p className="pl-5 text-zinc-300">
-                stack:{' '}
-                <span className="text-[#fcd34d]">
-                  &quot;Laravel × Next.js&quot;
-                </span>
-                ,
-              </p>
-              <p className="pl-5 text-zinc-300">
-                perf:{' '}
-                <span className="text-[#fcd34d]">&quot;-30% latency&quot;</span>
-                ,
-              </p>
-              <p className="pl-5 text-zinc-300">
-                hireable: <span className="text-emerald-300">true</span>
-              </p>
-              <p className="text-emerald-300">{'}'}</p>
-            </div>
-            <div className="mt-6 flex gap-2.5">
-              {['Laravel', 'Next.js', 'Redis'].map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-medium text-zinc-300 ring-1 ring-white/10"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </motion.div>
+          </div>
+        </div>
+      </div>
 
-          <motion.div
-            className="glass absolute -bottom-6 -left-6 hidden items-center gap-3 rounded-2xl px-5 py-4 sm:flex"
-            animate={{ y: [0, -12, 0] }}
-            transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
-          >
-            <span className="flex size-10 items-center justify-center rounded-xl bg-emerald-400/15 text-emerald-300">
-              <Sparkles size={18} />
-            </span>
-            <div>
-              <p className="text-sm font-bold text-white">
-                {t('portfolio.hero.badgeTitle')}
-              </p>
-              <p className="text-xs text-zinc-400">
-                {t('portfolio.hero.badgeDesc')}
-              </p>
-            </div>
-          </motion.div>
-        </motion.div>
+      {/* Full-bleed banner plate */}
+      <div data-hero-banner className="relative mt-2 md:mt-4">
+        <div className="relative h-[46vh] min-h-[300px] overflow-hidden border-y border-[color:var(--pf-rule)]">
+          <div data-speed="0.9" className="absolute inset-x-0 inset-y-[-10%]">
+            <Image
+              src="/portfolio/banner.jpg"
+              alt=""
+              fill
+              sizes="100vw"
+              className="object-cover object-center grayscale-[35%]"
+              priority
+            />
+          </div>
+          <div
+            className="absolute inset-0 bg-[color:var(--pf-ink)] opacity-[0.06]"
+            aria-hidden
+          />
+          <p className="absolute bottom-4 left-1/2 w-full max-w-6xl -translate-x-1/2 px-5 font-mono text-[10px] uppercase tracking-[0.22em] text-white mix-blend-difference md:px-8">
+            Fig. 02 — {t('portfolio.hero.shortName')} ·{' '}
+            {t('portfolio.hero.location')}
+          </p>
+        </div>
       </div>
 
       {/* Scroll hint */}
-      <Reveal className="relative flex justify-center pb-10" y={10}>
-        <motion.a
+      <div className="mx-auto max-w-6xl px-5 pb-10 md:px-8">
+        <a
+          data-hero-hint
           href="#about"
-          aria-label="Scroll down"
-          className="glass flex size-12 items-center justify-center rounded-full text-zinc-300"
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          onClick={(e) => go(e, '#about')}
+          className="mx-auto mt-9 flex w-max flex-col items-center gap-3 font-mono text-[10px] uppercase tracking-[0.26em] text-[color:var(--pf-ink-soft)] transition-colors hover:text-[color:var(--pf-ink)]"
         >
-          <ArrowDown size={18} />
-        </motion.a>
-      </Reveal>
+          scroll
+          <span
+            data-hero-hint-line
+            className="block h-10 w-px bg-[color:var(--pf-ink-soft)]"
+            aria-hidden
+          />
+        </a>
+      </div>
     </section>
   );
 };
 
-const CountUp = ({ value, delay = 0 }: { value: number; delay?: number }) => {
+const CountUp = ({ value }: { value: number }) => {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-40px' });
 
-  useEffect(() => {
-    if (!inView) return;
-    const controls = animate(0, value, {
-      duration: 1.8,
-      delay,
-      ease: 'easeOut',
-      onUpdate: (v) => {
-        if (ref.current) ref.current.textContent = String(Math.round(v));
+  useGSAP(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    if (!motionAllowed()) {
+      el.textContent = String(value);
+      return;
+    }
+
+    const obj = { v: 0 };
+    gsap.to(obj, {
+      v: value,
+      duration: 1.6,
+      ease: 'power2.out',
+      snap: { v: 1 },
+      scrollTrigger: { trigger: el, start: 'top bottom', once: true },
+      onUpdate: () => {
+        el.textContent = String(Math.round(obj.v));
       },
     });
-    return () => controls.stop();
-  }, [inView, value, delay]);
+  }, []);
 
   return <span ref={ref}>0</span>;
 };

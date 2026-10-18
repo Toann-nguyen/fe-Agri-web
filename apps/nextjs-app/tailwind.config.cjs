@@ -29,6 +29,7 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-inter)', ...defaultTheme.fontFamily.sans],
         mono: ['var(--font-fira-code)', ...defaultTheme.fontFamily.mono],
+        serif: ['var(--font-serif)', ...defaultTheme.fontFamily.serif],
       },
       colors: {
         border: 'hsl(var(--border))',

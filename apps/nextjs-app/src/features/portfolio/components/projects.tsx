@@ -1,18 +1,22 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
 import {
   Briefcase,
   FileSpreadsheet,
   Headset,
   Mails,
+  Plane,
   ScanFace,
 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useRef } from 'react';
 
-import { Reveal, SectionHeading } from './reveal';
+import { Link } from '@/i18n/navigation';
+
+import { gsap, motionAllowed, useGSAP } from '../motion/gsap';
+
+import { SectionHeading } from './reveal';
 
 const icons = {
   crm: Briefcase,
@@ -20,93 +24,137 @@ const icons = {
   inbox: Headset,
   report: FileSpreadsheet,
   ai: ScanFace,
+  plane: Plane,
 } as const;
 
 type Project = {
   icon: keyof typeof icons;
   image: string;
-  gradient: string;
   title: string;
   period: string;
   description: string;
   tags: string[];
   stat: string;
   statLabel: string;
+  links?: { compare?: string; demo?: string; source?: string };
 };
 
 // Static visuals keyed by position; copy lives in messages.
 const visuals = [
-  {
-    icon: 'crm',
-    image: '/portfolio/projects/crm.jpg',
-    gradient: 'from-[#7c3aed] via-[#4f46e5] to-[#2563eb]',
-  },
-  {
-    icon: 'mail',
-    image: '/portfolio/projects/email.jpg',
-    gradient: 'from-[#f59e0b] via-[#ea580c] to-[#e11d48]',
-  },
-  {
-    icon: 'inbox',
-    image: '/portfolio/projects/inbox.jpg',
-    gradient: 'from-[#06b6d4] via-[#0284c7] to-[#1d4ed8]',
-  },
-  {
-    icon: 'report',
-    image: '/portfolio/projects/report.jpg',
-    gradient: 'from-[#10b981] via-[#0d9488] to-[#0891b2]',
-  },
-  {
-    icon: 'ai',
-    image: '/portfolio/projects/ai.jpg',
-    gradient: 'from-[#d946ef] via-[#9333ea] to-[#7c3aed]',
-  },
+  { icon: 'crm', image: '/portfolio/projects/crm.jpg' },
+  { icon: 'mail', image: '/portfolio/projects/email.jpg' },
+  { icon: 'inbox', image: '/portfolio/projects/inbox.jpg' },
+  { icon: 'report', image: '/portfolio/projects/report.jpg' },
+  { icon: 'ai', image: '/portfolio/projects/ai.jpg' },
+  { icon: 'plane', image: '/portfolio/projects/aerive.jpg' },
 ] as const;
 
 export const PortfolioProjects = () => {
   const t = useTranslations('common');
   const itemMap = t.raw('portfolio.projects.items') as Record<
     string,
-    Omit<Project, 'icon' | 'image' | 'gradient' | 'tags'> & {
+    Omit<Project, 'icon' | 'image' | 'tags'> & {
       tags: Record<string, string>;
     }
   >;
-  const items: Omit<Project, 'icon' | 'image' | 'gradient'>[] = Object.values(
-    itemMap,
-  ).map((item) => ({ ...item, tags: Object.values(item.tags) }));
+  const items: Omit<Project, 'icon' | 'image'>[] = Object.values(itemMap).map(
+    (item) => ({ ...item, tags: Object.values(item.tags) }),
+  );
   const projects: Project[] = items.map((item, i) => ({
     ...item,
     ...visuals[i % visuals.length],
   }));
 
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const root = sectionRef.current;
+      if (!root || !motionAllowed()) return;
+
+      const items_ = gsap.utils.toArray<HTMLElement>('[data-stack-item]', root);
+
+      items_.forEach((item, i) => {
+        // Cover drifts against the scroll direction.
+        const cover = item.querySelector('[data-parallax-cover]');
+        if (cover) {
+          gsap.fromTo(
+            cover,
+            { yPercent: -6 },
+            {
+              yPercent: 6,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: item,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+              },
+            },
+          );
+        }
+
+        // When the next plate rises, the previous one recedes.
+        const next = items_[i + 1];
+        if (!next) return;
+        const card = item.querySelector('article');
+        if (card) {
+          gsap.to(card, {
+            scale: 0.95,
+            autoAlpha: 0.45,
+            transformOrigin: 'center top',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: next,
+              start: 'top bottom',
+              end: `top ${104 + (i + 1) * 16}px`,
+              scrub: true,
+            },
+          });
+        }
+      });
+    },
+    { scope: sectionRef },
+  );
+
   return (
-    <section id="projects" className="relative scroll-mt-20 py-24 md:py-32">
-      <div
-        className="absolute right-0 top-0 h-[420px] w-[420px] rounded-full bg-[#6366f1]/10 blur-[130px]"
-        aria-hidden
-      />
-      <div className="relative mx-auto max-w-6xl px-5 md:px-8">
+    <section
+      id="projects"
+      ref={sectionRef}
+      className="relative scroll-mt-24 py-24 md:py-36"
+    >
+      <div className="mx-auto max-w-6xl px-5 md:px-8">
         <SectionHeading
+          index="03"
           eyebrow={t('portfolio.projects.eyebrow')}
           title={
             <>
               {t('portfolio.projects.titleA')}{' '}
-              <span className="text-gradient">
+              <em className="italic text-[color:var(--pf-accent)]">
                 {t('portfolio.projects.titleB')}
-              </span>
+              </em>
             </>
           }
           description={t('portfolio.projects.description')}
         />
 
-        <div className="space-y-6 md:space-y-8">
+        <div className="relative">
           {projects.map((p, i) => (
-            <ProjectCard
+            <div
               key={p.title}
-              project={p}
-              index={i}
-              total={projects.length}
-            />
+              data-stack-item
+              className="relative"
+              style={{
+                minHeight: i < projects.length - 1 ? '76vh' : undefined,
+              }}
+            >
+              <div
+                className="sticky"
+                style={{ top: `${88 + i * 16}px`, zIndex: i + 1 }}
+              >
+                <ProjectCard project={p} index={i} total={projects.length} />
+              </div>
+            </div>
           ))}
         </div>
       </div>
@@ -123,91 +171,98 @@ const ProjectCard = ({
   index: number;
   total: number;
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  // Parallax: the cover drifts against the scroll direction.
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  });
-  const coverY = useTransform(scrollYProgress, [0, 1], [50, -50]);
   const Icon = icons[project.icon];
   const flip = index % 2 === 1;
+  const t = useTranslations('common');
 
   return (
-    <Reveal>
-      <motion.article
-        ref={ref}
-        whileHover={{ y: -6 }}
-        transition={{ type: 'spring', stiffness: 260, damping: 24 }}
-        className="glass card-shine grid overflow-hidden rounded-[1.75rem] lg:grid-cols-2"
+    <article className="pf-card grid overflow-hidden lg:grid-cols-2">
+      {/* Cover plate */}
+      <div
+        className={`relative min-h-[240px] overflow-hidden border-b border-[color:var(--pf-rule)] bg-[color:var(--pf-paper-2)] lg:min-h-[440px] lg:border-b-0 ${
+          flip ? 'lg:order-2 lg:border-l' : 'lg:border-r'
+        }`}
       >
-        {/* Parallax cover */}
-        <div
-          className={`relative min-h-[260px] overflow-hidden lg:min-h-[320px] ${
-            flip ? 'lg:order-2' : ''
-          }`}
-        >
-          <motion.div
-            style={{ y: coverY }}
-            className="absolute -inset-y-14 inset-x-0"
-          >
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
-            />
-            <div
-              className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-55 mix-blend-multiply`}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#06060c]/85 via-[#06060c]/25 to-[#06060c]/15" />
-          </motion.div>
-          <div className="grid-bg absolute inset-0 opacity-60" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <motion.span
-              initial={{ scale: 0.8, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: 'easeOut' }}
-              className="flex size-24 items-center justify-center rounded-3xl bg-white/15 text-white ring-1 ring-white/30 backdrop-blur-md"
-            >
-              <Icon size={44} strokeWidth={1.6} />
-            </motion.span>
-          </div>
-          <span className="absolute bottom-4 left-5 font-mono text-sm text-white/70">
-            0{index + 1} / 0{total} · {project.period}
-          </span>
-          <span className="glass absolute right-4 top-4 rounded-full px-4 py-1.5 font-mono text-xs text-white">
-            {project.stat} {project.statLabel}
-          </span>
+        <div data-parallax-cover className="absolute inset-x-0 inset-y-[-8%]">
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover grayscale-[12%]"
+          />
         </div>
+        <span className="absolute bottom-4 left-4 font-mono text-[10px] uppercase tracking-[0.2em] text-white mix-blend-difference">
+          0{index + 1} / 0{total}
+        </span>
+      </div>
 
-        {/* Copy */}
-        <div className="flex flex-col justify-center p-7 md:p-10">
-          <div className="flex flex-wrap gap-2">
+      {/* Copy */}
+      <div className="flex flex-col justify-between p-7 md:p-10">
+        <div>
+          <p className="pf-eyebrow flex items-center gap-2.5">
+            <Icon size={14} className="text-[color:var(--pf-accent)]" />
+            {project.period}
+          </p>
+          <h3 className="pf-serif mt-4 text-3xl leading-[1.1] md:text-[2.1rem]">
+            {project.title}
+          </h3>
+          <div className="mt-4 flex flex-wrap gap-2">
             {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full bg-[#8b5cf6]/10 px-3 py-1 text-xs font-medium text-[#ddd6fe] ring-1 ring-[#a78bfa]/25"
-              >
+              <span key={tag} className="pf-chip">
                 {tag}
               </span>
             ))}
           </div>
-          <h3 className="mt-4 text-2xl font-bold text-white md:text-3xl">
-            {project.title}
-          </h3>
-          <p className="mt-3 leading-relaxed text-zinc-400">
+          <p className="mt-5 text-sm leading-relaxed text-[color:var(--pf-ink-soft)] md:text-[15px]">
             {project.description}
           </p>
-          <div className="mt-6 flex items-center gap-4">
-            <span className="font-mono text-xs text-zinc-500">
-              {project.tags.slice(0, 3).join(' · ')}
-            </span>
-          </div>
+          {project.links && (
+            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+              {project.links.compare && (
+                <Link
+                  href={project.links.compare}
+                  className="pf-link font-mono text-[10px] uppercase tracking-[0.16em]"
+                >
+                  {t('portfolio.projects.linkLabels.compare')}
+                  <span aria-hidden>→</span>
+                </Link>
+              )}
+              {project.links.demo && (
+                <a
+                  href={project.links.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="pf-link font-mono text-[10px] uppercase tracking-[0.16em]"
+                >
+                  {t('portfolio.projects.linkLabels.demo')}
+                  <span aria-hidden>↗</span>
+                </a>
+              )}
+              {project.links.source && (
+                <a
+                  href={project.links.source}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="pf-link font-mono text-[10px] uppercase tracking-[0.16em]"
+                >
+                  {t('portfolio.projects.linkLabels.source')}
+                  <span aria-hidden>↗</span>
+                </a>
+              )}
+            </div>
+          )}
         </div>
-      </motion.article>
-    </Reveal>
+
+        <div className="mt-8 flex items-end justify-between gap-6 border-t border-[color:var(--pf-rule)] pt-5">
+          <span className="pf-serif text-4xl leading-none md:text-5xl">
+            {project.stat}
+          </span>
+          <span className="max-w-52 text-right font-mono text-[10px] uppercase leading-relaxed tracking-[0.16em] text-[color:var(--pf-ink-soft)]">
+            {project.statLabel}
+          </span>
+        </div>
+      </div>
+    </article>
   );
 };

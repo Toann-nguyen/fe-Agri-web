@@ -1,17 +1,19 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState, type MouseEvent } from 'react';
 
 import { LanguageSwitcher } from '@/components/language-switcher';
+
+import { gsap, scrollToTarget, useGSAP } from '../motion/gsap';
 
 export const PortfolioNavbar = () => {
   const t = useTranslations('common');
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState('#home');
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const links = [
     { label: t('portfolio.nav.home'), href: '#home' },
@@ -45,26 +47,57 @@ export const PortfolioNavbar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Mobile menu: GSAP staggered reveal.
+  useGSAP(
+    () => {
+      const el = menuRef.current;
+      if (!el) return;
+
+      if (open) {
+        gsap.fromTo(
+          el,
+          { autoAlpha: 0, y: -10 },
+          { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power3.out' },
+        );
+        gsap.fromTo(
+          el.querySelectorAll('[data-mobile-link]'),
+          { autoAlpha: 0, x: -14 },
+          {
+            autoAlpha: 1,
+            x: 0,
+            duration: 0.3,
+            stagger: 0.05,
+            delay: 0.08,
+            ease: 'power2.out',
+          },
+        );
+      } else {
+        gsap.to(el, { autoAlpha: 0, duration: 0.2, overwrite: 'auto' });
+      }
+    },
+    { dependencies: [open] },
+  );
+
+  const go = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    event.preventDefault();
+    scrollToTarget(href);
+    setOpen(false);
+  };
+
   return (
-    <motion.header
-      initial={{ y: -72, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'border-b border-white/10 bg-[#06060c]/80 backdrop-blur-xl'
-          : 'bg-transparent'
+    <header
+      className={`pf-nav fixed inset-x-0 top-0 z-50 ${
+        scrolled ? 'pf-nav-scrolled' : ''
       }`}
     >
-      <nav className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-5 md:px-8">
-        <a href="#home" className="group flex items-center gap-2.5">
-          <span className="flex size-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#8b5cf6] to-[#22d3ee] text-sm font-black text-white shadow-lg shadow-[#8b5cf6]/30 transition-transform duration-300 group-hover:rotate-12">
-            TN
-          </span>
-          <span className="text-sm font-semibold tracking-wide text-white">
-            {t('portfolio.nav.brand')}
-            <span className="text-gradient">.dev</span>
-          </span>
+      <nav className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-4 px-5 md:px-8">
+        <a
+          href="#home"
+          onClick={(e) => go(e, '#home')}
+          className="pf-serif text-[22px] leading-none tracking-tight text-[color:var(--pf-ink)]"
+        >
+          {t('portfolio.nav.brand')}
+          <span className="text-[color:var(--pf-accent)]">.</span>
         </a>
 
         <ul className="hidden items-center gap-1 md:flex">
@@ -72,78 +105,78 @@ export const PortfolioNavbar = () => {
             <li key={link.href}>
               <a
                 href={link.href}
-                className={`relative rounded-full px-4 py-2 text-sm transition-colors duration-200 ${
+                onClick={(e) => go(e, link.href)}
+                className={`inline-flex items-center gap-2 px-3 py-2 font-mono text-[11px] uppercase tracking-[0.18em] transition-colors duration-200 ${
                   active === link.href
-                    ? 'text-white'
-                    : 'text-zinc-400 hover:text-white'
+                    ? 'text-[color:var(--pf-ink)]'
+                    : 'text-[color:var(--pf-ink-soft)] hover:text-[color:var(--pf-ink)]'
                 }`}
               >
-                {active === link.href && (
-                  <motion.span
-                    layoutId="nav-pill"
-                    className="absolute inset-0 rounded-full bg-white/10 ring-1 ring-white/15"
-                    transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                {active === link.href ? (
+                  <span
+                    className="inline-block size-1.5 bg-[color:var(--pf-accent)]"
+                    aria-hidden
                   />
-                )}
-                <span className="relative">{link.label}</span>
+                ) : null}
+                {link.label}
               </a>
             </li>
           ))}
         </ul>
 
-        <a
-          href="#contact"
-          className="hidden rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#8b5cf6]/40 md:inline-block"
-        >
-          {t('portfolio.nav.hireMe')}
-        </a>
-
-        <div className="hidden md:block">
-          <LanguageSwitcher />
+        <div className="flex items-center gap-3">
+          <div className="hidden md:block">
+            <LanguageSwitcher />
+          </div>
+          <a
+            href="#contact"
+            onClick={(e) => go(e, '#contact')}
+            className="pf-btn pf-btn-sm hidden md:inline-flex"
+          >
+            {t('portfolio.nav.hireMe')}
+          </a>
+          <button
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Toggle menu"
+            aria-expanded={open}
+            className="inline-flex size-10 items-center justify-center rounded-[2px] border border-[color:var(--pf-rule)] text-[color:var(--pf-ink)] md:hidden"
+          >
+            {open ? <X size={18} /> : <Menu size={18} />}
+          </button>
         </div>
-
-        <button
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle menu"
-          className="glass rounded-xl p-2.5 text-white md:hidden"
-        >
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
       </nav>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="overflow-hidden border-b border-white/10 bg-[#06060c]/95 backdrop-blur-xl md:hidden"
-          >
-            <ul className="space-y-1 px-5 py-4">
-              {links.map((link, i) => (
-                <motion.li
-                  key={link.href}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 * i }}
-                >
-                  <a
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className="block rounded-xl px-4 py-3 text-[15px] text-zinc-300 transition-colors hover:bg-white/5 hover:text-white"
-                  >
-                    {link.label}
-                  </a>
-                </motion.li>
-              ))}
-              <li className="px-4 py-2">
-                <LanguageSwitcher />
-              </li>
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
+      <div
+        ref={menuRef}
+        className="invisible absolute inset-x-0 top-full border-b border-[color:var(--pf-rule)] bg-[color:var(--pf-paper)] md:hidden"
+      >
+        <ul className="px-5 py-2">
+          {links.map((link) => (
+            <li
+              key={link.href}
+              data-mobile-link
+              className="border-b border-[color:var(--pf-rule)] last:border-b-0"
+            >
+              <a
+                href={link.href}
+                onClick={(e) => go(e, link.href)}
+                className="flex items-center justify-between py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-[color:var(--pf-ink)]"
+              >
+                {link.label}
+                {active === link.href ? (
+                  <span
+                    className="inline-block size-1.5 bg-[color:var(--pf-accent)]"
+                    aria-hidden
+                  />
+                ) : null}
+              </a>
+            </li>
+          ))}
+          <li data-mobile-link className="border-b border-transparent py-3">
+            <LanguageSwitcher />
+          </li>
+        </ul>
+      </div>
+    </header>
   );
 };

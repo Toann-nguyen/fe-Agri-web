@@ -8,7 +8,7 @@ type AuthFooterLinksProps = {
 };
 
 const linkClass =
-  'font-medium text-cyan-400 transition-colors hover:text-cyan-300';
+  'font-medium text-[color:var(--ax-accent)] transition-colors hover:underline';
 
 export const AuthFooterLinks = ({
   redirectTo,
@@ -17,7 +17,7 @@ export const AuthFooterLinks = ({
   switch (variant) {
     case 'login':
       return (
-        <div className="mt-4 space-y-2 text-center text-sm text-ink-400">
+        <div className="mt-4 space-y-2 text-center text-sm text-[color:var(--ax-ink-soft)]">
           <p>
             <NextLink
               href={paths.auth.forgotPassword.getHref()}
@@ -39,7 +39,7 @@ export const AuthFooterLinks = ({
       );
     case 'register':
       return (
-        <div className="mt-4 text-center text-sm text-ink-400">
+        <div className="mt-4 text-center text-sm text-[color:var(--ax-ink-soft)]">
           Already have an account?{' '}
           <NextLink href={paths.edu.login.getHref()} className={linkClass}>
             Sign in
@@ -50,7 +50,7 @@ export const AuthFooterLinks = ({
     case 'reset':
     case 'verify':
       return (
-        <div className="mt-4 text-center text-sm text-ink-400">
+        <div className="mt-4 text-center text-sm text-[color:var(--ax-ink-soft)]">
           <NextLink href={paths.edu.login.getHref()} className={linkClass}>
             Back to sign in
           </NextLink>

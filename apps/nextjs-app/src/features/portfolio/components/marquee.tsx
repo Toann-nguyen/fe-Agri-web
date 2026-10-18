@@ -1,48 +1,55 @@
 'use client';
 
-import { Sparkle } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useRef } from 'react';
 
-/** Infinite two-row marquee running in opposite directions. */
+import { gsap, motionAllowed, useGSAP } from '../motion/gsap';
+
+/** Editorial tape: one endless serif line drifting behind a hairline rule. */
 export const PortfolioMarquee = () => {
   const t = useTranslations('common');
   const items = Object.values(
     t.raw('portfolio.marquee') as Record<string, string>,
   );
   const row = [...items, ...items];
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const track = trackRef.current;
+    if (!track || !motionAllowed()) return;
+
+    gsap.to(track, {
+      xPercent: -50,
+      ease: 'none',
+      duration: 32,
+      repeat: -1,
+    });
+  }, []);
+
   return (
     <section
       aria-hidden
-      className="relative overflow-hidden border-y border-white/10 bg-white/[0.015] py-6"
+      className="overflow-hidden border-y border-[color:var(--pf-rule)] py-5 md:py-6"
     >
-      <div className="pf-marquee flex w-max items-center gap-8 pr-8">
+      <div ref={trackRef} className="pf-marquee-track gap-10 pr-10">
         {row.map((item, i) => (
           <span
-            key={`a-${i}`}
-            className="flex items-center gap-8 whitespace-nowrap"
+            key={`${item}-${i}`}
+            className="flex items-center gap-10 whitespace-nowrap"
           >
-            <span className="text-xl font-extrabold tracking-wide text-white/90 md:text-2xl">
+            <span
+              className={`pf-serif text-2xl leading-none md:text-[2rem] ${
+                i % 2 === 1
+                  ? 'italic text-[color:var(--pf-ink-soft)]'
+                  : 'text-[color:var(--pf-ink)]'
+              }`}
+            >
               {item}
             </span>
-            <Sparkle size={16} className="shrink-0 text-[#a78bfa]" />
+            <span className="pf-serif text-[color:var(--pf-accent)]">*</span>
           </span>
         ))}
       </div>
-      <div className="pf-marquee-reverse mt-5 flex w-max items-center gap-8 pr-8">
-        {row.map((item, i) => (
-          <span
-            key={`b-${i}`}
-            className="flex items-center gap-8 whitespace-nowrap"
-          >
-            <span className="text-gradient text-xl font-extrabold tracking-wide md:text-2xl">
-              {item}
-            </span>
-            <Sparkle size={16} className="shrink-0 text-[#67e8f9]" />
-          </span>
-        ))}
-      </div>
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-[#06060c] to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-28 bg-gradient-to-l from-[#06060c] to-transparent" />
     </section>
   );
 };

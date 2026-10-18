@@ -1,7 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 
 import {
-  CursorGlow,
   PortfolioAbout,
   PortfolioContact,
   PortfolioExperience,
@@ -26,22 +25,30 @@ export async function generateMetadata() {
 
 const HomePage = () => {
   return (
-    <SmoothScroll>
-      <div className="min-h-screen bg-[#06060c] font-sans text-zinc-100 antialiased">
-        <ScrollProgress />
-        <CursorGlow />
-        <PortfolioNavbar />
-        <main>
-          <PortfolioHero />
-          <PortfolioMarquee />
-          <PortfolioAbout />
-          <PortfolioProjects />
-          <PortfolioExperience />
-          <PortfolioContact />
-        </main>
-        <PortfolioFooter />
-      </div>
-    </SmoothScroll>
+    <div className="pf-editorial relative min-h-screen font-sans antialiased">
+      {/* Fixed UI lives outside #smooth-wrapper (ScrollSmoother transforms the content). */}
+      <ScrollProgress />
+      <PortfolioNavbar />
+
+      <SmoothScroll>
+        {/* The smoother pins #smooth-wrapper to the viewport, so the paper
+            background must live on an element that spans the full content. */}
+        <div className="pf-editorial">
+          <main>
+            <PortfolioHero />
+            <PortfolioMarquee />
+            <PortfolioAbout />
+            <PortfolioProjects />
+            <PortfolioExperience />
+            <PortfolioContact />
+          </main>
+          <PortfolioFooter />
+        </div>
+      </SmoothScroll>
+
+      {/* Paper grain overlay for the whole page. */}
+      <div className="pf-grain" aria-hidden />
+    </div>
   );
 };
 

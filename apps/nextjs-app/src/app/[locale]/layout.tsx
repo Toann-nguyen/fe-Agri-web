@@ -4,7 +4,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-import { Inter, Fira_Code } from 'next/font/google';
+import { Inter, Fira_Code, Instrument_Serif } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
@@ -28,6 +28,14 @@ const firaCode = Fira_Code({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-fira-code',
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
 });
 
 export const metadata = {
@@ -112,7 +120,8 @@ const RootLayout = async ({
   return (
     <html
       lang={locale}
-      className={`${inter.variable} ${firaCode.variable} scroll-smooth`}
+      suppressHydrationWarning
+      className={`${inter.variable} ${firaCode.variable} ${instrumentSerif.variable} scroll-smooth`}
     >
       <head>
         <script
